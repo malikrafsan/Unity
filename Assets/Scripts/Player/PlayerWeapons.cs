@@ -18,8 +18,13 @@ public class PlayerWeapons : MonoBehaviour
         weapons[0] = new GameObject[2];
         weapons[0][0] = GameObject.Find("Gun");
         weapons[0][1] = GameObject.Find("GunBarrelEnd");
+        
         weapons[1] = new GameObject[1];
         weapons[1][0] = GameObject.Find("Sword");
+
+        weapons[2] = new GameObject[2];
+        weapons[2][0] = GameObject.Find("ShotGun");
+        weapons[2][1] = GameObject.Find("ShotGunBarrelEnd");
 
         SelectWeapon(idxWeapon);
     }
