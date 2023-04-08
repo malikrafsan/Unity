@@ -2,11 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSword : MonoBehaviour
+public class PlayerSword : MonoBehaviour, WeaponHandler
 {
-    [SerializeField]
-    private int damage = 200;
+    private int damage = 20;
     private Animator animator;
+
+    private int level = 1;
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -20,7 +28,7 @@ public class PlayerSword : MonoBehaviour
         {
             if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("SwordSwing"))
             {
-                enemyHealth.TakeDamage(damage, enemyHealth.transform.position);
+                enemyHealth.TakeDamage(damage * level, enemyHealth.transform.position);
             }
         }
     }
@@ -29,5 +37,10 @@ public class PlayerSword : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void IncrementLevel()
+    {
+        level++;
     }
 }

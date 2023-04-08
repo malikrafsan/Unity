@@ -1,27 +1,90 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+class Weapon
+{
+    public readonly GameObject[] gameObjects;
+    public bool IsUnlocked
+    {
+        get; set;
+    }
+
+    public readonly WeaponHandler handler;
+
+    public Weapon(GameObject[] gameObjects)
+    {
+        this.gameObjects = gameObjects;
+        this.handler = this.gameObjects[0].GetComponent<WeaponHandler>();
+        this.IsUnlocked = false;
+        Disable();
+    }
+
+    public bool Enable()
+    {
+        if (!IsUnlocked) return false;
+
+        for (int i = 0; i < gameObjects.Length; i++)
+        {
+            gameObjects[i].SetActive(true);
+        }
+
+        return true;
+    }
+
+    public void Disable()
+    {
+        for (int i = 0;i< gameObjects.Length;i++)
+        {
+            gameObjects[i].SetActive(false);
+        }
+    }
+}
+
 public class PlayerWeapons : MonoBehaviour
 {
-    GameObject[][] weapons = new GameObject[4][];
+    readonly Weapon[] weapons = new Weapon[4];
     int idxWeapon = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        for (var i = 0; i < weapons.Length; i++)
-        {
-            weapons[i] = new GameObject[0];
-        }
+        var gun = new GameObject[2];
+        gun[0] = GameObject.Find("GunBarrelEnd");
+        gun[1] = GameObject.Find("Gun");
+        weapons[0] = new Weapon(gun);
+        
+        var sword = new GameObject[1];
+        sword[0] = GameObject.Find("Sword");
+        weapons[1] = new Weapon(sword);
 
-        weapons[0] = new GameObject[2];
-        weapons[0][0] = GameObject.Find("Gun");
-        weapons[0][1] = GameObject.Find("GunBarrelEnd");
-        weapons[1] = new GameObject[1];
-        weapons[1][0] = GameObject.Find("Sword");
+        var shotgun = new GameObject[2];
+        shotgun[0] = GameObject.Find("ShotGunBarrelEnd");
+        shotgun[1] = GameObject.Find("ShotGun");
+        weapons[2] = new Weapon(shotgun);
 
+        var bow = new GameObject[1];
+        bow[0] = GameObject.Find("Bow");
+        weapons[3] = new Weapon(bow);
+
+        UnlockWeapon(WeaponType.SimpleGun);
         SelectWeapon(idxWeapon);
+
+        // TODO: REMOVE LATER
+        UnlockWeapon(WeaponType.Sword);
+        UnlockWeapon(WeaponType.ShotGun);
+        UnlockWeapon(WeaponType.Bow);
+
+        // TODO: REMOVE LATER
+        LevelUp(WeaponType.SimpleGun);
+        LevelUp(WeaponType.SimpleGun);
+        LevelUp(WeaponType.Sword);
+        LevelUp(WeaponType.Sword);
+        LevelUp(WeaponType.ShotGun);
+        LevelUp(WeaponType.ShotGun);
+        LevelUp(WeaponType.Bow);
+        LevelUp(WeaponType.Bow);
     }
 
     // Update is called once per frame
@@ -60,6 +123,36 @@ public class PlayerWeapons : MonoBehaviour
         }
     }
 
+    private int GetIdxWeapon(WeaponType weaponType)
+    {
+        return weaponType switch
+        {
+            WeaponType.SimpleGun => 0,
+            WeaponType.Sword => 1,
+            WeaponType.ShotGun => 2,
+            WeaponType.Bow => 3,
+            _ => -1,
+        };
+    }
+
+    public bool LevelUp(WeaponType weaponType)
+    {
+        int idx = GetIdxWeapon(weaponType);
+        if (idx == -1) return false;
+
+        weapons[idx].handler.IncrementLevel();
+        return true;
+    }
+
+    public bool UnlockWeapon(WeaponType weaponType)
+    {
+        int idx = GetIdxWeapon(weaponType);
+        if (idx == -1) return false;
+
+        weapons[idx].IsUnlocked = true;
+        return true;
+    }
+
     private void IncrementIdxWeapon()
     {
         idxWeapon++;
@@ -76,26 +169,23 @@ public class PlayerWeapons : MonoBehaviour
     {
         Debug.Log("SelectWeapon: " + idx);
         DisableAllWeapons();
-        EnableWeapon(idx);
+        var success = EnableWeapon(idx);
+        if (!success)
+        {
+            Debug.LogWarning("Selecting locked weapon");
+        }
     }
 
-    private void EnableWeapon(int idx)
+    private bool EnableWeapon(int idx)
     {
-        int idxUsed = idx % weapons.Length;
-        for (var i = 0; i < weapons[idxUsed].Length; i++)
-        {
-            weapons[idxUsed][i].SetActive(true);
-        }
+        return weapons[idx].Enable();
     }
 
     private void DisableAllWeapons()
     {
         for (var i = 0; i < weapons.Length; i++)
         {
-            for (var j = 0; j < weapons[i].Length; j++)
-            {
-                weapons[i][j].SetActive(false);
-            }
+            weapons[i].Disable();
         }
     }
 }

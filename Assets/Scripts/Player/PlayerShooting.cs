@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerShooting : MonoBehaviour
+public class PlayerShooting : MonoBehaviour, WeaponHandler
 {
     public int damagePerShot = 20;                  
     public float timeBetweenBullets = 0.15f;        
@@ -15,7 +15,16 @@ public class PlayerShooting : MonoBehaviour
     LineRenderer gunLine;                           
     AudioSource gunAudio;                           
     Light gunLight;                                 
-    float effectsDisplayTime = 0.2f;                
+    float effectsDisplayTime = 0.2f;
+
+    private int level = 1;
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+    }
 
     void Awake()
     {
@@ -70,7 +79,7 @@ public class PlayerShooting : MonoBehaviour
 
             if (enemyHealth != null)
             {
-                enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+                enemyHealth.TakeDamage(damagePerShot * level, shootHit.point);
             }
 
             gunLine.SetPosition(1, shootHit.point);
@@ -79,5 +88,10 @@ public class PlayerShooting : MonoBehaviour
         {
             gunLine.SetPosition(1, shootRay.origin + shootRay.direction * range);
         }
+    }
+
+    public void IncrementLevel()
+    {
+        level++;
     }
 }
