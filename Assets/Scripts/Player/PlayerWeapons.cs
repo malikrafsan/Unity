@@ -44,7 +44,7 @@ class Weapon
 
 public class PlayerWeapons : MonoBehaviour
 {
-    Weapon[] weapons = new Weapon[4];
+    readonly Weapon[] weapons = new Weapon[4];
     int idxWeapon = 0;
 
     // Start is called before the first frame update
@@ -77,11 +77,14 @@ public class PlayerWeapons : MonoBehaviour
         UnlockWeapon(WeaponType.Bow);
 
         // TODO: REMOVE LATER
-        foreach (var weapon in weapons)
-        {
-            weapon.handler.IncrementLevel();
-            weapon.handler.IncrementLevel();
-        }
+        LevelUp(WeaponType.SimpleGun);
+        LevelUp(WeaponType.SimpleGun);
+        LevelUp(WeaponType.Sword);
+        LevelUp(WeaponType.Sword);
+        LevelUp(WeaponType.ShotGun);
+        LevelUp(WeaponType.ShotGun);
+        LevelUp(WeaponType.Bow);
+        LevelUp(WeaponType.Bow);
     }
 
     // Update is called once per frame
@@ -120,17 +123,31 @@ public class PlayerWeapons : MonoBehaviour
         }
     }
 
+    private int GetIdxWeapon(WeaponType weaponType)
+    {
+        return weaponType switch
+        {
+            WeaponType.SimpleGun => 0,
+            WeaponType.Sword => 1,
+            WeaponType.ShotGun => 2,
+            WeaponType.Bow => 3,
+            _ => -1,
+        };
+    }
+
+    public bool LevelUp(WeaponType weaponType)
+    {
+        int idx = GetIdxWeapon(weaponType);
+        if (idx == -1) return false;
+
+        weapons[idx].handler.IncrementLevel();
+        return true;
+    }
+
     public bool UnlockWeapon(WeaponType weaponType)
     {
-        int idx;
-        switch (weaponType)
-        {
-            case WeaponType.SimpleGun: idx = 0; break;
-            case WeaponType.Sword: idx = 1; break;
-            case WeaponType.ShotGun: idx = 2; break;
-            case WeaponType.Bow: idx = 3; break;
-            default: return false;
-        }
+        int idx = GetIdxWeapon(weaponType);
+        if (idx == -1) return false;
 
         weapons[idx].IsUnlocked = true;
         return true;
