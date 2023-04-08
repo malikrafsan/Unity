@@ -5,14 +5,13 @@ using UnityEngine;
 public class PlayerArrow : MonoBehaviour
 {
     [SerializeField]
-    private int damage;
-
-    [SerializeField]
     private float torque;
 
     private Rigidbody rb;
 
     private bool didHit;
+
+    private float damageMultiplier = 1f;
 
     private void Awake()
     {
@@ -23,14 +22,15 @@ public class PlayerArrow : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("Hitting " + other);
-
         if (didHit) return;
 
         didHit = true;
         if (other.gameObject.TryGetComponent<EnemyHealth>(out var enemyHealth))
         {
-            enemyHealth.TakeDamage(damage, enemyHealth.transform.position);
+            var energy = 0.5 * rb.mass * rb.velocity.magnitude * rb.velocity.magnitude;
+            var damage = energy * damageMultiplier;
+            Debug.Log("damage: "+ damage);
+            enemyHealth.TakeDamage((int)damage, enemyHealth.transform.position);
         }
 
         rb.velocity = Vector3.zero;
