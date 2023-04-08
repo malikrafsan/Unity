@@ -77,6 +77,7 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
         GetComponent<Rigidbody> ().isKinematic = true;
         isSinking = true;
+        GameControl.control.currency += 5;
         ScoreManager.score += scoreValue;
         Destroy (gameObject, 2f);
         Debug.Log("END");
