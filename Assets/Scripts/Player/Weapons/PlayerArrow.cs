@@ -10,21 +10,21 @@ public class PlayerArrow : MonoBehaviour
     [SerializeField]
     private float torque;
 
-    [SerializeField]
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
 
     private bool didHit;
 
-    public void Shoot(Vector3 force)
+    private void Awake()
     {
-        rigidbody.isKinematic = true;
-        rigidbody.AddForce(force, ForceMode.Impulse);
-        rigidbody.AddTorque(transform.right * torque);
-        transform.SetParent(null);
+        rb = GetComponent<Rigidbody>();
+        rb.isKinematic = false;
+        Destroy(gameObject, 10);
     }
 
     void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Hitting " + other);
+
         if (didHit) return;
 
         didHit = true;
@@ -33,9 +33,9 @@ public class PlayerArrow : MonoBehaviour
             enemyHealth.TakeDamage(damage, enemyHealth.transform.position);
         }
 
-        rigidbody.velocity = Vector3.zero;
-        rigidbody.angularVelocity = Vector3.zero;
-        rigidbody.isKinematic = true;
+        rb.velocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.isKinematic = true;
         transform.SetParent(other.transform);
     }
 }

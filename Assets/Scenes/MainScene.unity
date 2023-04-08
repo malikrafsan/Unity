@@ -6923,7 +6923,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1119277001401672218, guid: 43ff8f8509c207f43a1a3b1c1520cdc6, type: 3}
       propertyPath: m_UseGravity
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1119277001401672218, guid: 43ff8f8509c207f43a1a3b1c1520cdc6, type: 3}
+      propertyPath: m_AngularDrag
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5467698248896174944, guid: 43ff8f8509c207f43a1a3b1c1520cdc6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5467698248896174944, guid: 43ff8f8509c207f43a1a3b1c1520cdc6, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5605313144142574835, guid: 43ff8f8509c207f43a1a3b1c1520cdc6, type: 3}
       propertyPath: m_Name
