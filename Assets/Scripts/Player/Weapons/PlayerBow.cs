@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerBow : MonoBehaviour
+public class PlayerBow : MonoBehaviour, WeaponHandler
 {
     [SerializeField]
     private float reloadTime;
@@ -25,6 +25,15 @@ public class PlayerBow : MonoBehaviour
 
     public Color colorMax = Color.green;
     public Color colorMin = Color.red;
+
+    private int level = 1;
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+    }
 
     void Awake()
     {
@@ -93,12 +102,19 @@ public class PlayerBow : MonoBehaviour
     public void Shoot(float energy)
     {
         curArrow = Instantiate(playerArrowPrefab, transform.position, arrowSpawnPoint.transform.rotation);
-        var force = curArrow.transform.forward;
-        curArrow.GetComponent<Rigidbody>().AddRelativeForce(-400 * energy * force);
+        var nudges = 0.1f;
+        var t = curArrow.transform;
+        var force = t.forward + Random.Range(-nudges, nudges) * t.right + Random.Range(-nudges, nudges) * t.up;
+        curArrow.GetComponent<Rigidbody>().AddRelativeForce(-200 * level * energy * force);
     }
 
     public bool IsReady()
     {
         return (!isReload && curArrow != null);
+    }
+
+    public void IncrementLevel()
+    {
+        level++;
     }
 }

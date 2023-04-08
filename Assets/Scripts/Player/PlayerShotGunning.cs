@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerShotGunning : MonoBehaviour
+public class PlayerShotGunning : MonoBehaviour, WeaponHandler
 {
     public int damagePerShot = 200;                  
     public float timeBetweenBullets = 0.15f;        
@@ -16,11 +16,20 @@ public class PlayerShotGunning : MonoBehaviour
     ParticleSystem gunParticles;                    
     LineRenderer gunLine;                           
     AudioSource gunAudio;                           
-    Light gunLight;                                 
-    float effectsDisplayTime = 0.2f;
+    Light gunLight;
+    readonly float effectsDisplayTime = 0.2f;
 
-    int numBullet = 7;
+    int numBullet = 3;
     List<GameObject> effects = new List<GameObject>();
+
+    private int level = 1;
+    public int Level
+    {
+        get
+        {
+            return level;
+        }
+    }
 
     void Awake()
     {
@@ -32,11 +41,16 @@ public class PlayerShotGunning : MonoBehaviour
 
         for (int i=0;i<numBullet;i++)
         {
-            var instance = Instantiate(prefabEffect, transform);
-            instance.transform.SetParent(transform, false);
-            instance.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
-            effects.Add(instance);
+            AddBullet();
         }
+    }
+
+    private void AddBullet()
+    {
+        var instance = Instantiate(prefabEffect, transform);
+        instance.transform.SetParent(transform, false);
+        instance.transform.SetPositionAndRotation(Vector3.zero, Quaternion.identity);
+        effects.Add(instance);
     }
 
     void Update()
@@ -107,5 +121,12 @@ public class PlayerShotGunning : MonoBehaviour
                 gunLine.SetPosition(1, shootRay.direction * range);
             }
         }
+    }
+
+    public void IncrementLevel()
+    {
+        level++;
+        AddBullet();
+        numBullet++;
     }
 }
