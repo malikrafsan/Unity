@@ -18,7 +18,7 @@ public class PlayerBow : MonoBehaviour
 
     void Awake()
     {
-        ReloadArrow();
+        //ReloadArrow();
     }
 
     public void Reload()
@@ -30,10 +30,9 @@ public class PlayerBow : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.J))
+        if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Click J");
-            Shoot(5);
+            Shoot();
         }
     }
 
@@ -50,13 +49,12 @@ public class PlayerBow : MonoBehaviour
         isReload = false;
     }
 
-    public void Shoot(float power)
+    public void Shoot()
     {
-        Debug.Log("isReload: " + isReload);
         curArrow = Instantiate(playerArrowPrefab, transform.position, arrowSpawnPoint.transform.rotation);
         var force = curArrow.transform.forward;
-        curArrow.GetComponent<Rigidbody>().AddRelativeForce(force * -20);
-        Reload();
+        curArrow.GetComponent<Rigidbody>().AddRelativeForce(force * -40);
+        // Reload();
     }
 
     public bool IsReady()
