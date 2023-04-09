@@ -71,20 +71,6 @@ public class PlayerWeapons : MonoBehaviour
         UnlockWeapon(WeaponType.SimpleGun);
         SelectWeapon(idxWeapon);
 
-        // TODO: REMOVE LATER
-        UnlockWeapon(WeaponType.Sword);
-        UnlockWeapon(WeaponType.ShotGun);
-        UnlockWeapon(WeaponType.Bow);
-
-        // TODO: REMOVE LATER
-        LevelUp(WeaponType.SimpleGun);
-        LevelUp(WeaponType.SimpleGun);
-        LevelUp(WeaponType.Sword);
-        LevelUp(WeaponType.Sword);
-        LevelUp(WeaponType.ShotGun);
-        LevelUp(WeaponType.ShotGun);
-        LevelUp(WeaponType.Bow);
-        LevelUp(WeaponType.Bow);
     }
 
     // Update is called once per frame
