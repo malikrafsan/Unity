@@ -12,6 +12,6 @@ public struct Item
     public bool isPurchased;
 
     public bool isWeapon;
-    public string type;
+    public WeaponType weaponType;
     public int level;
 }

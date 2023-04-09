@@ -14,13 +14,26 @@ public class ItemShopUI : MonoBehaviour
     [Space(20f)]
     [SerializeField] ItemShopDatabase itemDB;
     [SerializeField] Text messageError;
+    PlayerWeapons playerWeapons;
 
     void Start() {
+        resetDatabase();
         GenerateItemShopUI();
+        GameObject.Find("HUDCanvas").GetComponent<HUD>();
+        playerWeapons = GameObject.Find("Player").GetComponent<PlayerWeapons>();
+    }
+
+    void Updating(int index){
+        ItemUI uiItem = GetItemUI(index);
+        Item item = itemDB.GetItem(index);
+
+        uiItem.SetCharacterName (item.characterName);
+        uiItem.SetDescription (item.description);
+        uiItem.SetPrice (item.price);
     }
 
     void GenerateItemShopUI() {
-        // Remove First Element
+        // Clearing items
         Destroy (ShopItemContainer.GetChild(0).gameObject);
         ShopItemContainer.DetachChildren();
 
@@ -42,7 +55,7 @@ public class ItemShopUI : MonoBehaviour
             // FIX: do not use isPurchased
             if (item.isPurchased) {
                 uiItem.SetItemAsPurchased();
-                uiItem.OnItemSelect(i, OnItemSelectedWeapon);
+                uiItem.OnItemSelect(i, OnItemSelectedPet);
             } else {
                 uiItem.SetPrice (item.price);
                 uiItem.OnItemPurchase(i, OnItemPurchase);
@@ -50,22 +63,31 @@ public class ItemShopUI : MonoBehaviour
         }
     }
 
-    void OnItemSelectedWeapon(int index) {
+    void OnItemSelectedPet(int index) {
+        Debug.Log("already bought man");
+    }
 
-        Item itemSelect = itemDB.GetItem(index);
-        
-        // Inequip Weapon
-        int position = GameControl.control.slotWeapon(itemSelect);
-        Item previousItem = GameControl.control.equipedWeapon[position];
-        if (previousItem.characterName != "") {
-            ItemUI previousUI = GetItemUI(previousItem.characterName);
-            previousUI.UnequipItem();
+    void OnItemSelectedWeapon(int index) {
+        Item itemPurchasing = itemDB.GetItem(index);
+        if ( GameControl.control.isEnough(itemPurchasing.price) ) {
+            //purchasing
+            GameControl.control.minusCurrency(itemPurchasing.price);
+
+            // level up weapon
+            Item itemSelected = itemDB.GetItem(index);
+            playerWeapons.LevelUp(itemSelected.weaponType);
+
+            // update Data and UI for leveling up
+            itemDB.LevelUpItem(index);
+            string newName = " " + itemSelected.weaponType + " Level " + itemSelected.level;
+            itemDB.SetCharacterName(index, newName);
+            itemDB.IncreasePrice(index);
+            Updating(index);
+        } else {
+            // Keluar Text Not Enough Money
+            messageError.text = "Money is not enough!!";
+            StartCoroutine(executeAfter(3));
         }
-        
-        // Equip Weapon
-        GameControl.control.equipWeapon(itemSelect);
-        ItemUI itemSelectUI = GetItemUI(index);
-        itemSelectUI.EquipItem();
     }
 
     void OnItemPurchase (int index) {
@@ -77,12 +99,15 @@ public class ItemShopUI : MonoBehaviour
 
             //purchasing
             if (itemPurchasing.isWeapon) {
-                OnWeaponPurchase(index);
-            } else {
                 GameControl.control.minusCurrency(itemPurchasing.price);
+                if (itemPurchasing.level == 1) {
+                    OnWeaponPurchase(index);
+                    return;
+                }
+                OnItemSelectedWeapon(index);
+            } else {
                 OnPetPurchase(index);
             }
-
         } else {
             // TO DO: Keluar Animasi Not Enough Money
             messageError.text = "Money is not enough!!";
@@ -90,52 +115,44 @@ public class ItemShopUI : MonoBehaviour
         }
     }
 
-    void OnItemSelected(int index) {
-        Debug.Log("Selected = " + index);
-    }
-
     // purchase pets
     void OnPetPurchase (int index) {
-        // TODO: initiate prefab pets in scene
+        // TODO: initiate prefab pets in scene and only one pet can be active
+        if (GameControl.control.petCount == 1) {
+            messageError.text = "You can only have 1 pet!";
+            StartCoroutine(executeAfter(3));
+            return;
+        }
+        Item itemPurchasing = itemDB.GetItem(index);
+        ItemUI itemBeingPurchased = GetItemUI(index);
+        GameControl.control.minusCurrency(itemPurchasing.price);
+        // Set if purchased
+        itemDB.SetPurchase(index, true);
+        itemBeingPurchased.SetItemAsPurchased();
+        itemBeingPurchased.OnItemSelect(index, OnItemSelectedPet);
+        GameControl.control.addPet();
     }
 
-    // purchase weapon
+    // Equip Purchase Weapon
     void OnWeaponPurchase (int index) {
         // Getting item from DB and UI
-        Item itemPurchasing = itemDB.GetItem(index);
         ItemUI itemBeingPurchased = GetItemUI(index);
 
         // Set if purchased
-        if (checkCanPurchase(itemPurchasing)) {
-            GameControl.control.minusCurrency(itemPurchasing.price);
-            itemDB.PurchasedItem(index);
+        itemDB.SetDescription(index, "Leveling Up");
+        itemDB.IncreasePrice(index);
+        itemDB.LevelUpItem(index);
+        Item itemPurchasing = itemDB.GetItem(index);
+        string newName = " " + itemPurchasing.weaponType + " Level " + itemPurchasing.level;
+        itemDB.SetCharacterName(index, newName);
 
-            // Equipping Weapon
-            GameControl.control.addWeaponToInventory(itemPurchasing);
-            GameControl.control.equipWeapon(itemPurchasing);
+        // Unlock Weapon
+        playerWeapons.UnlockWeapon(itemPurchasing.weaponType);
 
-            // Change UI if purchased
-            itemBeingPurchased.SetItemAsPurchased();
-            itemBeingPurchased.OnItemSelect(index, OnItemSelectedWeapon);
-        } else {
-            int slot = GameControl.control.slotWeapon(itemPurchasing);
-            messageError.text = "Purchase Weapon Level " + GameControl.control.emptyLevel(slot) + " First!";
-            StartCoroutine(executeAfter(3));
-        }
-        // TO DO: integrate with weapon
-    }
-
-    bool checkCanPurchase(Item selected) {
-        if (selected.level == 1) {
-            return true;
-        }
-        int slot = GameControl.control.slotWeapon(selected);
-        Item temp = GameControl.control.weapons[slot, selected.level-2];
-
-        if (temp.characterName == null){
-            return false;
-        }
-        return true;
+        // Change UI if purchased
+        itemBeingPurchased.OnItemPurchase(index, OnItemSelectedWeapon);
+        // render UI item
+        Updating(index);
     }
 
     private IEnumerator executeAfter(int secs) {
@@ -152,5 +169,26 @@ public class ItemShopUI : MonoBehaviour
         string temp = "Item " + name;
         Transform test =  ShopItemContainer.Find(temp);
         return test.GetComponent<ItemUI>();
+    }
+
+    // reset Database
+
+    void resetDatabase(){
+        for (int i = 0; i < itemDB.ItemsCount; i++) {
+            Item item = itemDB.GetItem(i);
+
+            if (item.isWeapon) {
+                // Item name in hierarchy
+                item.isPurchased = false;
+                item.level = 1;
+                item.price = 2;
+                item.description = "Purchase to level up";
+                item.characterName = item.weaponType.ToString();
+
+                itemDB.SetItem(i, item);
+            } else {
+                itemDB.SetPurchase(i, false);
+            }
+        }
     }
 }

@@ -40,8 +40,10 @@ public class ItemUI : MonoBehaviour
     }
 
     public void SetItemAsPurchased () {
-        itemPurchaseButton.gameObject.SetActive (false);
+        // for pets
+        itemPurchaseButton.gameObject.SetActive(false);
         itemButton.interactable = true;
+        equipButton.gameObject.SetActive(true);
     }
 
     public void OnItemPurchase (int itemIndex, UnityAction<int> action) {
