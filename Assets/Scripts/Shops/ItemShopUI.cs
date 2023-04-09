@@ -21,6 +21,7 @@ public class ItemShopUI : MonoBehaviour
         GenerateItemShopUI();
         GameObject.Find("HUDCanvas").GetComponent<HUD>();
         playerWeapons = GameObject.Find("Player").GetComponent<PlayerWeapons>();
+        if (this.name == "Weapon") OnWeaponPurchase(0);
     }
 
     void Updating(int index){
@@ -143,7 +144,7 @@ public class ItemShopUI : MonoBehaviour
         itemDB.IncreasePrice(index);
         itemDB.LevelUpItem(index);
         Item itemPurchasing = itemDB.GetItem(index);
-        string newName = " " + itemPurchasing.weaponType + " Level " + itemPurchasing.level;
+        string newName = " " + itemPurchasing.weaponType + " Lvl " + itemPurchasing.level;
         itemDB.SetCharacterName(index, newName);
 
         // Unlock Weapon
@@ -172,22 +173,26 @@ public class ItemShopUI : MonoBehaviour
     }
 
     // reset Database
-
     void resetDatabase(){
-        for (int i = 0; i < itemDB.ItemsCount; i++) {
-            Item item = itemDB.GetItem(i);
+        int counter = 0;
+        if (this.name == "Pet") {
+            // Set For Later
+        }
+        if (this.name == "Weapon") {
+            foreach (WeaponType weapon in System.Enum.GetValues(typeof(WeaponType))) {
+                // set item
+                string name = "Weapon " + weapon;
+                string description = "Purchase to Unlock!";
+                int price = 2;
+                // TODO: FInd Images for each weapon
+                Sprite image = Resources.Load<Sprite>("Weapon/gold_coin-removebg-preview");
+                bool isPurchased = false;
+                bool isWeapon = true;
+                WeaponType weaponType = weapon;
+                int level = 1;
 
-            if (item.isWeapon) {
-                // Item name in hierarchy
-                item.isPurchased = false;
-                item.level = 1;
-                item.price = 2;
-                item.description = "Purchase to level up";
-                item.characterName = item.weaponType.ToString();
-
-                itemDB.SetItem(i, item);
-            } else {
-                itemDB.SetPurchase(i, false);
+                itemDB.SetItem (counter, image, description, price, name, isPurchased, isWeapon, weaponType, level);
+                counter++; 
             }
         }
     }
