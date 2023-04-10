@@ -64,4 +64,21 @@ public class ItemShopDatabase : ScriptableObject
     public void SetPurchase(int index, bool purchase) {
         items[index].isPurchased = purchase;
     }
+
+    public void SetPrice(int index, int newPrice) {
+        items[index].price = newPrice;
+    }
+
+    // make setters for item
+    public void SetItem (int index, Sprite image, string description, int price, string characterName, bool isPurchased, bool isWeapon, WeaponType weaponType, int level) {
+        items[index].image = image;
+        items[index].description = description;
+        items[index].price = price;
+        items[index].characterName = characterName;
+        items[index].isPurchased = isPurchased;
+        items[index].isWeapon = isWeapon;
+        items[index].weaponType = weaponType;
+        items[index].level = level;
+    }
+
 }

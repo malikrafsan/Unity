@@ -63,4 +63,14 @@ public class PlayerMovement : MonoBehaviour
         bool IsMoving = horizontal != 0f || vertical != 0f;
         anim.SetBool("IsMoving", IsMoving);
     }
+
+    public void SetCheatTwoTimesSpeed()
+    {
+        this.speed *= 2;
+    }
+
+    public void ResetSpeed()
+    {
+        this.speed = 6f;
+    }
 }

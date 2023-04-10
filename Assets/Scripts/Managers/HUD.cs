@@ -7,6 +7,7 @@ public class HUD : MonoBehaviour
 {
     public GameObject MessagePanel;
     private Text textTransform;
+    [SerializeField] GameObject textInput;
 
     private void Awake() {
         textTransform = MessagePanel.transform.Find("Text").GetComponent<Text>();
@@ -16,9 +17,23 @@ public class HUD : MonoBehaviour
         // Set the text of the message panel for other messages
         textTransform.text = text;
         MessagePanel.SetActive(true);
+        StartCoroutine(executeAfter(3));
     }
 
     public void CloseMessagePanel () {
         MessagePanel.SetActive(false);
+    }
+
+    public void ShowTextInput() {
+        textInput.SetActive(true);
+    }
+
+    public void CloseTextInput() {
+        textInput.SetActive(false);
+    }
+
+    private IEnumerator executeAfter(int secs) {
+        yield return new WaitForSeconds(secs);
+        CloseMessagePanel();
     }
 }
