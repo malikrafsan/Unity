@@ -12,6 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3315bfff808b5c64eabb0e55683b4000, type: 3}
   m_Name: Wizard
   m_EditorClassIdentifier: 
-  name: 
-  dialogues: []
-  playerDialogues: []
+  name: Wizard
+  dialogues:
+  - Hey, what is up?
+  - I am doing alright
+  - I am from the heaven!
+  - See you later
+  playerDialogues:
+  - Not much, how about you?
+  - Where are you from?
+  - Goodbye...
