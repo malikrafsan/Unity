@@ -39,6 +39,7 @@ public class PlayerBow : MonoBehaviour, WeaponHandler
     {
         ResetCharge();
         chargeSlider.gameObject.SetActive(true);
+        curArrow = Instantiate(playerArrowPrefab, arrowSpawnPoint);
     }
 
     private void OnEnable()
