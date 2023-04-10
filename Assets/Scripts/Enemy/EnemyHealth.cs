@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     public float sinkSpeed = 2.5f;
     public int scoreValue = 10;
     public AudioClip deathClip;
+    public EnemyType enemyType;
 
 
     Animator anim;
@@ -15,6 +16,7 @@ public class EnemyHealth : MonoBehaviour
     CapsuleCollider capsuleCollider;
     bool isDeath;
     bool isSinking;
+    Temple questTemple;
 
 
     void Awake ()
@@ -26,6 +28,7 @@ public class EnemyHealth : MonoBehaviour
         capsuleCollider = GetComponent <CapsuleCollider> ();
 
         currentHealth = startingHealth;
+        questTemple = FindObjectOfType<Temple> ();
     }
 
 
@@ -58,7 +61,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
 
-    void Death ()
+    public void Death ()
     {
         isDeath = true;
 
@@ -68,18 +71,17 @@ public class EnemyHealth : MonoBehaviour
 
         enemyAudio.clip = deathClip;
         enemyAudio.Play ();
+        questTemple.OnDeathEnemy(enemyType);
     }
 
 
     public void StartSinking ()
     {
-        Debug.Log("Start");
         GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
         GetComponent<Rigidbody> ().isKinematic = true;
         isSinking = true;
         GameControl.control.currency += 5;
         ScoreManager.score += scoreValue;
         Destroy (gameObject, 2f);
-        Debug.Log("END");
     }
 }

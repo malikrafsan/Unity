@@ -17,9 +17,9 @@ public class EnemyManager : MonoBehaviour
 
     void Start ()
     {
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
-    }
 
+    }
+    
 
     void Spawn ()
     {
@@ -31,5 +31,17 @@ public class EnemyManager : MonoBehaviour
         int spawnEnemy = Random.Range(0, 3);
 
         Factory.FactoryMethod(spawnEnemy);
+    }
+
+    private void OnDisable()
+    {
+        Debug.Log("Turn off " + nameof(this.Spawn));
+        CancelInvoke(nameof(this.Spawn));
+    }
+
+    private void OnEnable()
+    {
+        Debug.Log("Turn on " + nameof(this.Spawn));
+        InvokeRepeating(nameof(this.Spawn), spawnTime, spawnTime);
     }
 }
