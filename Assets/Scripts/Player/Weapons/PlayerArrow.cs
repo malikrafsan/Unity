@@ -7,7 +7,8 @@ public class PlayerArrow : MonoBehaviour
     [SerializeField]
     private float torque;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
+    public Collider collider;
 
     private bool didHit;
 
@@ -16,7 +17,17 @@ public class PlayerArrow : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        collider = GetComponent<Collider>();
+        rb.isKinematic = true;
+        collider.enabled = false;
+    }
+
+    public void Shoot(Vector3 force)
+    {
         rb.isKinematic = false;
+        rb.AddRelativeForce(force);
+        transform.parent = null;
+        collider.enabled = true;
         Destroy(gameObject, 10);
     }
 
@@ -36,5 +47,6 @@ public class PlayerArrow : MonoBehaviour
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
         rb.isKinematic = true;
+        transform.parent = other.transform;
     }
 }

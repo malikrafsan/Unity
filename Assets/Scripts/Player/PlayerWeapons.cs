@@ -69,6 +69,9 @@ public class PlayerWeapons : MonoBehaviour
         weapons[3] = new Weapon(bow);
 
         UnlockWeapon(WeaponType.SimpleGun);
+        UnlockWeapon(WeaponType.Sword);
+        UnlockWeapon(WeaponType.ShotGun);
+        UnlockWeapon(WeaponType.Bow);
         SelectWeapon(idxWeapon);
 
     }
