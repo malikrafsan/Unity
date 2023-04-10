@@ -11,4 +11,8 @@ public class EventShop : MonoBehaviour
     public void CloseShop() {
         shopUI.SetActive(false);
     }
+
+    public void OpenShop() {
+        shopUI.SetActive(true);
+    }
 }

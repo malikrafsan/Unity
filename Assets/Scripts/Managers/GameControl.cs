@@ -43,6 +43,7 @@ public class GameControl : MonoBehaviour
     public float petCount = 0;
     public int currency = 0;
     public Item[] equipedWeapon = new Item[4];
+    public bool cheatOneHitKill = false;
 
     // Currencies
     public void addCurrency(int amt) {

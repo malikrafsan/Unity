@@ -13,31 +13,35 @@ MonoBehaviour:
   m_Name: weapon
   m_EditorClassIdentifier: 
   items:
-  - image: {fileID: 21300000, guid: 5955491dc8dcecb4a993d9a008cf65a7, type: 3}
-    description: Archer
-    price: 2
-    characterName: ArcherBow Level 1
-    isPurchased: 1
+  - image: {fileID: 0}
+    description: Leveling Up
+    price: 4
+    characterName: ' SimpleGun Level 2'
+    isPurchased: 0
     isWeapon: 1
-    type: bow
-  - image: {fileID: 21300000, guid: 5955491dc8dcecb4a993d9a008cf65a7, type: 3}
-    description: Archer
+    weaponType: 0
+    level: 2
+  - image: {fileID: 0}
+    description: Purchase to Unlock!
     price: 2
-    characterName: Sword Level 2
-    isPurchased: 1
+    characterName: Weapon Sword
+    isPurchased: 0
     isWeapon: 1
-    type: sword
-  - image: {fileID: 21300000, guid: 5955491dc8dcecb4a993d9a008cf65a7, type: 3}
-    description: Archer
+    weaponType: 1
+    level: 1
+  - image: {fileID: 0}
+    description: Purchase to Unlock!
     price: 2
-    characterName: Shotgun Level 2
-    isPurchased: 1
+    characterName: Weapon ShotGun
+    isPurchased: 0
     isWeapon: 1
-    type: shotgun
-  - image: {fileID: 21300000, guid: 5955491dc8dcecb4a993d9a008cf65a7, type: 3}
-    description: Archer
+    weaponType: 2
+    level: 1
+  - image: {fileID: 0}
+    description: Purchase to Unlock!
     price: 2
-    characterName: Bow Level 2
-    isPurchased: 1
+    characterName: Weapon Bow
+    isPurchased: 0
     isWeapon: 1
-    type: bow
+    weaponType: 3
+    level: 1

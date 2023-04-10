@@ -14,16 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items:
   - image: {fileID: 21300000, guid: c887ed2a931c29040bc544cd8c546e9f, type: 3}
-    description: Level 0 sword
-    price: 4000
-    characterName: 1
-    isPurchased: 0
-    isWeapon: 0
-    type: Attacker
-  - image: {fileID: 21300000, guid: c887ed2a931c29040bc544cd8c546e9f, type: 3}
-    description: Level 0 sword
-    price: 6
+    description: Heals you
+    price: 5
     characterName: Healer
     isPurchased: 0
     isWeapon: 0
-    type: Healer
+    weaponType: 0
+    level: 0
+  - image: {fileID: 21300000, guid: c887ed2a931c29040bc544cd8c546e9f, type: 3}
+    description: Attacks Enemy
+    price: 5
+    characterName: Attacker
+    isPurchased: 0
+    isWeapon: 0
+    weaponType: 0
+    level: 0
+  - image: {fileID: 21300000, guid: c887ed2a931c29040bc544cd8c546e9f, type: 3}
+    description: Loves you
+    price: 5
+    characterName: Booster
+    isPurchased: 0
+    isWeapon: 0
+    weaponType: 0
+    level: 0
