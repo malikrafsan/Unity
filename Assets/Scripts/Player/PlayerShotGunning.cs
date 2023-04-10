@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class PlayerShotGunning : MonoBehaviour, WeaponHandler
 {
-    public int damagePerShot = 200;                  
-    public float timeBetweenBullets = 0.15f;        
-    public float range = 100f;
+    [SerializeField]
+    private float damagePerShot = 30f;
+    [SerializeField]
+    private float timeBetweenBullets = 0.15f;
+    [SerializeField]
+    private float range = 100f;
     public GameObject prefabEffect;
 
     float timer;                                    
@@ -18,6 +21,8 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
     AudioSource gunAudio;                           
     Light gunLight;
     readonly float effectsDisplayTime = 0.2f;
+
+    private readonly float maxDist = 8f;
 
     int numBullet = 3;
     List<GameObject> effects = new List<GameObject>();
@@ -108,10 +113,19 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
             if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
             {
                 EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
-
                 if (enemyHealth != null)
                 {
-                    enemyHealth.TakeDamage(damagePerShot, shootHit.point);
+                    var dist = Vector3.Distance(shootHit.transform.position, transform.position);
+                    if (dist <= maxDist)
+                    {
+                        Debug.Log("Enemy is On Distance");
+                        int finalDamage = (int) (damagePerShot / Math.Sqrt(range));
+                        enemyHealth.TakeDamage(finalDamage, shootHit.point);
+                    }
+                    else
+                    {
+                        Debug.Log("Enemy out of distance");
+                    }
                 }
 
                 gunLine.SetPosition(1, shootHit.point);

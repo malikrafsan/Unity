@@ -5985,7 +5985,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cf31ad37f90af40b615d7f5e0b167a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerShot: 200
+  damagePerShot: 30
   timeBetweenBullets: 0.15
   range: 100
   prefabEffect: {fileID: 976093117594460400, guid: 3ffee28e9d715da4190cc06ec2c69b5d, type: 3}

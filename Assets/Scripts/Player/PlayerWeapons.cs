@@ -54,15 +54,15 @@ public class PlayerWeapons : MonoBehaviour
         gun[0] = GameObject.Find("GunBarrelEnd");
         gun[1] = GameObject.Find("Gun");
         weapons[0] = new Weapon(gun);
-        
-        var sword = new GameObject[1];
-        sword[0] = GameObject.Find("Sword");
-        weapons[1] = new Weapon(sword);
 
         var shotgun = new GameObject[2];
         shotgun[0] = GameObject.Find("ShotGunBarrelEnd");
         shotgun[1] = GameObject.Find("ShotGun");
-        weapons[2] = new Weapon(shotgun);
+        weapons[1] = new Weapon(shotgun);
+
+        var sword = new GameObject[1];
+        sword[0] = GameObject.Find("Sword");
+        weapons[2] = new Weapon(sword);
 
         var bow = new GameObject[1];
         bow[0] = GameObject.Find("Bow");
@@ -117,8 +117,8 @@ public class PlayerWeapons : MonoBehaviour
         return weaponType switch
         {
             WeaponType.SimpleGun => 0,
-            WeaponType.Sword => 1,
-            WeaponType.ShotGun => 2,
+            WeaponType.ShotGun => 1,
+            WeaponType.Sword => 2,
             WeaponType.Bow => 3,
             _ => -1,
         };

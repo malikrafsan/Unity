@@ -28,7 +28,6 @@ public class PlayerArrow : MonoBehaviour
         rb.AddRelativeForce(force);
         transform.parent = null;
         collider.enabled = true;
-        Destroy(gameObject, 10);
     }
 
     void OnTriggerEnter(Collider other)
@@ -44,9 +43,10 @@ public class PlayerArrow : MonoBehaviour
             enemyHealth.TakeDamage((int)damage, enemyHealth.transform.position);
         }
 
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.isKinematic = true;
-        transform.parent = other.transform;
+        /*        rb.velocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+                rb.isKinematic = true;
+                transform.parent = other.transform;*/
+        Destroy(gameObject);
     }
 }

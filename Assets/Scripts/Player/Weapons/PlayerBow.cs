@@ -65,13 +65,13 @@ public class PlayerBow : MonoBehaviour, WeaponHandler
     {
         arrowEnergy = chargeTime > maxCharge ? maxCharge : chargeTime;
 
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButton(1))
         {
             chargeSlider.value = arrowEnergy * 100;
             chargeTime += Time.deltaTime;
         }
 
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(1))
         {
             Shoot(arrowEnergy);
             ResetCharge();
