@@ -17,6 +17,7 @@ public class HUD : MonoBehaviour
         // Set the text of the message panel for other messages
         textTransform.text = text;
         MessagePanel.SetActive(true);
+        StartCoroutine(executeAfter(3));
     }
 
     public void CloseMessagePanel () {
@@ -29,5 +30,10 @@ public class HUD : MonoBehaviour
 
     public void CloseTextInput() {
         textInput.SetActive(false);
+    }
+
+    private IEnumerator executeAfter(int secs) {
+        yield return new WaitForSeconds(secs);
+        CloseMessagePanel();
     }
 }

@@ -15,6 +15,7 @@ public class ItemShopUI : MonoBehaviour
     [SerializeField] ItemShopDatabase itemDB;
     [SerializeField] Text messageError;
     PlayerWeapons playerWeapons;
+    private bool cheatCurrency = false;
 
     void Start() {
         resetDatabase();
@@ -72,7 +73,9 @@ public class ItemShopUI : MonoBehaviour
         Item itemPurchasing = itemDB.GetItem(index);
         if ( GameControl.control.isEnough(itemPurchasing.price) ) {
             //purchasing
-            GameControl.control.minusCurrency(itemPurchasing.price);
+            if (!cheatCurrency){
+                GameControl.control.minusCurrency(itemPurchasing.price);
+            }
 
             // level up weapon
             Item itemSelected = itemDB.GetItem(index);
@@ -100,7 +103,9 @@ public class ItemShopUI : MonoBehaviour
 
             //purchasing
             if (itemPurchasing.isWeapon) {
-                GameControl.control.minusCurrency(itemPurchasing.price);
+                if (!cheatCurrency){
+                    GameControl.control.minusCurrency(itemPurchasing.price);
+                }
                 if (itemPurchasing.level == 1) {
                     OnWeaponPurchase(index);
                     return;
@@ -126,7 +131,9 @@ public class ItemShopUI : MonoBehaviour
         }
         Item itemPurchasing = itemDB.GetItem(index);
         ItemUI itemBeingPurchased = GetItemUI(index);
-        GameControl.control.minusCurrency(itemPurchasing.price);
+        if (!cheatCurrency) {
+            GameControl.control.minusCurrency(itemPurchasing.price);
+        }
         // Set if purchased
         itemDB.SetPurchase(index, true);
         itemBeingPurchased.SetItemAsPurchased();
@@ -195,5 +202,9 @@ public class ItemShopUI : MonoBehaviour
                 counter++; 
             }
         }
+    }
+
+    public void SetCheatCurrency(bool value) {
+        cheatCurrency = value;
     }
 }

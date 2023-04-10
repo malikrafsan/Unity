@@ -20,7 +20,6 @@ public class ShopCollider : MonoBehaviour
         }
         if (!stall_state && Input.GetKeyDown(KeyCode.F)) {
             Hud.OpenMessagePanel("Go To Shop First!");
-            StartCoroutine(executeAfter(3));
         }
     }
 
@@ -40,10 +39,5 @@ public class ShopCollider : MonoBehaviour
             stall_state = false;
             Hud.CloseMessagePanel();
         }
-    }
-
-    private IEnumerator executeAfter(int secs) {
-        yield return new WaitForSeconds(secs);
-        Hud.CloseMessagePanel();
     }
 }

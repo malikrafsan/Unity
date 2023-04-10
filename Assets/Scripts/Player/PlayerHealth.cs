@@ -18,7 +18,8 @@ public class PlayerHealth : MonoBehaviour
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
     bool isDeath;                                                
-    bool damaged;                                               
+    bool damaged;   
+    bool cheatNoDamage = false;                                            
 
 
     void Awake()
@@ -49,6 +50,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        if (cheatNoDamage) return;
         damaged = true;
 
         currentHealth -= amount;
@@ -77,5 +79,9 @@ public class PlayerHealth : MonoBehaviour
             
         playerMovement.enabled = false;
         playerShooting.enabled = false;
+    }
+
+    public void SetCheatNoDamage(bool value) {
+        cheatNoDamage = value;
     }
 }
