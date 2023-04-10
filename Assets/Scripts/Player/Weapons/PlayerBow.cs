@@ -39,6 +39,7 @@ public class PlayerBow : MonoBehaviour, WeaponHandler
     {
         ResetCharge();
         chargeSlider.gameObject.SetActive(true);
+        curArrow = Instantiate(playerArrowPrefab, arrowSpawnPoint);
     }
 
     private void OnEnable()
@@ -75,11 +76,6 @@ public class PlayerBow : MonoBehaviour, WeaponHandler
             Shoot(arrowEnergy);
             ResetCharge();
         }
-
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            Shoot(0);
-        }
     }
 
     private void ResetCharge()
@@ -101,11 +97,9 @@ public class PlayerBow : MonoBehaviour, WeaponHandler
 
     public void Shoot(float energy)
     {
-        curArrow = Instantiate(playerArrowPrefab, transform.position, arrowSpawnPoint.transform.rotation);
-        var nudges = 0.1f;
-        var t = curArrow.transform;
-        var force = t.forward + Random.Range(-nudges, nudges) * t.right + Random.Range(-nudges, nudges) * t.up;
-        curArrow.GetComponent<Rigidbody>().AddRelativeForce(-200 * level * energy * force);
+        var force = arrowSpawnPoint.TransformDirection(-200 * energy * level * Vector3.forward);
+        curArrow.Shoot(force);
+        curArrow = Instantiate(playerArrowPrefab, arrowSpawnPoint);
     }
 
     public bool IsReady()
