@@ -6,9 +6,6 @@ using UnityEngine;
 public class Temple : MonoBehaviour
 {
     [SerializeField]
-    private HUD Hud;
-
-    [SerializeField]
     private EnemyManager enemyManager;
 
     private readonly QuestType[] stepQuests = { QuestType.FirstQuest, QuestType.SecondQuest, QuestType.ThirdQuest, QuestType.FinalQuest };
@@ -28,7 +25,7 @@ public class Temple : MonoBehaviour
     {
         if (playerOnRange && Input.GetKeyDown(KeyCode.G))
         {
-            Debug.Log("ENTERING QUEST");
+            ToastManager.Instance.ShowToast("ENTERING QUEST", 3);
             EnteringQuest();
         }
     }
@@ -62,12 +59,12 @@ public class Temple : MonoBehaviour
         {
             if (onQuest)
             {
-                Hud.OpenMessagePanel("- Good Luck with your Quest -");
+                ToastManager.Instance.ShowToast("- Good Luck with your Quest -", 3);
             }
             else
             {
-                Hud.OpenMessagePanel("- Press G to Enter Quest " +
-                    (idxCurrentQuest+1) + " - ");
+                ToastManager.Instance.ShowToast("-Press G to Enter Quest " +
+                    (idxCurrentQuest + 1) + " - ", 3);
             }
             playerOnRange = true;
         }   
@@ -77,7 +74,6 @@ public class Temple : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Hud.CloseMessagePanel();
             playerOnRange = false;
         }
     }
