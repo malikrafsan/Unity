@@ -20,6 +20,12 @@ public class HUD : MonoBehaviour
         StartCoroutine(executeAfter(3));
     }
 
+    public void OpenPermanantMessage (string text) {
+        // Set the text of the message panel for other messages
+        textTransform.text = text;
+        MessagePanel.SetActive(true);
+    }
+
     public void CloseMessagePanel () {
         MessagePanel.SetActive(false);
     }

@@ -25,7 +25,7 @@ public class CheatManager : MonoBehaviour
         weaponShopUI = weaponShop.GetComponent<ItemShopUI>();
     }
 
-    private void FixedUpdate() {
+    private void Update() {
         if (Input.GetKeyDown(KeyCode.C)) {
             Hud.ShowTextInput();
         }
