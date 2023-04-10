@@ -782,8 +782,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -360}
-  m_SizeDelta: {x: 295, y: 75}
+  m_AnchoredPosition: {x: 0, y: -320}
+  m_SizeDelta: {x: 800, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &622410117
 MonoBehaviour:
@@ -816,7 +816,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 0
     m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: 
 --- !u!222 &622410118
@@ -6776,6 +6776,7 @@ MonoBehaviour:
     isWeapon: 0
     weaponType: 0
     level: 0
+  cheatOneHitKill: 0
 --- !u!4 &1088314968
 Transform:
   m_ObjectHideFlags: 0
@@ -8122,6 +8123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MessagePanel: {fileID: 1307920360}
+  textInput: {fileID: 0}
 --- !u!1001 &3766448032200487927
 PrefabInstance:
   m_ObjectHideFlags: 0
