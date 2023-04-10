@@ -25,15 +25,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 432dd2b7c2581c744a40ca43b1307c17, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 432dd2b7c2581c744a40ca43b1307c17, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 432dd2b7c2581c744a40ca43b1307c17, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.1
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 400002, guid: 432dd2b7c2581c744a40ca43b1307c17, type: 3}
       propertyPath: m_LocalPosition.x
@@ -125,3 +125,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   torque: 0
+  rb: {fileID: 0}
+  collider: {fileID: 0}
