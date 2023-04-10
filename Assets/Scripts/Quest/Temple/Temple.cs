@@ -106,5 +106,9 @@ public class Temple : MonoBehaviour
         {
             ExitingQuest();
         }
+        else
+        {
+            ToastManager.Instance.ShowToast("Quest Enemies Left:\n" + questNumberEnemy.Stats(), 3);
+        }
     }
 }

@@ -44,4 +44,16 @@ public class EnemyManager : MonoBehaviour
         Debug.Log("Turn on " + nameof(this.Spawn));
         InvokeRepeating(nameof(this.Spawn), spawnTime, spawnTime);
     }
+
+    public static string EnemyName(EnemyType type)
+    {
+        switch (type)
+        {
+            case EnemyType.Zombunny: return "ZomBunny";
+            case EnemyType.ZomBear: return "ZomBear";
+            case EnemyType.Hellephant: return "Hellephant";
+            case EnemyType.FinalBoss: return "Final Boss";
+            default: return "";
+        }
+    }
 }

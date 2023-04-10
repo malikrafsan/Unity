@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using UnityEngine;
 
@@ -12,11 +13,16 @@ public class QuestNumberEnemy
     public QuestNumberEnemy() 
     {
         numEnemies = new Dictionary<EnemyType, int>();
+        var types = Enum.GetValues(typeof(EnemyType)).Cast<EnemyType>();
+        foreach (var type in types)
+        {
+            numEnemies.Add(type, 0);
+        }
     }
 
     public QuestNumberEnemy Add(EnemyType type, int num)
     {
-        numEnemies.Add(type, num);
+        numEnemies[type] = num;
         return this;
     }
 
@@ -57,5 +63,17 @@ public class QuestNumberEnemy
         }
 
         return clone;
+    }
+
+    public string Stats()
+    {
+        string str = "";
+        foreach (var type in numEnemies.Keys)
+        {
+            var num = Get(type);
+            str += EnemyManager.EnemyName(type) + ": " + (num <= 0 ? 0 : num) + "\n";
+        }
+
+        return str;
     }
 }

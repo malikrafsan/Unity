@@ -79,8 +79,7 @@ public class PlayerShooting : MonoBehaviour, WeaponHandler
 
             if (enemyHealth != null)
             {
-                int finalDamage = damagePerShot * level / (int)range;
-                enemyHealth.TakeDamage(finalDamage, shootHit.point);
+                enemyHealth.TakeDamage(damagePerShot * level, shootHit.point);
             }
 
             gunLine.SetPosition(1, shootHit.point);

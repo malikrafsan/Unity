@@ -69,9 +69,9 @@ public class PlayerWeapons : MonoBehaviour
         weapons[3] = new Weapon(bow);
 
         UnlockWeapon(WeaponType.SimpleGun);
-        UnlockWeapon(WeaponType.Sword);
+        /*UnlockWeapon(WeaponType.Sword);
         UnlockWeapon(WeaponType.ShotGun);
-        UnlockWeapon(WeaponType.Bow);
+        UnlockWeapon(WeaponType.Bow);*/
         SelectWeapon(idxWeapon);
 
     }
@@ -161,7 +161,7 @@ public class PlayerWeapons : MonoBehaviour
         var success = EnableWeapon(idx);
         if (!success)
         {
-            Debug.LogWarning("Selecting locked weapon");
+            ToastManager.Instance.ShowToast("Selecting locked weapon", 3);
         }
     }
 

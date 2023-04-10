@@ -32,4 +32,15 @@ public class QuestConfig
         };
     }       
     
+    public static string QuestName(QuestType type)
+    {
+        return type switch
+        {
+            QuestType.FirstQuest => "First Quest",
+            QuestType.SecondQuest => "Second Quest",
+            QuestType.ThirdQuest => "Third Quest",
+            QuestType.FinalQuest => "Final Quest",
+            _ => throw new Exception("Unimplemented Quest Name"),
+        };
+    }
 }
