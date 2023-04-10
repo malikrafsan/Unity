@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class CheatManager : MonoBehaviour
 {
-    public HUD Hud;
-    public PlayerHealth playerHealth;
-    public PlayerMovement playerMovement;
-    public PlayerWeapons playerWeapon;
+    HUD Hud;
+    PlayerHealth playerHealth;
+    PlayerMovement playerMovement;
+    PlayerWeapons playerWeapon;
     public GameObject petShop;
     public GameObject weaponShop;
-    public ItemShopUI petShopUI;
-    public ItemShopUI weaponShopUI;
+    ItemShopUI petShopUI;
+    ItemShopUI weaponShopUI;
     private string input;
     private int prevCurrency;
     private bool motherlodeOn = false;
@@ -46,7 +46,7 @@ public class CheatManager : MonoBehaviour
             return;
         }
         if (input == "ONEHITKILL") {
-            // BETTER IF SET DAMAGE TO 9999999
+            GameControl.control.cheatOneHitKill = true;
             Hud.OpenMessagePanel("Cheat One Hit Kill Activated!");
             return;
         }
@@ -79,6 +79,7 @@ public class CheatManager : MonoBehaviour
         if (input == "RESET") {
             playerHealth.SetCheatNoDamage(false);
             playerMovement.ResetSpeed();
+            GameControl.control.cheatOneHitKill = false;
             if (motherlodeOn) {
                 GameControl.control.currency = this.prevCurrency;
                 petShopUI.SetCheatCurrency(false);

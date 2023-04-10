@@ -43,6 +43,11 @@ public class EnemyHealth : MonoBehaviour
     {
         if (isDeath)
             return;
+        
+        if (GameControl.control.cheatOneHitKill)
+        {
+            currentHealth = 0;
+        }
 
         enemyAudio.Play ();
 
