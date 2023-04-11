@@ -68,6 +68,7 @@ public class EnemyHealth : MonoBehaviour
 
     public void Death ()
     {
+        currentHealth = 0;
         isDeath = true;
 
         capsuleCollider.isTrigger = true;

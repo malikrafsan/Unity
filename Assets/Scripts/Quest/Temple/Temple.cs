@@ -52,7 +52,9 @@ public class Temple : MonoBehaviour
         var enemies = FindObjectsOfType<EnemyHealth>();
         foreach (var enemy in enemies)
         {
-            Destroy(enemy.gameObject);
+            Debug.Log("Killing"+ enemy);
+            enemy.Death();
+            //Destroy(enemy.gameObject);
         }
         idxCurrentQuest++;
         ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed!", 3);
