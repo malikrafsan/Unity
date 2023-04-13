@@ -7,12 +7,18 @@ public class ShopCollider : MonoBehaviour
     HUD Hud;
     [SerializeField] GameObject shop;
     private bool stall_state = false;
+    Temple temple;
 
     private void Awake() {
         Hud = GameObject.Find("HUDCanvas").GetComponent<HUD>();
+        temple = GameObject.Find("Environment").GetComponentInChildren<Temple>();
     }
 
-    private void FixedUpdate() {
+    private void Update() {
+        if (temple.OnQuest && Input.GetKeyDown(KeyCode.F)) {
+            Hud.OpenMessagePanel("Shop Unavailable!");
+            return;
+        }
         if (stall_state && Input.GetKeyDown(KeyCode.F)) {
             if (shop) {
                 shop.SetActive(true);
@@ -25,10 +31,10 @@ public class ShopCollider : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        if(other.gameObject.name.Equals("Player"))
+        if(!temple.OnQuest && other.gameObject.name.Equals("Player"))
         {
             stall_state = true;
-            Hud.OpenMessagePanel("- Press F to Shop - ");
+            Hud.OpenPermanantMessage("- Press F to Shop - ");
         }
     }
 

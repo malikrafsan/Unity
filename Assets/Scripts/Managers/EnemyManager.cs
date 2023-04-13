@@ -15,13 +15,13 @@ public class EnemyManager : MonoBehaviour
         }
     }
 
-    void Start ()
+    void Start()
     {
 
     }
-    
 
-    void Spawn ()
+
+    void Spawn()
     {
         if (playerHealth.currentHealth <= 0f)
         {

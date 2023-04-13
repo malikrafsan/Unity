@@ -19,40 +19,39 @@ public class EnemyHealth : MonoBehaviour
     Temple questTemple;
 
 
-    void Awake ()
-    {   
-
-        anim = GetComponent <Animator> ();
-        enemyAudio = GetComponent <AudioSource> ();
-        hitParticles = GetComponentInChildren <ParticleSystem> ();
-        capsuleCollider = GetComponent <CapsuleCollider> ();
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+        enemyAudio = GetComponent<AudioSource>();
+        hitParticles = gameObject.transform.Find("HitParticles").GetComponent<ParticleSystem>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
 
         currentHealth = startingHealth;
-        questTemple = FindObjectOfType<Temple> ();
+        questTemple = FindObjectOfType<Temple>();
     }
 
 
-    void Update ()
+    void Update()
     {
         if (isSinking)
         {
             //Debug.Log("SINKING");
-            transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+            transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
         }
     }
 
 
-    public void TakeDamage (int amount, Vector3 hitPoint)
+    public void TakeDamage(int amount, Vector3 hitPoint)
     {
         if (isDeath)
             return;
-        
+
         if (GameControl.control.cheatOneHitKill)
         {
             currentHealth = 0;
         }
 
-        enemyAudio.Play ();
+        enemyAudio.Play();
 
         currentHealth -= amount;
 
@@ -61,13 +60,14 @@ public class EnemyHealth : MonoBehaviour
 
         if (currentHealth <= 0)
         {
-            Death ();
+            Death();
         }
     }
 
 
-    public void Death ()
+    public void Death()
     {
+        currentHealth = 0;
         isDeath = true;
 
         capsuleCollider.isTrigger = true;
@@ -75,18 +75,18 @@ public class EnemyHealth : MonoBehaviour
         anim.SetBool("IsDeath", isDeath);
 
         enemyAudio.clip = deathClip;
-        enemyAudio.Play ();
+        enemyAudio.Play();
         questTemple.OnDeathEnemy(enemyType);
     }
 
 
-    public void StartSinking ()
+    public void StartSinking()
     {
-        GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
-        GetComponent<Rigidbody> ().isKinematic = true;
+        GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
         isSinking = true;
         GameControl.control.currency += 5;
         ScoreManager.score += scoreValue;
-        Destroy (gameObject, 2f);
+        Destroy(gameObject, 2f);
     }
 }

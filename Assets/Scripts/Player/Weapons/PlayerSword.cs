@@ -36,7 +36,7 @@ public class PlayerSword : MonoBehaviour, WeaponHandler
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void IncrementLevel()

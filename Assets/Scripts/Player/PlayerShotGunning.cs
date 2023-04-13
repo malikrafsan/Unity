@@ -12,13 +12,13 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
     private float range = 100f;
     public GameObject prefabEffect;
 
-    float timer;                                    
-    Ray shootRay;                                   
-    RaycastHit shootHit;                            
-    int shootableMask;                             
-    ParticleSystem gunParticles;                    
-    LineRenderer gunLine;                           
-    AudioSource gunAudio;                           
+    float timer;
+    Ray shootRay;
+    RaycastHit shootHit;
+    int shootableMask;
+    ParticleSystem gunParticles;
+    LineRenderer gunLine;
+    AudioSource gunAudio;
     Light gunLight;
     readonly float effectsDisplayTime = 0.2f;
 
@@ -44,7 +44,7 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
         gunAudio = GetComponent<AudioSource>();
         gunLight = GetComponent<Light>();
 
-        for (int i=0;i<numBullet;i++)
+        for (int i = 0; i < numBullet; i++)
         {
             AddBullet();
         }
@@ -62,7 +62,7 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
     {
         timer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
+        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets && !GameControl.control.cantShoot)
         {
             Shoot();
         }
@@ -119,7 +119,7 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
                     if (dist <= maxDist)
                     {
                         Debug.Log("Enemy is On Distance");
-                        int finalDamage = (int) (damagePerShot / Math.Sqrt(range));
+                        int finalDamage = (int)(damagePerShot / Math.Sqrt(range));
                         enemyHealth.TakeDamage(finalDamage, shootHit.point);
                     }
                     else
