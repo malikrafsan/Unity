@@ -35,12 +35,14 @@ public class MetaStateSave
 [Serializable]
 public class PlayerStateSave
 {
+    public string name;
     public int money;
     public int health;
     public int idxQuest;
 
-    public PlayerStateSave(int money, int health, int idxQuest)
+    public PlayerStateSave(string name, int money, int health, int idxQuest)
     {
+        this.name=name;
         this.money = money;
         this.health = health;
         this.idxQuest = idxQuest;

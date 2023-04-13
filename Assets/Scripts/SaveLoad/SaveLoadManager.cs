@@ -49,6 +49,7 @@ public class SaveLoadManager : MonoBehaviour
     {
         var state = GlobalStateManager.Instance.GetState();
         state.metaStateSave.name = name;
+        state.metaStateSave.Update();
 
         var json = JsonUtility.ToJson(state);
         var file = SaveLoadConfig.files[Id];

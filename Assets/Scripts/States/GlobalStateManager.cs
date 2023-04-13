@@ -58,6 +58,14 @@ public class GlobalStateManager : MonoBehaviour
         }
     }
 
+    public string PlayerName
+    {
+        get
+        {
+            return GlobalManager.Instance.PlayerName;
+        }
+    }
+
     public string Stats()
     {
         var str = "";
@@ -98,7 +106,7 @@ public class GlobalStateManager : MonoBehaviour
     {
         // TODO: get states
         var metaStateSave = new MetaStateSave("name");
-        var playerStateSave = new PlayerStateSave(Money, Health, IdxQuest);
+        var playerStateSave = new PlayerStateSave(PlayerName, Money, Health, IdxQuest);
         var petStateSave = new PetStateSave(100, -1);
         var globalStateSave = new GlobalStateSave(319.123);
 
@@ -114,7 +122,14 @@ public class GlobalStateManager : MonoBehaviour
         // TODO: set meta state save
 
 
+        // TODO: set meta player save
+        GlobalManager.Instance.PlayerName = state.playerStateSave.name;
         playerHealth.CurrentHealth = state.playerStateSave.health;
         GameControl.control.currency = state.playerStateSave.money;
+        temple.IdxCurrentQuest = state.playerStateSave.idxQuest;
+
+        // TODO: set player state save
+
+        // TODO: global state save
     }
 }
