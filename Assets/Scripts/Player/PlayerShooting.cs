@@ -3,18 +3,18 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour, WeaponHandler
 {
-    public int damagePerShot = 20;                  
-    public float timeBetweenBullets = 0.15f;        
-    public float range = 100f;                      
+    public int damagePerShot = 20;
+    public float timeBetweenBullets = 0.15f;
+    public float range = 100f;
 
-    float timer;                                    
-    Ray shootRay;                                   
-    RaycastHit shootHit;                            
-    int shootableMask;                             
-    ParticleSystem gunParticles;                    
-    LineRenderer gunLine;                           
-    AudioSource gunAudio;                           
-    Light gunLight;                                 
+    float timer;
+    Ray shootRay;
+    RaycastHit shootHit;
+    int shootableMask;
+    ParticleSystem gunParticles;
+    LineRenderer gunLine;
+    AudioSource gunAudio;
+    Light gunLight;
     float effectsDisplayTime = 0.2f;
 
     private int level = 1;
@@ -39,7 +39,7 @@ public class PlayerShooting : MonoBehaviour, WeaponHandler
     {
         timer += Time.deltaTime;
 
-        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets)
+        if (Input.GetButton("Fire1") && timer >= timeBetweenBullets && !GameControl.control.cantShoot)
         {
             Shoot();
         }
@@ -76,10 +76,17 @@ public class PlayerShooting : MonoBehaviour, WeaponHandler
         if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
         {
             EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
+            ElementalHealth elementalHealth = shootHit.collider.gameObject.GetComponent<ElementalHealth>();
 
             if (enemyHealth != null)
             {
                 enemyHealth.TakeDamage(damagePerShot * level, shootHit.point);
+            }
+
+            if (elementalHealth != null)
+            {
+
+                elementalHealth.TakeDamage(damagePerShot * level, shootHit.point);
             }
 
             gunLine.SetPosition(1, shootHit.point);
