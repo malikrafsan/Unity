@@ -7,7 +7,7 @@ public class MainMenuManager : MonoBehaviour
 {
     public void OnClickNewGame()
     {
-        SceneManager.LoadScene("Quest");
+        SceneManager.LoadScene("Cutscene2");
     }
 
     public void OnClickLoadGame()
