@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public int startingHealth = 100;
+    public readonly int startingHealth = 100;
     public int currentHealth;
     public Slider healthSlider;
     public Image damageImage;
@@ -86,6 +86,12 @@ public class PlayerHealth : MonoBehaviour
         freezeImage.color = Color.Lerp(freezeImage.color, Color.clear, 5f);
         GameControl.control.cantShoot = false;
     }
+    public void HealDamage(int amount)
+    {
+        currentHealth += amount;
+        healthSlider.value = currentHealth;
+    }
+
 
     void Death()
     {
