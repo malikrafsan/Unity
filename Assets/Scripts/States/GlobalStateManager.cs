@@ -46,7 +46,7 @@ public class GlobalStateManager : MonoBehaviour
     {
         get
         {
-            return playerHealth.currentHealth;
+            return playerHealth.CurrentHealth;
         }
     }
 
@@ -108,8 +108,13 @@ public class GlobalStateManager : MonoBehaviour
 
     public void SetState(StateSave state)
     {
-        Debug.Log("STATE: " + state);
-        playerHealth.currentHealth = state.playerStateSave.health;
+        // TODO: SET STATES
+        Debug.Log("STATE: " + state.ToString());
+
+        // TODO: set meta state save
+
+
+        playerHealth.CurrentHealth = state.playerStateSave.health;
         GameControl.control.currency = state.playerStateSave.money;
     }
 }

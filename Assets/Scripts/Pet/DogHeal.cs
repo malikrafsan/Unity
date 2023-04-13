@@ -21,7 +21,7 @@ public class DogHeal : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= timeBetweenHeals && playerHealth.currentHealth < 100)
+        if (timer >= timeBetweenHeals && playerHealth.CurrentHealth < 100)
         {
             print("berhasil masuk mau heal");
             Heal ();
@@ -35,7 +35,7 @@ public class DogHeal : MonoBehaviour
     void Heal ()
     {
         timer = 0f;
-        int playerHealthLost = 100 - playerHealth.currentHealth;
+        int playerHealthLost = 100 - playerHealth.CurrentHealth;
         if (playerHealthLost < healAmount){
             healAmount = playerHealthLost;
             print(healAmount);

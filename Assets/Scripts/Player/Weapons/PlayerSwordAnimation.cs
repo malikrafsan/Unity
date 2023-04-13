@@ -7,6 +7,13 @@ public class PlayerSwordAnimation : MonoBehaviour
     [SerializeField]
     private GameObject sword;
 
+    private Animator animator;
+
+    private void Awake()
+    {
+        this.animator = sword.GetComponent<Animator>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,8 +31,8 @@ public class PlayerSwordAnimation : MonoBehaviour
 
     IEnumerator SwordSwinging()
     {
-        sword.GetComponent<Animator>().Play("SwordSwing");
+        this.animator.Play("SwordSwing");
         yield return new WaitForSeconds(1.0f);
-        sword.GetComponent<Animator>().Play("Idle");
+        this.animator.Play("Idle");
     }
 }

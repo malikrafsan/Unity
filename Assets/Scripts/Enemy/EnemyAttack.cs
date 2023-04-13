@@ -67,7 +67,7 @@ public class EnemyAttack : MonoBehaviour
             AttackPet ();
         }
 
-        if (playerHealth.currentHealth <= 0)
+        if (playerHealth.CurrentHealth <= 0)
         {
             anim.SetBool("PlayerDeath", true);
         }
@@ -78,7 +78,7 @@ public class EnemyAttack : MonoBehaviour
     {
         timer = 0f;
 
-        if (playerHealth.currentHealth > 0)
+        if (playerHealth.CurrentHealth > 0)
         {
             playerHealth.TakeDamage (attackDamage);
         }

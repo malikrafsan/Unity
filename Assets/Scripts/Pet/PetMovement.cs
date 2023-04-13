@@ -23,7 +23,7 @@ public class PetMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (petHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
+        if (petHealth.currentHealth > 0 && playerHealth.CurrentHealth > 0)
         {
             nav.SetDestination (playerPosition.position);
         }

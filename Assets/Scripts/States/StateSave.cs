@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 [Serializable]
 public class MetaStateSave
@@ -22,6 +25,11 @@ public class MetaStateSave
     {
         this.updatedAt = DateTime.Now.ToString(SaveLoadConfig.dateTimeFormat);
     }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
+    }
 }
 
 [Serializable]
@@ -37,6 +45,11 @@ public class PlayerStateSave
         this.health = health;
         this.idxQuest = idxQuest;
     }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
+    }
 }
 
 [Serializable]
@@ -50,6 +63,11 @@ public class PetStateSave
         this.health = health;
         this.idxCurrentPet = idxCurrentPet;
     }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
+    }
 }
 
 [Serializable]
@@ -60,6 +78,11 @@ public class GlobalStateSave
     public GlobalStateSave(double timePlayed)
     {
         this.timePlayed = timePlayed;
+    }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
     }
 }
 
@@ -77,5 +100,10 @@ public class StateSave
         this.playerStateSave = playerStateSave;
         this.petStateSave = petStateSave;
         this.globalStateSave = globalStateSave;
+    }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
     }
 }

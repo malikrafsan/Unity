@@ -7,6 +7,15 @@ public class GlobalManager : MonoBehaviour
 {
     public static GlobalManager Instance;
     private GlobalStateManager globalState;
+    private string playerName;
+    public string PlayerName
+    {
+        get => playerName;
+        set
+        {
+            playerName = value;
+        }
+    }
 
     private void Awake()
     {
