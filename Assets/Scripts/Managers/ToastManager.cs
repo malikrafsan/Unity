@@ -35,7 +35,6 @@ class ToastManager : MonoBehaviour
         int duration)
     {
         Color orginalColor = txt.color;
-        Debug.Log("originalColor: " + orginalColor);
 
         txt.text = text;
         txt.enabled = true;
