@@ -10,8 +10,11 @@ public class EnemyAttack : MonoBehaviour
     Animator anim;
     GameObject player;
     PlayerHealth playerHealth;
+    GameObject pet;
+    PetHealth petHealth;
     EnemyHealth enemyHealth;
     bool playerInRange;
+    bool petInRange;
     float timer;
 
 
@@ -19,6 +22,8 @@ public class EnemyAttack : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag ("Player");
         playerHealth = player.GetComponent <PlayerHealth> ();
+        pet = GameObject.FindGameObjectWithTag ("Pet");
+        petHealth = pet.GetComponent <PetHealth> ();
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent <Animator> ();
     }
@@ -29,6 +34,10 @@ public class EnemyAttack : MonoBehaviour
         {
             playerInRange = true;
         }
+        if (other.gameObject == pet && other.isTrigger == false)
+        {
+            petInRange = true;
+        }
     }
 
     void OnTriggerExit (Collider other)
@@ -36,6 +45,10 @@ public class EnemyAttack : MonoBehaviour
         if(other.gameObject == player && other.isTrigger == false)
         {
             playerInRange = false;
+        }
+        if(other.gameObject == pet && other.isTrigger == false)
+        {
+            petInRange = false;
         }
     }
 
@@ -47,6 +60,11 @@ public class EnemyAttack : MonoBehaviour
         if(timer >= timeBetweenAttacks && playerInRange && enemyHealth.currentHealth > 0)
         {
             Attack ();
+        }
+
+        if(timer >= timeBetweenAttacks && petInRange && enemyHealth.currentHealth > 0)
+        {
+            AttackPet ();
         }
 
         if (playerHealth.currentHealth <= 0)
@@ -63,6 +81,16 @@ public class EnemyAttack : MonoBehaviour
         if (playerHealth.currentHealth > 0)
         {
             playerHealth.TakeDamage (attackDamage);
+        }
+    }
+
+    void AttackPet ()
+    {
+        timer = 0f;
+
+        if (petHealth.currentHealth > 0)
+        {
+            petHealth.TakeDamage (attackDamage);
         }
     }
 }
