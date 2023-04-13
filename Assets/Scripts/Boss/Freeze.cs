@@ -17,6 +17,7 @@ public class Freeze : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             attack.Slower();
+            attack.Attack(5);
         }
     }
 }
