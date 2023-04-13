@@ -8,19 +8,22 @@ public class PlayerHealth : MonoBehaviour
     public int currentHealth;
     public Slider healthSlider;
     public Image damageImage;
+    public Image freezeImage;
     public AudioClip deathClip;
     public float flashSpeed = 5f;
+    float freezeSpeed;
     public Color flashColour = new Color(1f, 0f, 0f, 0.1f);
 
+    public Color frozenColor = new Color(0f, 0f, 1f, 0.1f);
 
     Animator anim;
     AudioSource playerAudio;
     PlayerMovement playerMovement;
     PlayerShooting playerShooting;
-    bool isDeath;                                                
-    bool damaged;   
-    bool cheatNoDamage = false;                                            
-
+    bool isDeath;
+    bool damaged;
+    bool cheatNoDamage = false;
+    bool frozen;
 
     void Awake()
     {
@@ -31,7 +34,6 @@ public class PlayerHealth : MonoBehaviour
 
         currentHealth = startingHealth;
     }
-
 
     void Update()
     {
@@ -44,9 +46,15 @@ public class PlayerHealth : MonoBehaviour
             damageImage.color = Color.Lerp(damageImage.color, Color.clear, flashSpeed * Time.deltaTime);
         }
 
-        damaged = false;
-    }
+        if (frozen)
+        {
+            freezeImage.color = frozenColor;
+            StartCoroutine(UnFreeze(freezeSpeed));
+        }
 
+        damaged = false;
+        frozen = false;
+    }
 
     public void TakeDamage(int amount)
     {
@@ -65,6 +73,19 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    public void TakeFreeze(float timeFreeze)
+    {
+        GameControl.control.cantShoot = true;
+        freezeSpeed = timeFreeze;
+        frozen = true;
+    }
+
+    IEnumerator UnFreeze(float frozenTime)
+    {
+        yield return new WaitForSeconds(frozenTime);
+        freezeImage.color = Color.Lerp(freezeImage.color, Color.clear, 5f);
+        GameControl.control.cantShoot = false;
+    }
     public void HealDamage(int amount)
     {
         currentHealth += amount;
@@ -82,12 +103,13 @@ public class PlayerHealth : MonoBehaviour
 
         playerAudio.clip = deathClip;
         playerAudio.Play();
-            
+
         playerMovement.enabled = false;
         playerShooting.enabled = false;
     }
 
-    public void SetCheatNoDamage(bool value) {
+    public void SetCheatNoDamage(bool value)
+    {
         cheatNoDamage = value;
     }
 }
