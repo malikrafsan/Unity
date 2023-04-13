@@ -7,12 +7,10 @@ public class PetHealth : MonoBehaviour
     public int startingHealth = 100;
     public int currentHealth;
     public float sinkSpeed = 2.5f;
-    //public AudioClip deathClip;
-    //public EnemyType enemyType;
-
+    public AudioClip deathClip;
 
     Animator anim;
-    //AudioSource enemyAudio;
+    AudioSource petDeathAudio;
     CapsuleCollider capsuleCollider;
     bool isDeath;
     bool isSinking;
@@ -21,7 +19,7 @@ public class PetHealth : MonoBehaviour
     void Awake ()
     {   
         anim = GetComponent <Animator> ();
-        //enemyAudio = GetComponent <AudioSource> ();
+        petDeathAudio = GetComponent <AudioSource> ();
         capsuleCollider = GetComponent <CapsuleCollider> ();
 
         currentHealth = startingHealth;
@@ -48,9 +46,6 @@ public class PetHealth : MonoBehaviour
         //     currentHealth = 0;
         // }
 
-
-        //enemyAudio.Play ();
-
         currentHealth -= amount;
         print(currentHealth);
 
@@ -65,14 +60,12 @@ public class PetHealth : MonoBehaviour
     {
         currentHealth = 0;
         isDeath = true;
-        print("PET MATIIIIIIIIIII");
 
         capsuleCollider.isTrigger = true;
 
         anim.SetBool("IsDeath", isDeath);
-
-        //enemyAudio.clip = deathClip;
-        //enemyAudio.Play ();
+        petDeathAudio.clip = deathClip;
+        petDeathAudio.Play ();
     }
 
 

@@ -88,7 +88,7 @@ public class EnemyAttack : MonoBehaviour
     {
         timer = 0f;
 
-        if (petHealth.currentHealth > 0)
+        if (petHealth.currentHealth > 0 && playerHealth.currentHealth > 0)
         {
             petHealth.TakeDamage (attackDamage);
         }

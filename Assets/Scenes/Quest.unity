@@ -8263,6 +8263,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeBetweenHeals: 10
   healAmount: 10
+  healClip: {fileID: 0}
 --- !u!114 &756187597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8278,6 +8279,7 @@ MonoBehaviour:
   startingHealth: 100
   currentHealth: 0
   sinkSpeed: 2.5
+  deathClip: {fileID: 8300000, guid: 86e7e5b266acb464fbc1bd81a4b04e68, type: 3}
 --- !u!1 &802023443
 GameObject:
   m_ObjectHideFlags: 0
@@ -10568,7 +10570,7 @@ Transform:
   m_Children:
   - {fileID: 1643283513}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1608202859
 MonoBehaviour:

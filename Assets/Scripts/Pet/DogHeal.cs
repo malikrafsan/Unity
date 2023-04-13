@@ -6,13 +6,18 @@ public class DogHeal : MonoBehaviour
 {
     public float timeBetweenHeals = 10f;
     public int healAmount = 10;
+    public AudioClip healClip;
 
+    Animator anim;
+    AudioSource healAudio;
     GameObject player;
     PlayerHealth playerHealth;
     float timer;
 
     void Awake ()
     {
+        anim = GetComponent <Animator> ();
+        healAudio = GetComponent <AudioSource> ();
         player = GameObject.FindGameObjectWithTag ("Player");
         playerHealth = player.GetComponent <PlayerHealth> ();
     }
@@ -21,15 +26,19 @@ public class DogHeal : MonoBehaviour
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= timeBetweenHeals && playerHealth.currentHealth < 100)
+        if (timer >= timeBetweenHeals && playerHealth.currentHealth < 100 && playerHealth.currentHealth > 0)
         {
-            print("berhasil masuk mau heal");
             Heal ();
         }
         // if (playerHealth.currentHealth <= 0)
         // {
         //     anim.SetTrigger ("PlayerDead");
         // }
+
+        if (playerHealth.currentHealth <= 0)
+        {
+            anim.SetBool("PlayerDeath", true);
+        }
     }
 
     void Heal ()
@@ -41,6 +50,7 @@ public class DogHeal : MonoBehaviour
             print(healAmount);
         }
         //print("masuk healing");
+        healAudio.Play ();
         playerHealth.HealDamage(healAmount);
         healAmount = 10;
     }
