@@ -9,7 +9,6 @@ public class GameControl : MonoBehaviour
 
     public static GameControl control;
 
-    // Do not know how this works :(
     public static GameControl Control {
         set {
             control = value;

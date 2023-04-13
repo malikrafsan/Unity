@@ -17,6 +17,11 @@ public class Temple : MonoBehaviour
     private bool onQuest = false;
     private QuestNumberEnemy questNumberEnemy = null;
 
+    public int IdxCurrentQuest
+    {
+        get => idxCurrentQuest;
+    }
+
     public bool OnQuest { get => onQuest; }
 
     // Start is called before the first frame update
