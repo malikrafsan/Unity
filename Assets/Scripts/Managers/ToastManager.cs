@@ -10,7 +10,8 @@ using UnityEngine.UI;
 class ToastManager : MonoBehaviour
 {
     public static ToastManager Instance { get; private set; }
-
+    private Queue<(string, int)> toasts = new Queue<(string, int)>();
+    private bool isProcessing = false;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,7 +29,12 @@ class ToastManager : MonoBehaviour
     public void ShowToast(string text,
         int duration)
     {
-        StartCoroutine(showToastCOR(text, duration));
+        //StartCoroutine(showToastCOR(text, duration));
+        toasts.Enqueue((text, duration));
+        if (!isProcessing)
+        {
+            StartCoroutine(showMultipleToast());
+        }
     }
 
     private IEnumerator showToastCOR(string text,
@@ -83,6 +89,20 @@ class ToastManager : MonoBehaviour
             targetText.color = new Color(currentColor.r, currentColor.g, currentColor.b, alpha);
 
             yield return null;
+        }
+    }
+
+    IEnumerator showMultipleToast()
+    {
+        isProcessing = true;
+        while (toasts.Count > 0)
+        {
+            var toast = toasts.Dequeue();
+            yield return showToastCOR(toast.Item1, toast.Item2);
+        }
+        if (toasts.Count == 0)
+        {
+            isProcessing = false;
         }
     }
 }

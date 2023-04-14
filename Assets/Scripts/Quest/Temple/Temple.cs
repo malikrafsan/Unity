@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,6 +8,9 @@ public class Temple : MonoBehaviour
 
     [SerializeField]
     private EnemyManager enemyManager;
+
+    [SerializeField]
+    private TimerManager timer;
 
     private readonly QuestType[] stepQuests = { QuestType.FirstQuest, QuestType.SecondQuest, QuestType.ThirdQuest, QuestType.FinalQuest };
     private int idxCurrentQuest = 0;
@@ -40,7 +40,7 @@ public class Temple : MonoBehaviour
     {
         if (playerOnRange && Input.GetKeyDown(KeyCode.G))
         {
-            ToastManager.Instance.ShowToast("ENTERING QUEST",3);
+            ToastManager.Instance.ShowToast("ENTERING QUEST",1);
             EnteringQuest();
         }
     }
@@ -51,7 +51,9 @@ public class Temple : MonoBehaviour
 
         onQuest = true;
         questNumberEnemy = QuestConfig.GetNumberEnemy(stepQuests[idxCurrentQuest]).Clone();
+        
         enemyManager.gameObject.SetActive(true);
+        timer.gameObject.SetActive(true);
     }
 
     private void ExitingQuest()
@@ -66,8 +68,20 @@ public class Temple : MonoBehaviour
             enemy.Death();
             //Destroy(enemy.gameObject);
         }
+
         idxCurrentQuest++;
-        ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed!", 3);
+        ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed!", 1);
+
+        // retrieve the time
+        // add it to the global time
+        // remove the timer
+        var questTime = timer.TakeTime();
+        timer.gameObject.SetActive(false);
+        ToastManager.Instance.ShowToast("Your total time now: " 
+            + System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("ss")
+            + " + " + System.TimeSpan.FromSeconds(questTime).ToString("ss") + " Seconds", 2);
+        GlobalManager.Instance.TotalTime += questTime;
+        ToastManager.Instance.ShowToast(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("ss") + " Seconds", 3);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -76,12 +90,12 @@ public class Temple : MonoBehaviour
         {
             if (onQuest)
             {
-                ToastManager.Instance.ShowToast("- Good Luck with your Quest -",3);
+                ToastManager.Instance.ShowToast("- Good Luck with your Quest -",2);
             }
             else
             {
                 ToastManager.Instance.ShowToast("- Press G to Enter Quest " +
-                    (idxCurrentQuest+1) + " - ",3);
+                    (idxCurrentQuest+1) + " - ",2);
             }
             playerOnRange = true;
         }   
