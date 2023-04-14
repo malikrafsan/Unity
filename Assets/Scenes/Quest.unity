@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4506148, g: 0.49860865, b: 0.56437486, a: 1}
+  m_IndirectSpecularColor: {r: 0.45061475, g: 0.4986083, b: 0.56437457, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 0}
+  m_LightingSettings: {fileID: 4890085278179872738, guid: d7b0617ac341be942b7f2399de93c46f, type: 2}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -8419,6 +8419,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab7a4c084b262f0448c8491897ca3116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  petType: 0
+  timeBetweenBirdAudio: 15
 --- !u!114 &756187596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8447,9 +8449,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingHealth: 100
-  currentHealth: 0
   sinkSpeed: 2.5
   deathClip: {fileID: 8300000, guid: 86e7e5b266acb464fbc1bd81a4b04e68, type: 3}
+  petType: 0
 --- !u!1 &802023443
 GameObject:
   m_ObjectHideFlags: 0
