@@ -10598,11 +10598,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9077082639543174056, guid: 96e44255d011f5c4a961e18f28e7cb82, type: 3}
       propertyPath: m_Name
-      value: IceElemental
+      value: IceElemental Variant
       objectReference: {fileID: 0}
     - target: {fileID: 9077082639543174056, guid: 96e44255d011f5c4a961e18f28e7cb82, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077082639543174056, guid: 96e44255d011f5c4a961e18f28e7cb82, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 9130217464153534764, guid: 96e44255d011f5c4a961e18f28e7cb82, type: 3}
       propertyPath: m_Layer
