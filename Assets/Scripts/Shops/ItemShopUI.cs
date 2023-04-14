@@ -20,10 +20,9 @@ public class ItemShopUI : MonoBehaviour
     {
         itemDB = GetComponent<ItemShopDatabase>();
         resetDatabase();
-        GenerateItemShopUI();
         GameObject.Find("HUDCanvas").GetComponent<HUD>();
         playerWeapons = GameObject.Find("Player").GetComponent<PlayerWeapons>();
-        if (this.name == "Weapon") OnWeaponPurchase(0);
+        GenerateItemShopUI();
     }
 
     void Updating(int index)
@@ -42,6 +41,14 @@ public class ItemShopUI : MonoBehaviour
         Destroy(ShopItemContainer.GetChild(0).gameObject);
         ShopItemContainer.DetachChildren();
 
+        if (this.name == "Weapon")
+        {
+            LoadWeapon();
+        }
+        if (this.name == "Pet")
+        {
+            LoadPet();
+        }
         // Generating items
         for (int i = 0; i < itemDB.ItemsCount; i++)
         {
@@ -66,8 +73,15 @@ public class ItemShopUI : MonoBehaviour
             }
             else
             {
+                if ((item.isWeapon && item.level != 1) || item.weaponType == WeaponType.SimpleGun)
+                {
+                    uiItem.OnItemPurchase(i, OnItemSelectedWeapon);
+                }
+                else
+                {
+                    uiItem.OnItemPurchase(i, OnItemPurchase);
+                }
                 uiItem.SetPrice(item.price);
-                uiItem.OnItemPurchase(i, OnItemPurchase);
             }
         }
     }
@@ -93,10 +107,15 @@ public class ItemShopUI : MonoBehaviour
             playerWeapons.LevelUp(itemSelected.weaponType);
 
             // update Data and UI for leveling up
+            Debug.Log("Leveling up weapon before: " + itemSelected.level);
             itemDB.LevelUpItem(index);
-            string newName = " " + itemSelected.weaponType + " Level " + itemSelected.level;
+            Debug.Log("Leveling up weapon after: " + itemSelected.level);
+
+            string newName = "" + itemSelected.weaponType + " Lvl " + (itemSelected.level + 1);
             itemDB.SetCharacterName(index, newName);
             itemDB.IncreasePrice(index);
+            string newDescription = "Leveling your weapon to level " + (itemSelected.level + 1);
+            itemDB.SetDescription(index, newDescription);
             Updating(index);
         }
         else
@@ -173,11 +192,12 @@ public class ItemShopUI : MonoBehaviour
         ItemUI itemBeingPurchased = GetItemUI(index);
 
         // Set if purchased
-        itemDB.SetDescription(index, "Leveling Up");
+        Item itemPurchasing = itemDB.GetItem(index);
         itemDB.IncreasePrice(index);
         itemDB.LevelUpItem(index);
-        Item itemPurchasing = itemDB.GetItem(index);
-        string newName = " " + itemPurchasing.weaponType + " Lvl " + itemPurchasing.level;
+        itemDB.SetDescription(index, "Leveling your weapon to level " + (itemPurchasing.level + 1));
+
+        string newName = " " + itemPurchasing.weaponType + " Lvl " + (itemPurchasing.level + 1);
         itemDB.SetCharacterName(index, newName);
 
         // Unlock Weapon
@@ -211,7 +231,6 @@ public class ItemShopUI : MonoBehaviour
     // reset Database
     void resetDatabase()
     {
-        int counter = 0;
         if (this.name == "Pet")
         {
             foreach (PetType pet in System.Enum.GetValues(typeof(PetType)))
@@ -225,8 +244,7 @@ public class ItemShopUI : MonoBehaviour
                 bool isWeapon = false;
                 WeaponType weaponType = WeaponType.SimpleGun;
                 int level = 0;
-                itemDB.SetItem(counter, image, description, price, name, isPurchased, isWeapon, weaponType, level);
-                counter++;
+                itemDB.SetItem((int)pet, image, description, price, name, isPurchased, isWeapon, weaponType, level);
             }
         }
         if (this.name == "Weapon")
@@ -234,7 +252,7 @@ public class ItemShopUI : MonoBehaviour
             foreach (WeaponType weapon in System.Enum.GetValues(typeof(WeaponType)))
             {
                 // set item
-                string name = "Weapon " + weapon;
+                string name = weapon + " Lvl 1";
                 string description = "Purchase to Unlock!";
                 int price = 2;
                 Sprite image = Resources.Load<Sprite>("Weapon/" + weapon.ToString());
@@ -242,8 +260,7 @@ public class ItemShopUI : MonoBehaviour
                 bool isWeapon = true;
                 WeaponType weaponType = weapon;
                 int level = 1;
-                itemDB.SetItem(counter, image, description, price, name, isPurchased, isWeapon, weaponType, level);
-                counter++;
+                itemDB.SetItem((int)weapon, image, description, price, name, isPurchased, isWeapon, weaponType, level);
             }
         }
     }
@@ -251,5 +268,57 @@ public class ItemShopUI : MonoBehaviour
     public void SetCheatCurrency(bool value)
     {
         cheatCurrency = value;
+    }
+
+
+    public void LoadWeapon()
+    {
+        var existentWeapon = playerWeapons.Weapons;
+        if (existentWeapon == null)
+        {
+            Debug.Log("Weapon is null, state actually??");
+            Debug.Log(state);
+            return;
+        }
+        foreach (var weapon in existentWeapon)
+        {
+            Debug.Log("Weapon index " + (int)weapon.Type + " " + weapon.Type + " " + weapon.Level);
+
+            string name = weapon.Type + " Lvl " + (weapon.Level);
+            string description = "";
+            int level = weapon.Level;
+            if (weapon.Level == 1 && weapon.Type != WeaponType.SimpleGun)
+                description = "Purchase to Unlock!";
+            else
+            {
+                description = "Leveling your weapon to level " + (weapon.Level + 1);
+                level += 1;
+                name = weapon.Type + " Lvl " + (weapon.Level + 1);
+            }
+            int price = itemDB.GetIncreasePrice((int)weapon.Type);
+            Sprite image = Resources.Load<Sprite>("Weapon/" + weapon.Type.ToString());
+            bool isWeapon = true;
+            WeaponType weaponType = weapon.Type;
+
+            itemDB.SetItem((int)weapon.Type, image, description, price, name, false, isWeapon, weaponType, level);
+        }
+    }
+
+    public void LoadPet()
+    {
+        foreach (PetType pet in System.Enum.GetValues(typeof(PetType)))
+        {
+            Debug.Log("masuk ke pet yang " + pet + "dengan index yang " + (int)pet);
+            // set item
+            string name = "Pet " + pet;
+            string description = "Purchase to Equip!";
+            int price = 30;
+            Sprite image = Resources.Load<Sprite>("Pet/" + pet.ToString());
+            bool isPurchased = false;
+            bool isWeapon = false;
+            WeaponType weaponType = WeaponType.SimpleGun;
+            int level = 0;
+            itemDB.SetItem((int)pet, image, description, price, name, isPurchased, isWeapon, weaponType, level);
+        }
     }
 }

@@ -54,8 +54,22 @@ public class ItemShopDatabase : MonoBehaviour
 
         if (temp.isWeapon)
         {
-            items[index].price = items[index].price * (items[index].level + 1);
+            for (int i = 0; i < items[index].level; i++)
+            {
+                items[index].price = 100 * (items[index].level + 1);
+            }
         }
+    }
+
+    public int GetIncreasePrice(int index)
+    {
+        Item temp = items[index];
+
+        if (temp.isWeapon)
+        {
+            IncreasePrice(index);
+        }
+        return items[index].price;
     }
 
     public void SetCharacterName(int index, string newName)

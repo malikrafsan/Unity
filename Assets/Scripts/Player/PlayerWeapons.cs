@@ -94,6 +94,7 @@ public class PlayerWeapons : MonoBehaviour
         if (idx == -1) return false;
 
         Weapons[idx].handler.IncrementLevel();
+        Debug.Log("Current Level is" + Weapons[idx].handler.Level);
         return true;
     }
 
