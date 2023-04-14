@@ -12,9 +12,6 @@ public class SpawnEffect : MonoBehaviour {
     float timer = 0;
     Renderer _renderer;
 
-    public GameObject from;
-    public GameObject destination;
-
     int shaderProperty;
 
 	void Start ()
@@ -22,7 +19,7 @@ public class SpawnEffect : MonoBehaviour {
         shaderProperty = Shader.PropertyToID("_cutoff");
         _renderer = GetComponent<Renderer>();
         ps = GetComponentInChildren <ParticleSystem>();
-        
+
         var main = ps.main;
         main.duration = spawnEffectTime;
 
@@ -40,8 +37,6 @@ public class SpawnEffect : MonoBehaviour {
         {
             ps.Play();
             timer = 0;
-            
-            // return to the thing and then gemink wkwkwkwkwkw
         }
 
 
