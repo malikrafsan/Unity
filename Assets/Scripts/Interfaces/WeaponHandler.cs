@@ -5,6 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 public interface WeaponHandler {
-    int Level { get; }
+    int Level { get; set; }
     public void IncrementLevel();
 }

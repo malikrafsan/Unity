@@ -33,6 +33,10 @@ public class PlayerBow : MonoBehaviour, WeaponHandler
         {
             return level;
         }
+        set
+        {
+            level = value;
+        }
     }
 
     void Awake()

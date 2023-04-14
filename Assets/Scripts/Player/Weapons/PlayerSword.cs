@@ -14,6 +14,10 @@ public class PlayerSword : MonoBehaviour, WeaponHandler
         {
             return level;
         }
+        set
+        {
+            level = value;
+        }
     }
 
     // Start is called before the first frame update

@@ -19,6 +19,10 @@ public class Weapon
         {
             return handler.Level;
         }
+        set
+        {
+            handler.Level = value;
+        }
     }
 
     public readonly WeaponHandler handler;

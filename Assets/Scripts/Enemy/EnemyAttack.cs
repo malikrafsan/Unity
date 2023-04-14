@@ -62,7 +62,7 @@ public class EnemyAttack : MonoBehaviour
             Attack ();
         }
 
-        if(timer >= timeBetweenAttacks && petInRange && enemyHealth.currentHealth > 0)
+        if(timer >= timeBetweenAttacks && petInRange && enemyHealth.currentHealth > 0 && petHealth != null)
         {
             AttackPet ();
         }

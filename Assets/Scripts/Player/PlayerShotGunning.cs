@@ -34,6 +34,10 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
         {
             return level;
         }
+        set
+        {
+            level = value;
+        }
     }
 
     void Awake()

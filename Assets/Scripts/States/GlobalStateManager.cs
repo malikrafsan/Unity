@@ -136,6 +136,18 @@ public class GlobalStateManager : MonoBehaviour
         playerHealth.currentHealth = state.playerStateSave.health;
         GameControl.control.currency = state.playerStateSave.money;
         temple.IdxCurrentQuest = state.playerStateSave.idxQuest;
+        foreach (var weapon in state.playerStateSave.playerWeapons)
+        {
+            var type = weapon.weaponType;
+            var isUnlocked = weapon.isUnlocked;
+            var level = weapon.level;
+
+            if (isUnlocked)
+            {
+                playerWeapons.UnlockWeapon(type);
+                playerWeapons.SetLevel(type, level);
+            }
+        }
 
         // TODO: set player state save
 
