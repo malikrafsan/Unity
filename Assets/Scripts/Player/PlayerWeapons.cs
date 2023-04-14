@@ -106,6 +106,15 @@ public class PlayerWeapons : MonoBehaviour
         return true;
     }
 
+    public bool SetLevel(WeaponType weaponType, int level)
+    {
+        int idx = GetIdxWeapon(weaponType);
+        if (idx == -1) return false;
+
+        Weapons[idx].Level = level;
+        return true;
+    }
+
     private void IncrementIdxWeapon()
     {
         idxWeapon++;

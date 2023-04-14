@@ -26,9 +26,22 @@ public class PlayerMovement : MonoBehaviour
 
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-
-        Moving(horizontal, vertical);
-        Turning();
+        if (horizontal == 0 && vertical == 0)
+        {
+            playerRigidBody.velocity = Vector3.zero;
+        }
+        else
+        {
+            Moving(horizontal, vertical);
+        }
+        if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
+        {
+            Turning();
+        }
+        else
+        {
+            playerRigidBody.angularVelocity = Vector3.zero;
+        }
         Animating(horizontal, vertical);
 
     }
@@ -36,10 +49,10 @@ public class PlayerMovement : MonoBehaviour
     private void Moving(float horizontal, float vertical)
     {
         movement.Set(horizontal, 0f, vertical);
-
-        movement = movement.normalized * speed * Time.deltaTime;
-
-        playerRigidBody.MovePosition(transform.position + movement);
+        movement = movement.normalized;
+        var newVelocity = movement * speed;
+        var VelocityChange = (newVelocity - playerRigidBody.velocity);
+        playerRigidBody.velocity = movement * speed;
     }
 
     private void Turning()
@@ -47,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit floorHit;
 
-        if(Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
+        if (Physics.Raycast(camRay, out floorHit, camRayLength, floorMask))
         {
             Vector3 playerToMouse = floorHit.point - transform.position;
             playerToMouse.y = 0;

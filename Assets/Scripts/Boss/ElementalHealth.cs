@@ -67,7 +67,7 @@ public class ElementalHealth : MonoBehaviour
 
         // enemyAudio.clip = deathClip;
         // enemyAudio.Play ();
-        // questTemple.OnDeathEnemy(enemyType);
+        questTemple.OnDeathEnemy(enemyType);
 
         GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;

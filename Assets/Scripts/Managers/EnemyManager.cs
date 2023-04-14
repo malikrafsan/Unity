@@ -2,6 +2,9 @@
 
 public class EnemyManager : MonoBehaviour
 {
+    // count times activated
+    private int count = 0;
+    private bool isBoss = false;
     public PlayerHealth playerHealth;
     public float spawnTime = 3f;
 
@@ -27,10 +30,15 @@ public class EnemyManager : MonoBehaviour
         {
             return;
         }
+        if (!isBoss)
+        {
+            int spawnEnemy = Random.Range(0, 3);
 
-        int spawnEnemy = Random.Range(0, 3);
-
-        Factory.FactoryMethod(spawnEnemy);
+            Factory.FactoryMethod(spawnEnemy);
+            return;
+        }
+        Factory.FactoryMethod(3);
+        isBoss = false;
     }
 
     private void OnDisable()
@@ -41,6 +49,9 @@ public class EnemyManager : MonoBehaviour
 
     private void OnEnable()
     {
+        count++;
+        // fill count with last quest
+        if (count == 4) isBoss = true;
         Debug.Log("Turn on " + nameof(this.Spawn));
         InvokeRepeating(nameof(this.Spawn), spawnTime, spawnTime);
     }

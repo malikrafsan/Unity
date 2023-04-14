@@ -4,8 +4,18 @@ using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
+    private int _currentHealth = -1;
+
     public readonly int startingHealth = 100;
-    public int currentHealth;
+    public int currentHealth
+    {
+        get => _currentHealth;
+        set
+        {
+            _currentHealth = value;
+            healthSlider.value = currentHealth;
+        }
+    }
     public Slider healthSlider;
     public Image damageImage;
     public Image freezeImage;
@@ -32,7 +42,12 @@ public class PlayerHealth : MonoBehaviour
         playerMovement = GetComponent<PlayerMovement>();
         playerShooting = GetComponentInChildren<PlayerShooting>();
 
-        currentHealth = startingHealth;
+        if (currentHealth == -1)
+        {
+            currentHealth = startingHealth;
+        }
+
+        healthSlider.value = currentHealth;
     }
 
     void Update()

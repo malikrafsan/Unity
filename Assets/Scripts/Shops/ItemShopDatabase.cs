@@ -2,58 +2,74 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// FUngsi kelas ini adalah database dari shop item
-[CreateAssetMenu (fileName = "ItemShopDatabase", menuName = "Shopping/Items shop database")]
-public class ItemShopDatabase : ScriptableObject
-{   
+// Fungsi kelas ini adalah database dari shop item
+public class ItemShopDatabase : MonoBehaviour
+{
     public Item[] items;
 
-    public int ItemsCount {
+    public ItemShopDatabase(int size)
+    {
+        items = new Item[size];
+    }
+
+    public int ItemsCount
+    {
         get { return items.Length; }
     }
 
-    public Item GetItem (int index){
+    public Item GetItem(int index)
+    {
         return items[index];
     }
 
-    public void LevelUpItem (int index) {
+    public void LevelUpItem(int index)
+    {
         Item temp = items[index];
 
-        if ( temp.isWeapon ) {
+        if (temp.isWeapon)
+        {
             items[index].level++;
         }
     }
 
-    public void SetItemAsPurchased (int index) {
+    public void SetItemAsPurchased(int index)
+    {
         Item temp = items[index];
         items[index].isPurchased = true;
     }
 
-    public void SetDescription (int index, string newDescription) {
+    public void SetDescription(int index, string newDescription)
+    {
         Item temp = items[index];
 
-        if ( temp.isWeapon ) {
+        if (temp.isWeapon)
+        {
             items[index].description = newDescription;
         }
     }
 
-    public void IncreasePrice (int index) {
+    public void IncreasePrice(int index)
+    {
         Item temp = items[index];
 
-        if ( temp.isWeapon ) {
+        if (temp.isWeapon)
+        {
             items[index].price = items[index].price * (items[index].level + 1);
         }
     }
 
-    public void SetCharacterName (int index, string newName) {
+    public void SetCharacterName(int index, string newName)
+    {
         Item temp = items[index];
 
-        if ( temp.isWeapon ) {
+        if (temp.isWeapon)
+        {
             items[index].characterName = newName;
         }
     }
 
-    public void SetItem(int index, Item newItem) {
+    public void SetItem(int index, Item newItem)
+    {
         items[index].characterName = newItem.characterName;
         items[index].description = newItem.description;
         items[index].level = newItem.level;
@@ -61,16 +77,19 @@ public class ItemShopDatabase : ScriptableObject
         items[index].isPurchased = newItem.isPurchased;
     }
 
-    public void SetPurchase(int index, bool purchase) {
+    public void SetPurchase(int index, bool purchase)
+    {
         items[index].isPurchased = purchase;
     }
 
-    public void SetPrice(int index, int newPrice) {
+    public void SetPrice(int index, int newPrice)
+    {
         items[index].price = newPrice;
     }
 
     // make setters for item
-    public void SetItem (int index, Sprite image, string description, int price, string characterName, bool isPurchased, bool isWeapon, WeaponType weaponType, int level) {
+    public void SetItem(int index, Sprite image, string description, int price, string characterName, bool isPurchased, bool isWeapon, WeaponType weaponType, int level)
+    {
         items[index].image = image;
         items[index].description = description;
         items[index].price = price;
