@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,7 +24,20 @@ class ToastManager : MonoBehaviour
         }
     }
 
-    public Text txt;
+    private Text _txt;
+    public Text txt
+    {
+        get
+        {
+            if (_txt == null)
+            {
+                _txt = GameObject.Find("HUDCanvas/Toast").GetComponent<Text>();
+                Debug.Log("txt: " + _txt);
+            }
+
+            return _txt;
+        }
+    }
 
     public void ShowToast(string text,
         int duration)

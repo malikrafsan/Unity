@@ -10,6 +10,7 @@ public class GlobalStateManager : MonoBehaviour
     private PlayerWeapons playerWeapons;
     private PlayerHealth playerHealth;
     private Temple temple;
+    private PetHealth petHealth;
 
     private void Awake()
     {
@@ -20,10 +21,16 @@ public class GlobalStateManager : MonoBehaviour
         else
         {
             Instance = this;
-            playerWeapons = FindObjectOfType<PlayerWeapons>();
-            playerHealth = FindObjectOfType<PlayerHealth>();
-            temple = FindObjectOfType<Temple>();
+            RefreshAttrs();
         }
+    }
+
+    private void RefreshAttrs()
+    {
+        playerWeapons = FindObjectOfType<PlayerWeapons>();
+        playerHealth = FindObjectOfType<PlayerHealth>();
+        temple = FindObjectOfType<Temple>();
+        petHealth = FindObjectOfType<PetHealth>();
     }
 
     public int Money
@@ -125,13 +132,14 @@ public class GlobalStateManager : MonoBehaviour
 
     public void SetState(StateSave state)
     {
+        RefreshAttrs();
+
         // TODO: SET STATES
-        Debug.Log("STATE: " + state.ToString());
 
         // TODO: set meta state save
+        GlobalManager.Instance.MetaStateSave = state.metaStateSave;
 
-
-        // TODO: set meta player save
+        // TODO: set player state save
         GlobalManager.Instance.PlayerName = state.playerStateSave.playerName;
         playerHealth.currentHealth = state.playerStateSave.health;
         GameControl.control.currency = state.playerStateSave.money;
@@ -149,8 +157,10 @@ public class GlobalStateManager : MonoBehaviour
             }
         }
 
-        // TODO: set player state save
+        // TODO: set pet state save
+        petHealth.currentHealth = state.petStateSave.health;
 
         // TODO: global state save
+        GlobalManager.Instance.TimePlayed = state.globalStateSave.timePlayed;
     }
 }

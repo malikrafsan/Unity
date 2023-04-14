@@ -2,12 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.Rendering;
 
 public class SaveLoadManager : MonoBehaviour
 {
     public static SaveLoadManager Instance {  get; private set; }
 
-    private SaveDialogHandler saveDialog;
+
+    private SaveDialogHandler _saveDialog;
+    public SaveDialogHandler saveDialog
+    {
+        get
+        {
+            if (_saveDialog == null)
+            {
+                _saveDialog = FindObjectOfType<SaveDialogHandler>();
+            }
+
+            return _saveDialog;
+        }
+    }
 
     private void Awake()
     {
@@ -18,7 +32,6 @@ public class SaveLoadManager : MonoBehaviour
         else
         {
             Instance = this;
-            this.saveDialog = FindObjectOfType<SaveDialogHandler>();
             DontDestroyOnLoad(gameObject);
         }
     }
@@ -61,14 +74,26 @@ public class SaveLoadManager : MonoBehaviour
 
     public void LoadState(int Id)
     {
-        var file = SaveLoadConfig.files[Id];
+        var state = GetSavedStateFromFile(Id);
+        if (state != null)
+        {
+            Debug.Log("Load State " + Id);
+            GlobalStateManager.Instance.SetState(state);
+        }
+    }
+
+    public StateSave GetSavedStateFromFile(int id)
+    {
+        var file = SaveLoadConfig.files[id];
         var path = Application.persistentDataPath + "/" + file + ".json";
         if (File.Exists(path))
         {
             string json = File.ReadAllText(path);
             Debug.Log("JSON:" + json);
             StateSave state = JsonUtility.FromJson<StateSave>(json);
-            GlobalStateManager.Instance.SetState(state);
+            return state;
         }
+
+        return null;
     }
 }

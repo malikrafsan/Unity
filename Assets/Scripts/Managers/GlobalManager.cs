@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class GlobalManager : MonoBehaviour
 {
     public static GlobalManager Instance;
-    private GlobalStateManager globalState;
+    private GlobalStateManager globalStateManager;
     private string playerName;
     public string PlayerName
     {
@@ -14,6 +15,46 @@ public class GlobalManager : MonoBehaviour
         set
         {
             playerName = value;
+        }
+    }
+
+    private MetaStateSave metaStateSave;
+    public MetaStateSave MetaStateSave
+    {
+        get => metaStateSave;
+        set
+        {
+            metaStateSave = value;
+        }
+    }
+
+    private double timePlayed;
+    public double TimePlayed
+    {
+        get => timePlayed;
+        set
+        {
+            timePlayed = value;
+        }
+    }
+
+    private bool isFirstLoad = false;
+    public bool IsFirstLoad
+    {
+        get => isFirstLoad;
+        set
+        {
+            isFirstLoad = value;
+        }
+    }
+
+    private int idxSaveSlot = -1;
+    public int IdxSaveSlot
+    {
+        get => idxSaveSlot;
+        set
+        {
+            idxSaveSlot = value;
         }
     }
 
@@ -26,8 +67,23 @@ public class GlobalManager : MonoBehaviour
         }
 
         Instance = this;
-        globalState = GlobalStateManager.Instance;
+        OnAwake();
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnAwake()
+    {
+        globalStateManager = GlobalStateManager.Instance;
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
+    {
+        if (arg0.name == "Quest")
+        {
+            Debug.Log("ON SCENE LOADED");
+            SaveLoadManager.Instance.LoadState(idxSaveSlot);
+        }
     }
 
     // Start is called before the first frame update

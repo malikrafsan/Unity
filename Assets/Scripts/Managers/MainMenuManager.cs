@@ -12,11 +12,26 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnClickLoadGame()
     {
+        GlobalManager.Instance.IdxSaveSlot = 2;
+        GlobalManager.Instance.IsFirstLoad = true;
         SceneManager.LoadScene("Quest");
     }
 
     public void OnClickSettings()
     {
 
+    }
+
+    private void Update()
+    {
+        var gm = GlobalManager.Instance;
+        if (gm != null)
+        {
+            Debug.Log("NOT NULL");
+        }
+        else
+        {
+            Debug.Log("null");
+        }
     }
 }
