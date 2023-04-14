@@ -6,7 +6,7 @@ using System.IO;
 public class GlobalManager : MonoBehaviour
 {
     public static GlobalManager Instance;
-    private GlobalStateManager globalState;
+    private GlobalStateManager globalStateManager;
     private string playerName;
     public string PlayerName
     {
@@ -15,6 +15,24 @@ public class GlobalManager : MonoBehaviour
         {
             playerName = value;
         }
+    }
+
+    private int idxLoadSlot = -1;
+    public int IdxLoadSlot
+    {
+        get => idxLoadSlot;
+        set
+        {
+            idxLoadSlot = value;
+            stateSave = SaveLoadManager.Instance.GetStateFromFile(idxLoadSlot);
+            OnLoad();
+        }
+    }
+
+    private StateSave stateSave = null;
+    public StateSave StateSave
+    {
+        get => stateSave;
     }
 
     private void Awake()
@@ -26,8 +44,13 @@ public class GlobalManager : MonoBehaviour
         }
 
         Instance = this;
-        globalState = GlobalStateManager.Instance;
+        globalStateManager = GlobalStateManager.Instance;
         DontDestroyOnLoad(gameObject);
+    }
+
+    private void OnLoad()
+    {
+        playerName = stateSave.playerStateSave.playerName;
     }
 
     // Start is called before the first frame update

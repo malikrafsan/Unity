@@ -132,7 +132,7 @@ public class GlobalStateManager : MonoBehaviour
 
 
         // TODO: set meta player save
-        GlobalManager.Instance.PlayerName = state.playerStateSave.playerName;
+/*        GlobalManager.Instance.PlayerName = state.playerStateSave.playerName;
         playerHealth.currentHealth = state.playerStateSave.health;
         GameControl.control.currency = state.playerStateSave.money;
         temple.IdxCurrentQuest = state.playerStateSave.idxQuest;
@@ -147,7 +147,7 @@ public class GlobalStateManager : MonoBehaviour
                 playerWeapons.UnlockWeapon(type);
                 playerWeapons.SetLevel(type, level);
             }
-        }
+        }*/
 
         // TODO: set player state save
 

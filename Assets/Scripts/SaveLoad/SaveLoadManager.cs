@@ -61,7 +61,7 @@ public class SaveLoadManager : MonoBehaviour
 
     public void LoadState(int Id)
     {
-        var file = SaveLoadConfig.files[Id];
+/*        var file = SaveLoadConfig.files[Id];
         var path = Application.persistentDataPath + "/" + file + ".json";
         if (File.Exists(path))
         {
@@ -69,6 +69,26 @@ public class SaveLoadManager : MonoBehaviour
             Debug.Log("JSON:" + json);
             StateSave state = JsonUtility.FromJson<StateSave>(json);
             GlobalStateManager.Instance.SetState(state);
+        }*/
+        var state = GetStateFromFile(Id);
+        if (state != null)
+        {
+            GlobalStateManager.Instance.SetState(state);
         }
+    }
+
+    public StateSave GetStateFromFile(int id)
+    {
+        var file = SaveLoadConfig.files[id];
+        var path = Application.persistentDataPath + "/" + file + ".json";
+        if (File.Exists(path))
+        {
+            string json = File.ReadAllText(path);
+            Debug.Log("JSON:" + json);
+            StateSave state = JsonUtility.FromJson<StateSave>(json);
+            return state;
+        }
+
+        return null;
     }
 }
