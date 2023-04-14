@@ -8,7 +8,7 @@ public class TimerManager : MonoBehaviour
 {
 
     public Text Timer;
-    double time = 0;
+    private double time = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +20,18 @@ public class TimerManager : MonoBehaviour
         time = time + Time.deltaTime;
         string timeText = System.TimeSpan.FromSeconds(time).ToString("mm':'ss");
         Timer.text = timeText;
+    }
+
+    public void ResetTimer()
+    {
+        time = 0;
+    }
+
+    public double TakeTime()
+    {
+        var r = time;
+        ResetTimer();
+        return r;
     }
 }
 

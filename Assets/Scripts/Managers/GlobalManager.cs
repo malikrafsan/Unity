@@ -9,12 +9,21 @@ public class GlobalManager : MonoBehaviour
     public static GlobalManager Instance;
     private GlobalStateManager globalStateManager;
     private string playerName;
+    private double totalTime;
     public string PlayerName
     {
         get => playerName;
         set
         {
             playerName = value;
+        }
+    }
+    public double TotalTime
+    {
+        get => totalTime;
+        set
+        {
+            totalTime = value;
         }
     }
 
