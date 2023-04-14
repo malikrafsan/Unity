@@ -100,6 +100,22 @@ public class GlobalStateManager : MonoBehaviour
         }
     }
 
+    public int PetHealth
+    {
+        get
+        {
+            return petHealth.currentHealth;
+        }
+    }
+
+    public double TimePlayed
+    {
+        get
+        {
+            return GlobalManager.Instance.TimePlayed;
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -112,6 +128,8 @@ public class GlobalStateManager : MonoBehaviour
 
     public StateSave GetState()
     {
+        RefreshAttrs();
+
         var playerWeapons = new PlayerWeapon[4];
         for (int i = 0; i < Weapons.Length; i++)
         {
@@ -123,8 +141,8 @@ public class GlobalStateManager : MonoBehaviour
         // TODO: get states
         var metaStateSave = new MetaStateSave("name");
         var playerStateSave = new PlayerStateSave(PlayerName, Money, Health, IdxQuest, playerWeapons);
-        var petStateSave = new PetStateSave(100, -1);
-        var globalStateSave = new GlobalStateSave(319.123);
+        var petStateSave = new PetStateSave(PetHealth, -1);
+        var globalStateSave = new GlobalStateSave(TimePlayed);
 
         var state = new StateSave(metaStateSave, playerStateSave, petStateSave, globalStateSave);
         return state;
