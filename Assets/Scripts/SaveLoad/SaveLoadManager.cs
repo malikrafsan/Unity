@@ -16,7 +16,7 @@ public class SaveLoadManager : MonoBehaviour
         {
             if (_saveDialog == null)
             {
-                _saveDialog = FindObjectOfType<SaveDialogHandler>();
+                _saveDialog = GameObject.Find("HUDCanvas").GetComponentInChildren<SaveDialogHandler>();
             }
 
             return _saveDialog;
