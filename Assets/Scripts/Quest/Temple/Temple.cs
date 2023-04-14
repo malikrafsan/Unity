@@ -20,6 +20,10 @@ public class Temple : MonoBehaviour
     public int IdxCurrentQuest
     {
         get => idxCurrentQuest;
+        set
+        {
+            idxCurrentQuest = value;
+        }
     }
 
     public bool OnQuest { get => onQuest; }

@@ -27,7 +27,7 @@ public class SavePlace : MonoBehaviour
 
         if (onArea && Input.GetKeyDown(KeyCode.N))
         {
-            SaveLoadManager.Instance.LoadState(0);
+            SaveLoadManager.Instance.LoadState(2);
         }
     }
 
