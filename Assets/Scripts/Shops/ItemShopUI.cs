@@ -6,18 +6,19 @@ using UnityEngine.UI;
 // Fungsi kelas ini untuk shop UI
 public class ItemShopUI : MonoBehaviour
 {
-
+    ItemShopDatabase itemDB;
     [Space(20f)]
     [SerializeField] Transform ShopItemContainer;
     [SerializeField] GameObject itemPrefab;
 
     [Space(20f)]
-    [SerializeField] ItemShopDatabase itemDB;
     [SerializeField] Text messageError;
     PlayerWeapons playerWeapons;
     private bool cheatCurrency = false;
 
-    void Start() {
+    void Start()
+    {
+        itemDB = GetComponent<ItemShopDatabase>();
         resetDatabase();
         GenerateItemShopUI();
         GameObject.Find("HUDCanvas").GetComponent<HUD>();
@@ -25,55 +26,65 @@ public class ItemShopUI : MonoBehaviour
         if (this.name == "Weapon") OnWeaponPurchase(0);
     }
 
-    void Updating(int index){
+    void Updating(int index)
+    {
         ItemUI uiItem = GetItemUI(index);
         Item item = itemDB.GetItem(index);
 
-        uiItem.SetCharacterName (item.characterName);
-        uiItem.SetDescription (item.description);
-        uiItem.SetPrice (item.price);
+        uiItem.SetCharacterName(item.characterName);
+        uiItem.SetDescription(item.description);
+        uiItem.SetPrice(item.price);
     }
 
-    void GenerateItemShopUI() {
+    void GenerateItemShopUI()
+    {
         // Clearing items
-        Destroy (ShopItemContainer.GetChild(0).gameObject);
+        Destroy(ShopItemContainer.GetChild(0).gameObject);
         ShopItemContainer.DetachChildren();
 
         // Generating items
-        for (int i = 0; i < itemDB.ItemsCount; i++) {
+        for (int i = 0; i < itemDB.ItemsCount; i++)
+        {
             Item item = itemDB.GetItem(i);
-            ItemUI uiItem = Instantiate (itemPrefab, ShopItemContainer).GetComponent<ItemUI>();
+            ItemUI uiItem = Instantiate(itemPrefab, ShopItemContainer).GetComponent<ItemUI>();
 
             // Item name in hierarchy
             uiItem.gameObject.name = "Item " + item.characterName;
 
             // Add information
-            uiItem.SetCharacterName (item.characterName);
-            uiItem.SetDescription (item.description);
-            uiItem.SetItemImage (item.image);
-            uiItem.SetPrice (item.price);
+            uiItem.SetCharacterName(item.characterName);
+            uiItem.SetDescription(item.description);
+            uiItem.SetItemImage(item.image);
+            uiItem.SetPrice(item.price);
 
             // Pertama kali load jika weapon atau tidak,
             // FIX: do not use isPurchased
-            if (item.isPurchased) {
+            if (item.isPurchased)
+            {
                 uiItem.SetItemAsPurchased();
                 uiItem.OnItemSelect(i, OnItemSelectedPet);
-            } else {
-                uiItem.SetPrice (item.price);
+            }
+            else
+            {
+                uiItem.SetPrice(item.price);
                 uiItem.OnItemPurchase(i, OnItemPurchase);
             }
         }
     }
 
-    void OnItemSelectedPet(int index) {
+    void OnItemSelectedPet(int index)
+    {
         Debug.Log("already bought man");
     }
 
-    void OnItemSelectedWeapon(int index) {
+    void OnItemSelectedWeapon(int index)
+    {
         Item itemPurchasing = itemDB.GetItem(index);
-        if ( GameControl.control.isEnough(itemPurchasing.price) ) {
+        if (GameControl.control.isEnough(itemPurchasing.price))
+        {
             //purchasing
-            if (!cheatCurrency){
+            if (!cheatCurrency)
+            {
                 GameControl.control.minusCurrency(itemPurchasing.price);
             }
 
@@ -87,34 +98,45 @@ public class ItemShopUI : MonoBehaviour
             itemDB.SetCharacterName(index, newName);
             itemDB.IncreasePrice(index);
             Updating(index);
-        } else {
+        }
+        else
+        {
             // Keluar Text Not Enough Money
             messageError.text = "Money is not enough!!";
             StartCoroutine(executeAfter(3));
         }
     }
 
-    void OnItemPurchase (int index) {
+    void OnItemPurchase(int index)
+    {
 
         Item itemPurchasing = itemDB.GetItem(index);
 
         // Check if enough money
-        if ( GameControl.control.isEnough(itemPurchasing.price) ) {
+        if (GameControl.control.isEnough(itemPurchasing.price))
+        {
 
             //purchasing
-            if (itemPurchasing.isWeapon) {
-                if (!cheatCurrency){
+            if (itemPurchasing.isWeapon)
+            {
+                if (!cheatCurrency)
+                {
                     GameControl.control.minusCurrency(itemPurchasing.price);
                 }
-                if (itemPurchasing.level == 1) {
+                if (itemPurchasing.level == 1)
+                {
                     OnWeaponPurchase(index);
                     return;
                 }
                 OnItemSelectedWeapon(index);
-            } else {
+            }
+            else
+            {
                 OnPetPurchase(index);
             }
-        } else {
+        }
+        else
+        {
             // TO DO: Keluar Animasi Not Enough Money
             messageError.text = "Money is not enough!!";
             StartCoroutine(executeAfter(3));
@@ -122,16 +144,19 @@ public class ItemShopUI : MonoBehaviour
     }
 
     // purchase pets
-    void OnPetPurchase (int index) {
+    void OnPetPurchase(int index)
+    {
         // TODO: initiate prefab pets in scene and only one pet can be active
-        if (GameControl.control.petCount == 1) {
+        if (GameControl.control.petCount == 1)
+        {
             messageError.text = "You can only have 1 pet!";
             StartCoroutine(executeAfter(3));
             return;
         }
         Item itemPurchasing = itemDB.GetItem(index);
         ItemUI itemBeingPurchased = GetItemUI(index);
-        if (!cheatCurrency) {
+        if (!cheatCurrency)
+        {
             GameControl.control.minusCurrency(itemPurchasing.price);
         }
         // Set if purchased
@@ -142,7 +167,8 @@ public class ItemShopUI : MonoBehaviour
     }
 
     // Equip Purchase Weapon
-    void OnWeaponPurchase (int index) {
+    void OnWeaponPurchase(int index)
+    {
         // Getting item from DB and UI
         ItemUI itemBeingPurchased = GetItemUI(index);
 
@@ -163,48 +189,67 @@ public class ItemShopUI : MonoBehaviour
         Updating(index);
     }
 
-    private IEnumerator executeAfter(int secs) {
+    private IEnumerator executeAfter(int secs)
+    {
         yield return new WaitForSeconds(secs);
         messageError.text = "";
     }
 
     // getters
-    ItemUI GetItemUI(int index) {
+    ItemUI GetItemUI(int index)
+    {
         return ShopItemContainer.GetChild(index).GetComponent<ItemUI>();
     }
 
-    ItemUI GetItemUI(string name) {
+    ItemUI GetItemUI(string name)
+    {
         string temp = "Item " + name;
-        Transform test =  ShopItemContainer.Find(temp);
+        Transform test = ShopItemContainer.Find(temp);
         return test.GetComponent<ItemUI>();
     }
 
     // reset Database
-    void resetDatabase(){
+    void resetDatabase()
+    {
         int counter = 0;
-        if (this.name == "Pet") {
-            // Set For Later
+        if (this.name == "Pet")
+        {
+            foreach (PetType pet in System.Enum.GetValues(typeof(PetType)))
+            {
+                // set item
+                string name = "Pet " + pet;
+                string description = "Purchase to Equip!";
+                int price = 30;
+                Sprite image = Resources.Load<Sprite>("Pet/" + pet.ToString());
+                bool isPurchased = false;
+                bool isWeapon = false;
+                WeaponType weaponType = WeaponType.SimpleGun;
+                int level = 0;
+                itemDB.SetItem(counter, image, description, price, name, isPurchased, isWeapon, weaponType, level);
+                counter++;
+            }
         }
-        if (this.name == "Weapon") {
-            foreach (WeaponType weapon in System.Enum.GetValues(typeof(WeaponType))) {
+        if (this.name == "Weapon")
+        {
+            foreach (WeaponType weapon in System.Enum.GetValues(typeof(WeaponType)))
+            {
                 // set item
                 string name = "Weapon " + weapon;
                 string description = "Purchase to Unlock!";
                 int price = 2;
-                // TODO: FInd Images for each weapon
-                Sprite image = Resources.Load<Sprite>("Weapon/gold_coin-removebg-preview");
+                Sprite image = Resources.Load<Sprite>("Weapon/" + weapon.ToString());
                 bool isPurchased = false;
                 bool isWeapon = true;
                 WeaponType weaponType = weapon;
                 int level = 1;
-
-                itemDB.SetItem (counter, image, description, price, name, isPurchased, isWeapon, weaponType, level);
-                counter++; 
+                itemDB.SetItem(counter, image, description, price, name, isPurchased, isWeapon, weaponType, level);
+                counter++;
             }
         }
     }
 
-    public void SetCheatCurrency(bool value) {
+    public void SetCheatCurrency(bool value)
+    {
         cheatCurrency = value;
     }
 }
