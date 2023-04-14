@@ -81,7 +81,13 @@ public class SaveDialogHandler : MonoBehaviour
 
             this.saveSlotHandlers[i] = slot;
         }
-        this.gameObject.SetActive(false);
+        /*        var children = this.gameObject.GetComponentsInChildren<GameObject>();
+                foreach (var child in children)
+                {
+                    child.gameObject.SetActive(false);
+                }*/
+        Close();
+
     }
 
     // Start is called before the first frame update
@@ -98,12 +104,20 @@ public class SaveDialogHandler : MonoBehaviour
 
     public void Show()
     {
-        this.gameObject.SetActive(true);
+        var children = transform.childCount;
+        for (var i = 0; i < children; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(true);
+        }
     }
 
     public void Close()
     {
-        this.gameObject.SetActive(false);
+        var children = transform.childCount;
+        for (var i = 0; i < children; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
     }
 
     private void OnEnable()

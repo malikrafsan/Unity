@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
+    private LoadDialogHandler loadDialogHandler;
+
+    private void Awake()
+    {
+        this.loadDialogHandler = FindObjectOfType<LoadDialogHandler>();
+        this.loadDialogHandler.gameObject.SetActive(false);
+    }
+
     public void OnClickNewGame()
     {
         SceneManager.LoadScene("Cutscene2");
@@ -12,9 +20,10 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnClickLoadGame()
     {
-        GlobalManager.Instance.IdxSaveSlot = 2;
+/*        GlobalManager.Instance.IdxSaveSlot = 2;
         GlobalManager.Instance.IsFirstLoad = true;
-        SceneManager.LoadScene("Quest");
+        SceneManager.LoadScene("Quest");*/
+        this.loadDialogHandler.gameObject.SetActive(true);
     }
 
     public void OnClickSettings()

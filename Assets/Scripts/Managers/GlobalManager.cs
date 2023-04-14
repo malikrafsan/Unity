@@ -88,7 +88,7 @@ public class GlobalManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)
     {
-        if (arg0.name == "Quest")
+        if (arg0.name == "Quest" && isFirstLoad)
         {
             Debug.Log("ON SCENE LOADED");
             SaveLoadManager.Instance.LoadState(idxSaveSlot);
