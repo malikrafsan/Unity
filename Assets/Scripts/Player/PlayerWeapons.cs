@@ -12,7 +12,7 @@ public class PlayerWeapons : MonoBehaviour
     int idxWeapon = 0;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         var gun = new GameObject[2];
         gun[0] = GameObject.Find("GunBarrelEnd");
@@ -102,9 +102,13 @@ public class PlayerWeapons : MonoBehaviour
         int idx = GetIdxWeapon(weaponType);
         if (idx == -1) return false;
 
-        Debug.Log("Weapon: " + Weapons);
-        Debug.Log("Weapon len: " + Weapons.Length);
-        Debug.Log("Weapons[idx]: " + Weapons[idx]);
+        var ws = Weapons;
+        foreach (var w in ws)
+        {
+            Debug.Log("Weapon: " + w);
+            Debug.Log("Weapon len: " + Weapons.Length);
+            Debug.Log("Weapons[idx]: " + w);
+        }
 
         Weapons[idx].IsUnlocked = true;
         return true;

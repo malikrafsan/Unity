@@ -104,6 +104,7 @@ public class GlobalStateManager : MonoBehaviour
     {
         get
         {
+            if (petHealth == null) return 0;
             return petHealth.currentHealth;
         }
     }
@@ -140,6 +141,21 @@ public class GlobalStateManager : MonoBehaviour
 
         // TODO: get states
         var metaStateSave = new MetaStateSave("name");
+        var arg1 = PlayerName;
+        var arg2 = Money;
+        var arg3 = Health;
+        var arg4 = IdxQuest;
+        var arg5 = playerWeapons;
+
+        Debug.Log("PlayerName: " + PlayerName);
+        Debug.Log("Money: " + Money);
+        Debug.Log("Health: " + Health);
+        Debug.Log("IdxQuest: " + IdxQuest);
+        foreach (var w in playerWeapons)
+        {
+            Debug.Log("playerWeapon[{{i}}]: " + w);
+        }
+
         var playerStateSave = new PlayerStateSave(PlayerName, Money, Health, IdxQuest, playerWeapons);
         var petStateSave = new PetStateSave(PetHealth, -1);
         var globalStateSave = new GlobalStateSave(TimePlayed);
@@ -162,8 +178,22 @@ public class GlobalStateManager : MonoBehaviour
         playerHealth.currentHealth = state.playerStateSave.health;
         GameControl.control.currency = state.playerStateSave.money;
         temple.IdxCurrentQuest = state.playerStateSave.idxQuest;
-        foreach (var weapon in state.playerStateSave.playerWeapons)
+        /*        foreach (var weapon in state.playerStateSave.playerWeapons)
+                {
+                    var type = weapon.weaponType;
+                    var isUnlocked = weapon.isUnlocked;
+                    var level = weapon.level;
+
+                    if (isUnlocked)
+                    {
+                        playerWeapons.UnlockWeapon(type);
+                        playerWeapons.SetLevel(type, level);
+                    }
+                }*/
+        var len = state.playerStateSave.playerWeapons.Length;
+        for ( var i = 0; i<len; i++ )
         {
+            var weapon = state.playerStateSave.playerWeapons[i];
             var type = weapon.weaponType;
             var isUnlocked = weapon.isUnlocked;
             var level = weapon.level;
