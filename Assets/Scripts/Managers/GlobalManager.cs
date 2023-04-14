@@ -8,10 +8,15 @@ public class GlobalManager : MonoBehaviour
 {
     public static GlobalManager Instance;
     private GlobalStateManager globalStateManager;
+    private string defaultName = "PLAYER";
     private string playerName;
     public string PlayerName
     {
-        get => playerName;
+        get
+        {
+            playerName ??= defaultName;
+            return playerName;
+        }
         set
         {
             playerName = value;

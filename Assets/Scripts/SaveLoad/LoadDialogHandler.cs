@@ -46,7 +46,7 @@ public class LoadSlotHandler
         }
         else
         {
-            this.Btn.name = "Save Slot " + (Id + 1);
+            this.txt.text = "[EMPTY] Save Slot " + (Id + 1);
             this.Btn.enabled = false;
         }
     }
@@ -68,6 +68,14 @@ public class LoadDialogHandler : MonoBehaviour
             slot.Configure();
         }
         /*gameObject.SetActive(false);*/
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
     }
 
     public void Show()
