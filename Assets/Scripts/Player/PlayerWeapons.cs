@@ -102,6 +102,10 @@ public class PlayerWeapons : MonoBehaviour
         int idx = GetIdxWeapon(weaponType);
         if (idx == -1) return false;
 
+        Debug.Log("Weapon: " + Weapons);
+        Debug.Log("Weapon len: " + Weapons.Length);
+        Debug.Log("Weapons[idx]: " + Weapons[idx]);
+
         Weapons[idx].IsUnlocked = true;
         return true;
     }

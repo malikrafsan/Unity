@@ -5,7 +5,15 @@ using UnityEngine;
 public class PetHealth : MonoBehaviour
 {
     public int startingHealth = 100;
-    public int currentHealth;
+    private int _currentHealth = -1;
+    public int currentHealth
+    {
+        get => _currentHealth;
+        set
+        {
+            _currentHealth = value;
+        }
+    }
     public float sinkSpeed = 2.5f;
     public AudioClip deathClip;
     public PetType petType;
@@ -23,7 +31,10 @@ public class PetHealth : MonoBehaviour
         petDeathAudio = GetComponent <AudioSource> ();
         capsuleCollider = GetComponent <CapsuleCollider> ();
 
-        currentHealth = startingHealth;
+        if (currentHealth == -1)
+        {
+            currentHealth = startingHealth;
+        }
     }
 
 
