@@ -10,6 +10,9 @@ public class EnemyHealth : MonoBehaviour
     public EnemyType enemyType;
 
 
+    GameObject pet;
+    PetHealth petHealth;
+    PetType petType;
     Animator anim;
     AudioSource enemyAudio;
     ParticleSystem hitParticles;
@@ -28,6 +31,10 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth = startingHealth;
         questTemple = FindObjectOfType<Temple>();
+        pet = GameObject.FindGameObjectWithTag ("Pet");
+        petHealth = pet.GetComponent <PetHealth> ();
+        petType = petHealth.GetPetType();
+        print(petType);
     }
 
 
@@ -54,6 +61,12 @@ public class EnemyHealth : MonoBehaviour
         enemyAudio.Play();
 
         currentHealth -= amount;
+        //print(currentHealth);
+        if (petType == PetType.Bird)
+        {
+            currentHealth -= 10;
+        }
+        //print(currentHealth);
 
         hitParticles.transform.position = hitPoint;
         hitParticles.Play();

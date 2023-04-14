@@ -48,7 +48,6 @@ public class PetHealth : MonoBehaviour
         // }
 
         currentHealth -= amount;
-        print(currentHealth);
 
         if (currentHealth <= 0)
         {
@@ -76,5 +75,10 @@ public class PetHealth : MonoBehaviour
         GetComponent<Rigidbody> ().isKinematic = true;
         isSinking = true;
         Destroy (gameObject, 2f);
+    }
+
+    public PetType GetPetType ()
+    {
+        return petType;
     }
 }
