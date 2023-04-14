@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Temple : MonoBehaviour
 {
@@ -118,6 +119,11 @@ public class Temple : MonoBehaviour
         if (questNumberEnemy.IsEmpty())
         {
             ExitingQuest();
+            if (enemyType.Equals(EnemyType.FinalBoss))
+            {
+                SceneManager.LoadSceneAsync("CutsceneEnding");
+                return;
+            }
         }
         else
         {
