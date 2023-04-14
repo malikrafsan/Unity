@@ -8,6 +8,7 @@ public class PetHealth : MonoBehaviour
     public int currentHealth;
     public float sinkSpeed = 2.5f;
     public AudioClip deathClip;
+    public PetType petType;
 
     Animator anim;
     AudioSource petDeathAudio;
