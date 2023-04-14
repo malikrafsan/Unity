@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,20 +23,55 @@ public class MetaStateSave
     {
         this.updatedAt = DateTime.Now.ToString(SaveLoadConfig.dateTimeFormat);
     }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
+    }
 }
+
+[Serializable]
+public class PlayerWeapon
+{
+    public WeaponType weaponType;
+    public bool isUnlocked;
+    public int level;
+
+    public PlayerWeapon(WeaponType weaponType, bool isUnlocked, int level)
+    {
+        this.weaponType = weaponType;
+        this.isUnlocked = isUnlocked;
+        this.level = level;
+    }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
+    }
+}
+
 
 [Serializable]
 public class PlayerStateSave
 {
+    public string playerName;
     public int money;
     public int health;
     public int idxQuest;
+    public PlayerWeapon[] playerWeapons;
 
-    public PlayerStateSave(int money, int health, int idxQuest)
+    public PlayerStateSave(string playerName, int money, int health, int idxQuest, PlayerWeapon[] playerWeapons)
     {
+        this.playerName = playerName;
         this.money = money;
         this.health = health;
         this.idxQuest = idxQuest;
+        this.playerWeapons = playerWeapons;
+    }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
     }
 }
 
@@ -50,6 +86,11 @@ public class PetStateSave
         this.health = health;
         this.idxCurrentPet = idxCurrentPet;
     }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
+    }
 }
 
 [Serializable]
@@ -60,6 +101,11 @@ public class GlobalStateSave
     public GlobalStateSave(double timePlayed)
     {
         this.timePlayed = timePlayed;
+    }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
     }
 }
 
@@ -77,5 +123,10 @@ public class StateSave
         this.playerStateSave = playerStateSave;
         this.petStateSave = petStateSave;
         this.globalStateSave = globalStateSave;
+    }
+
+    public override string ToString()
+    {
+        return JsonConvert.SerializeObject(this);
     }
 }
