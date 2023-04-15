@@ -184,4 +184,9 @@ public class CheatManager : MonoBehaviour
             cheats[(int)cheat] = false;
         }
     }
+
+    public int GetPrevCurrency()
+    {
+        return this.prevCurrency;
+    }
 }

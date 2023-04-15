@@ -39,6 +39,8 @@ public class GlobalStateManager : MonoBehaviour
     {
         get
         {
+            bool[] temp = cheatManager.SaveCheat();
+            if (temp[(int)CheatType.MOTHERLODE]) return cheatManager.GetPrevCurrency();
             return GameControl.control.currency;
         }
     }
@@ -101,7 +103,7 @@ public class GlobalStateManager : MonoBehaviour
             var type = Enum.GetName(typeof(WeaponType), weapon.Type);
             var level = weapon.Level;
             var isUnlocked = weapon.IsUnlocked;
-            str += string.Format("Weapon {0} is {1}locked on level {2}\n", type, isUnlocked ? "un" : "",level);
+            str += string.Format("Weapon {0} is {1}locked on level {2}\n", type, isUnlocked ? "un" : "", level);
         }
         // TODO: PET
 
@@ -112,7 +114,7 @@ public class GlobalStateManager : MonoBehaviour
     {
         get
         {
-            return temple.IdxCurrentQuest;      
+            return temple.IdxCurrentQuest;
         }
     }
 
@@ -190,7 +192,7 @@ public class GlobalStateManager : MonoBehaviour
         temple.IdxCurrentQuest = state.playerStateSave.idxQuest;
 
         var len = state.playerStateSave.playerWeapons.Length;
-        for ( var i = 0; i<len; i++ )
+        for (var i = 0; i < len; i++)
         {
             var weapon = state.playerStateSave.playerWeapons[i];
             var type = weapon.weaponType;
