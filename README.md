@@ -131,7 +131,7 @@ All the specifications were implemented.
 | 2. | Angelica Winasta Sinisuka | Shopkeeper, Cheat, Enemy | 000
 | 3. | Averrous Saloom | Main Menu, Game Over, HUD, Story Mode | 000
 | 4. | Malik Akbar Hashemi Rafsanjani | Weapon, Story Mode | 000
-| 5. | Nelsen Putra | Initialitazion, Local Scoreboard, ReadMe | 000
+| 5. | Nelsen Putra | Initialization, Local Scoreboard, README | 000
 
 
 ## Contact
