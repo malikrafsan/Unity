@@ -10,22 +10,20 @@ public class PetManager : MonoBehaviour
     [SerializeField]
     MonoBehaviour factory;
     IFactory Factory { get { return factory as IFactory; } }
-    
-    void Start() 
+
+    void Start()
     {
-        InvokeRepeating("Spawn", spawnTime, spawnTime);
-        print("masuk invoking spawn pet");
+        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
     }
 
-    void Spawn()
+    public void Spawn(int tag)
     {
         if (playerHealth.currentHealth <= 0f)
         {
             return;
         }
-
-        //int spawnPointIndex = Random.Range (0, spawnPoints.Length);
-        int spawnPet = Random.Range (0,3);
+        int spawnPet = tag;
         Factory.FactoryMethod(spawnPet);
     }
+
 }

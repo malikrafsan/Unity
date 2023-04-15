@@ -46,11 +46,14 @@ public class GameControl : MonoBehaviour
     }
 
     // Data to persist
-    public float petCount = 0;
+    public float petIdx = -1;
     public int currency = 0;
-    public Item[] equipedWeapon = new Item[4];
+
+    // CHEATS
     public bool cheatOneHitKill = false;
     public bool cantShoot = false;
+    public bool fullHPPet = false;
+    public bool killPet = false;
 
     // Currencies
     public void addCurrency(int amt)
@@ -66,10 +69,5 @@ public class GameControl : MonoBehaviour
     public void minusCurrency(int amt)
     {
         currency -= amt;
-    }
-
-    public void addPet()
-    {
-        petCount++;
     }
 }

@@ -16,7 +16,8 @@ public class CheatManager : MonoBehaviour
     private int prevCurrency;
     private bool motherlodeOn = false;
 
-    private void Awake() {
+    private void Awake()
+    {
         Hud = GameObject.Find("HUDCanvas").GetComponent<HUD>();
         playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
         playerMovement = GameObject.Find("Player").GetComponent<PlayerMovement>();
@@ -25,32 +26,40 @@ public class CheatManager : MonoBehaviour
         weaponShopUI = weaponShop.GetComponent<ItemShopUI>();
     }
 
-    private void Update() {
-        if (Input.GetKeyDown(KeyCode.C)) {
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
             Hud.ShowTextInput();
         }
-        if (Input.GetKeyDown(KeyCode.Escape)) {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
             Hud.CloseTextInput();
         }
     }
 
-    public void ReadStringInput(string s) {
-        input =  s;
+    public void ReadStringInput(string s)
+    {
+        input = s;
         compareString();
     }
 
-    public void compareString() {
-        if (input == "NODAMAGE") {
+    public void compareString()
+    {
+        if (input == "NODAMAGE")
+        {
             playerHealth.SetCheatNoDamage(true);
             Hud.OpenMessagePanel("Cheat No Damage Activated!");
             return;
         }
-        if (input == "ONEHITKILL") {
+        if (input == "ONEHITKILL")
+        {
             GameControl.control.cheatOneHitKill = true;
             Hud.OpenMessagePanel("Cheat One Hit Kill Activated!");
             return;
         }
-        if (input == "MOTHERLODE") {
+        if (input == "MOTHERLODE")
+        {
             Hud.OpenMessagePanel("Cheat Motherlode Activated!");
             this.prevCurrency = GameControl.control.currency;
             this.motherlodeOn = true;
@@ -60,31 +69,36 @@ public class CheatManager : MonoBehaviour
             weaponShopUI.SetCheatCurrency(true);
             return;
         }
-        if (input == "TWOTIMESPEED") {
-            // still buggy can move through obstacles
+        if (input == "TWOTIMESPEED")
+        {
             Hud.OpenMessagePanel("Cheat 2x Speed Activated!");
             playerMovement.SetCheatTwoTimesSpeed();
             return;
         }
-        if (input == "FULLHPPET") {
-            // TODO: FULL HP PET
+        if (input == "FULLHPPET")
+        {
             Hud.OpenMessagePanel("Cheat Full HP Pet Activated!");
+            GameControl.control.fullHPPet = true;
             return;
         }
-        if (input == "KILLPET") {
-            // TODO: KILL PET
+        if (input == "KILLPET")
+        {
             Hud.OpenMessagePanel("Cheat Kill Pet Activated!");
+            GameControl.control.killPet = true;
             return;
         }
-        if (input == "RESET") {
+        if (input == "RESET")
+        {
             playerHealth.SetCheatNoDamage(false);
             playerMovement.ResetSpeed();
             GameControl.control.cheatOneHitKill = false;
-            if (motherlodeOn) {
+            if (motherlodeOn)
+            {
                 GameControl.control.currency = this.prevCurrency;
                 petShopUI.SetCheatCurrency(false);
                 weaponShopUI.SetCheatCurrency(false);
             }
+            GameControl.control.fullHPPet = false;
             Hud.OpenMessagePanel("Cheat Reseted!");
             return;
         }

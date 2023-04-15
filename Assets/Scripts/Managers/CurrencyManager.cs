@@ -6,12 +6,12 @@ public class CurrencyManager : MonoBehaviour
 {
     Text text;
 
-    void Awake ()
+    void Awake()
     {
-        text = GetComponent <Text> ();
+        text = GetComponent<Text>();
     }
 
-    void Update ()
+    void Update()
     {
         text.text = "" + GameControl.control.currency;
     }

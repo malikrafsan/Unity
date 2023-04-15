@@ -25,11 +25,11 @@ public class PetHealth : MonoBehaviour
     bool isSinking;
 
 
-    void Awake ()
-    {   
-        anim = GetComponent <Animator> ();
-        petDeathAudio = GetComponent <AudioSource> ();
-        capsuleCollider = GetComponent <CapsuleCollider> ();
+    void Awake()
+    {
+        anim = GetComponent<Animator>();
+        petDeathAudio = GetComponent<AudioSource>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
 
         if (currentHealth == -1)
         {
@@ -38,57 +38,61 @@ public class PetHealth : MonoBehaviour
     }
 
 
-    void Update ()
+    void Update()
     {
         if (isSinking)
         {
             //Debug.Log("SINKING");
-            transform.Translate (-Vector3.up * sinkSpeed * Time.deltaTime);
+            transform.Translate(-Vector3.up * sinkSpeed * Time.deltaTime);
+        }
+        if (GameControl.control.killPet)
+        {
+            Death();
+            GameControl.control.killPet = false;
         }
     }
 
 
-    public void TakeDamage (int amount)
+    public void TakeDamage(int amount)
     {
         if (isDeath)
             return;
-        
-        // if (GameControl.control.cheatOneHitKill)
-        // {
-        //     currentHealth = 0;
-        // }
+        if (GameControl.control.fullHPPet)
+            return;
+
 
         currentHealth -= amount;
 
         if (currentHealth <= 0)
         {
-            Death ();
+            Death();
         }
     }
 
 
-    public void Death ()
+    public void Death()
     {
         currentHealth = 0;
         isDeath = true;
 
         capsuleCollider.isTrigger = true;
+        GameControl.control.petIdx = -1;
 
         anim.SetBool("IsDeath", isDeath);
         petDeathAudio.clip = deathClip;
-        petDeathAudio.Play ();
+        petDeathAudio.Play();
     }
 
 
-    public void StartSinking ()
+    public void StartSinking()
     {
-        GetComponent<UnityEngine.AI.NavMeshAgent> ().enabled = false;
-        GetComponent<Rigidbody> ().isKinematic = true;
+        GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
+        GetComponent<Rigidbody>().isKinematic = true;
         isSinking = true;
-        Destroy (gameObject, 2f);
+        Destroy(gameObject, 2f);
     }
 
-    public PetType GetPetType ()
+    public PetType GetPetType()
     {
         return petType;
     }

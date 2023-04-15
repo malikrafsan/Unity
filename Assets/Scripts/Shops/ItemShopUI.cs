@@ -16,12 +16,23 @@ public class ItemShopUI : MonoBehaviour
     PlayerWeapons playerWeapons;
     private bool cheatCurrency = false;
 
+    private PetManager petManager;
     void Start()
     {
         itemDB = GetComponent<ItemShopDatabase>();
         resetDatabase();
         GameObject.Find("HUDCanvas").GetComponent<HUD>();
         playerWeapons = GameObject.Find("Player").GetComponent<PlayerWeapons>();
+        petManager = GameObject.Find("PetManager").GetComponent<PetManager>();
+        Loading();
+        GenerateItemShopUI();
+    }
+
+    void OnEnable()
+    {
+        messageError.text = "";
+        if (this.name == "Pet")
+            LoadPet();
         GenerateItemShopUI();
     }
 
@@ -35,12 +46,8 @@ public class ItemShopUI : MonoBehaviour
         uiItem.SetPrice(item.price);
     }
 
-    void GenerateItemShopUI()
+    void Loading()
     {
-        // Clearing items
-        Destroy(ShopItemContainer.GetChild(0).gameObject);
-        ShopItemContainer.DetachChildren();
-
         if (this.name == "Weapon")
         {
             LoadWeapon();
@@ -49,6 +56,17 @@ public class ItemShopUI : MonoBehaviour
         {
             LoadPet();
         }
+    }
+
+    void GenerateItemShopUI()
+    {
+        // Clearing items
+        foreach (Transform child in ShopItemContainer.transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        ShopItemContainer.DetachChildren();
+
         // Generating items
         for (int i = 0; i < itemDB.ItemsCount; i++)
         {
@@ -65,7 +83,6 @@ public class ItemShopUI : MonoBehaviour
             uiItem.SetPrice(item.price);
 
             // Pertama kali load jika weapon atau tidak,
-            // FIX: do not use isPurchased
             if (item.isPurchased)
             {
                 uiItem.SetItemAsPurchased();
@@ -73,7 +90,7 @@ public class ItemShopUI : MonoBehaviour
             }
             else
             {
-                if ((item.isWeapon && item.level != 1) || item.weaponType == WeaponType.SimpleGun)
+                if ((item.isWeapon && item.level > 1) || (item.isWeapon && item.weaponType == WeaponType.SimpleGun))
                 {
                     uiItem.OnItemPurchase(i, OnItemSelectedWeapon);
                 }
@@ -166,7 +183,7 @@ public class ItemShopUI : MonoBehaviour
     void OnPetPurchase(int index)
     {
         // TODO: initiate prefab pets in scene and only one pet can be active
-        if (GameControl.control.petCount == 1)
+        if (GameControl.control.petIdx != -1)
         {
             messageError.text = "You can only have 1 pet!";
             StartCoroutine(executeAfter(3));
@@ -179,10 +196,11 @@ public class ItemShopUI : MonoBehaviour
             GameControl.control.minusCurrency(itemPurchasing.price);
         }
         // Set if purchased
+        petManager.Spawn((int)itemPurchasing.petType);
         itemDB.SetPurchase(index, true);
         itemBeingPurchased.SetItemAsPurchased();
         itemBeingPurchased.OnItemSelect(index, OnItemSelectedPet);
-        GameControl.control.addPet();
+        GameControl.control.petIdx = index;
     }
 
     // Equip Purchase Weapon
@@ -277,7 +295,6 @@ public class ItemShopUI : MonoBehaviour
         if (existentWeapon == null)
         {
             Debug.Log("Weapon is null, state actually??");
-            Debug.Log(state);
             return;
         }
         foreach (var weapon in existentWeapon)
@@ -315,10 +332,13 @@ public class ItemShopUI : MonoBehaviour
             int price = 30;
             Sprite image = Resources.Load<Sprite>("Pet/" + pet.ToString());
             bool isPurchased = false;
+            if ((int)pet == GameControl.control.petIdx)
+                isPurchased = true;
             bool isWeapon = false;
             WeaponType weaponType = WeaponType.SimpleGun;
             int level = 0;
             itemDB.SetItem((int)pet, image, description, price, name, isPurchased, isWeapon, weaponType, level);
+            itemDB.SetPetType((int)pet, pet);
         }
     }
 }

@@ -114,4 +114,8 @@ public class ItemShopDatabase : MonoBehaviour
         items[index].level = level;
     }
 
+    public void SetPetType(int index, PetType petType)
+    {
+        items[index].petType = petType;
+    }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 [System.Serializable]
 // Fungsi ini adalah atribut dari kelas item
-public struct Item 
+public struct Item
 {
     public Sprite image;
     public string description;
@@ -14,4 +14,6 @@ public struct Item
     public bool isWeapon;
     public WeaponType weaponType;
     public int level;
+
+    public PetType petType;
 }
