@@ -7,6 +7,7 @@ public class MainMenuManager : MonoBehaviour
 {
     private LoadDialogHandler loadDialogHandler;
     private SettingManager settingPanel;
+    private ScoreBoard scoreboard;
 
     private void Awake()
     {
@@ -14,6 +15,8 @@ public class MainMenuManager : MonoBehaviour
         this.loadDialogHandler.gameObject.SetActive(false);
         this.settingPanel = FindObjectOfType<SettingManager>();
         this.settingPanel.gameObject.SetActive(false);
+        this.scoreboard = FindObjectOfType<ScoreBoard>();
+        this.scoreboard.gameObject.SetActive(false);
     }
 
     public void OnClickNewGame()
@@ -29,6 +32,11 @@ public class MainMenuManager : MonoBehaviour
     public void OnClickSettings()
     {
         this.settingPanel.gameObject.SetActive(true);
+    }
+
+    public void OnClickLeaderboard()
+    {
+        this.scoreboard.gameObject.SetActive(true) ;
     }
 
     private void Update()

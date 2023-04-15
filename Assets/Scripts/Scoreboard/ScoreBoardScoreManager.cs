@@ -6,12 +6,23 @@ using System.Linq;
 
 public class ScoreBoardScoreManager : MonoBehaviour
 {
+    public static ScoreBoardScoreManager Instance { get; private set; }
     private ScoreData sd;
-    
-    void Awake()
+
+
+    private void Awake()
     {
-        var json = PlayerPrefs.GetString("scores", "{}");
-        sd = JsonUtility.FromJson<ScoreData>(json);
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            var json = PlayerPrefs.GetString("scores", "{}");
+            sd = JsonUtility.FromJson<ScoreData>(json);
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     public IEnumerable<Score> GetHighScores()

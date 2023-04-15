@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45061475, g: 0.4986083, b: 0.56437457, a: 1}
+  m_IndirectSpecularColor: {r: 0.45061505, g: 0.498609, b: 0.56437516, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9649,43 +9649,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ba8ce6f187a75438f6054648c957a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petCount: 0
+  petIdx: -1
   currency: 0
-  equipedWeapon:
-  - image: {fileID: 0}
-    description: 
-    price: 0
-    characterName: 
-    isPurchased: 0
-    isWeapon: 0
-    weaponType: 0
-    level: 0
-  - image: {fileID: 0}
-    description: 
-    price: 0
-    characterName: 
-    isPurchased: 0
-    isWeapon: 0
-    weaponType: 0
-    level: 0
-  - image: {fileID: 0}
-    description: 
-    price: 0
-    characterName: 
-    isPurchased: 0
-    isWeapon: 0
-    weaponType: 0
-    level: 0
-  - image: {fileID: 0}
-    description: 
-    price: 0
-    characterName: 
-    isPurchased: 0
-    isWeapon: 0
-    weaponType: 0
-    level: 0
   cheatOneHitKill: 0
   cantShoot: 0
+  fullHPPet: 0
+  killPet: 0
 --- !u!4 &1088314968
 Transform:
   m_ObjectHideFlags: 0
@@ -11049,7 +11018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f012ec333759d34daa92349f607b165, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  txt: {fileID: 622410117}
 --- !u!4 &1643283513
 Transform:
   m_ObjectHideFlags: 0

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -98,17 +99,17 @@ public class Temple : MonoBehaviour
         }
 
         idxCurrentQuest++;
-        ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed! You got additional coins: " + reward, 1);
+        ToastManager.Instance.ShowToastQueue("Quest " + idxCurrentQuest + " is Completed! You got additional coins: " + reward, 1);
 
         // retrieve the time
         // add it to the global time
         // remove the timer
         var questTime = timer.TakeTime();
-        ToastManager.Instance.ShowToast("Your total time now: " 
+        ToastManager.Instance.ShowToastQueue("Your total time now: " 
             + System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss")
             + " + " + System.TimeSpan.FromSeconds(questTime).ToString("mm':'ss"), 1);
         GlobalManager.Instance.TotalTime += questTime;
-        ToastManager.Instance.ShowToast(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
+        ToastManager.Instance.ShowToastQueue(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
 
         this.saveDialog.Show();
     }
@@ -162,15 +163,22 @@ public class Temple : MonoBehaviour
         if (questNumberEnemy.IsEmpty())
         {
             ExitingQuest();
-            if (enemyType.Equals(EnemyType.FinalBoss))
+            if (idxCurrentQuest == 1)
             {
-                SceneManager.LoadSceneAsync("CutsceneEnding");
-                return;
+                ToastManager.Instance.ShowToast("YOU WIN", 1);
+                StartCoroutine(winHandler());
             }
         }
         else
         {
             ToastManager.Instance.ShowToast("Quest Enemies Left:\n" + questNumberEnemy.Stats(), 1);
         }
+    }
+
+    private IEnumerator winHandler()
+    {
+        yield return new WaitForSeconds(5);
+        ScoreBoardScoreManager.Instance.AddScore(new Score(GlobalManager.Instance.PlayerName, (float)GlobalManager.Instance.TotalTime));
+        SceneManager.LoadScene("CutsceneEnding");
     }
 }

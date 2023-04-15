@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -123,10 +124,25 @@ public class PlayerHealth : MonoBehaviour
 
         playerMovement.enabled = false;
         playerShooting.enabled = false;
+
+        // go to reload the scene
+        //GlobalManager.Instance.IsFirstLoad = true;
+        //if (GlobalManager.Instance.IdxSaveSlot == -1)
+        //{
+        //    SceneManager.LoadScene("MainMenu");
+        //    return;
+        //}
+        //SceneManager.LoadScene("Quest");
+
+        HUD hud = FindObjectOfType<HUD>();
+        TimerManager timeManager = FindObjectOfType<TimerManager>();
+        timeManager.StopTimer();
+        StartCoroutine(hud.GameOverHandler());
     }
 
     public void SetCheatNoDamage(bool value)
     {
         cheatNoDamage = value;
     }
+
 }

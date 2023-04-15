@@ -43,6 +43,11 @@ class ToastManager : MonoBehaviour
     public void ShowToast(string text,
         int duration)
     {
+        StartCoroutine(showToastCOR(text, duration));
+    }
+
+    public void ShowToastQueue(string text, int duration)
+    {
         //StartCoroutine(showToastCOR(text, duration));
         toasts.Enqueue((text, duration));
         if (!isProcessing)
