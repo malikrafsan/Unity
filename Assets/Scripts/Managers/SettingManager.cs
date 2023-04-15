@@ -21,7 +21,10 @@ public class SettingManager : MonoBehaviour
     void Update()
     {
         GlobalManager.Instance.PlayerName = nameInput.text;
-        GlobalManager.Instance.Volume = (int) (volumeInput.GetComponent<Slider>()).value;  
+        var volume = (volumeInput.GetComponent<Slider>()).value * 0.1f;
+        GlobalManager.Instance.Volume = volume;
+        AudioListener.volume = volume;
+
         Debug.Log("PLAYER NAME: " + GlobalManager.Instance.PlayerName);
         Debug.Log("VOLUME: " + GlobalManager.Instance.Volume);
         if (Input.GetKeyDown(KeyCode.Escape))

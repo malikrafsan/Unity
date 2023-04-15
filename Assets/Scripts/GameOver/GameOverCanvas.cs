@@ -30,6 +30,7 @@ public class GameOverCanvas : MonoBehaviour
 
     public void OnClickLatestSave()
     {
+        GlobalManager.Instance.IsFirstLoad = true;
         SceneManager.LoadScene("Quest");
         IsSet = true;
     }

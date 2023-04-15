@@ -21,7 +21,7 @@ public class EnemyManager : MonoBehaviour
 
     void Start()
     {
-
+        isBoss = GlobalStateManager.Instance.IdxQuest == 3;
     }
 
 

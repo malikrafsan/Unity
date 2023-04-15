@@ -111,7 +111,10 @@ public class Temple : MonoBehaviour
         GlobalManager.Instance.TotalTime += questTime;
         ToastManager.Instance.ShowToastQueue(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
 
-        StartCoroutine(saveDialogHandler());
+        if (idxCurrentQuest != 4)
+        {
+            StartCoroutine(saveDialogHandler());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -163,7 +166,7 @@ public class Temple : MonoBehaviour
         if (questNumberEnemy.IsEmpty())
         {
             ExitingQuest();
-            if (idxCurrentQuest == 1)
+            if (idxCurrentQuest == 4)
             {
                 ToastManager.Instance.ShowToast("YOU WIN", 1);
                 StartCoroutine(winHandler());

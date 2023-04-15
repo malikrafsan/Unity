@@ -76,6 +76,7 @@ public class SaveLoadManager : MonoBehaviour
     public void LoadState(int Id)
     {
         var state = GetSavedStateFromFile(Id);
+        state.playerStateSave.playerName = GlobalManager.Instance.PlayerName;
         if (state != null)
         {
             Debug.Log("Load State " + Id);

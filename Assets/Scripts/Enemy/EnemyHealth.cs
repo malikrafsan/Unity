@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IEnemyHealthHandler
 {
     public int startingHealth = 100;
     public int currentHealth;
@@ -9,6 +9,8 @@ public class EnemyHealth : MonoBehaviour
     public AudioClip deathClip;
     public EnemyType enemyType;
 
+    GameObject pet;
+    PetHealth petHealth;
     PetType petType;
     Animator anim;
     AudioSource enemyAudio;
@@ -28,6 +30,12 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth = startingHealth;
         questTemple = FindObjectOfType<Temple>();
+        pet = GameObject.FindGameObjectWithTag("Pet");
+        if (pet != null)
+        {
+            petHealth = pet.GetComponent<PetHealth>();
+            petType = petHealth.GetPetType();
+        }
     }
 
 
