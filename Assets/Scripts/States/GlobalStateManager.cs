@@ -11,6 +11,7 @@ public class GlobalStateManager : MonoBehaviour
     private PlayerHealth playerHealth;
     private Temple temple;
     private PetHealth petHealth;
+    private CheatManager cheatManager;
 
     private void Awake()
     {
@@ -31,6 +32,7 @@ public class GlobalStateManager : MonoBehaviour
         playerHealth = FindObjectOfType<PlayerHealth>();
         temple = FindObjectOfType<Temple>();
         petHealth = FindObjectOfType<PetHealth>();
+        cheatManager = FindObjectOfType<CheatManager>();
     }
 
     public int Money
@@ -131,6 +133,15 @@ public class GlobalStateManager : MonoBehaviour
         }
     }
 
+    public bool[] Cheats
+    {
+        get
+        {
+            /*return CheatManager.Ims*/
+            return cheatManager.SaveCheat();
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.P))
@@ -155,24 +166,9 @@ public class GlobalStateManager : MonoBehaviour
 
         // TODO: get states
         var metaStateSave = new MetaStateSave("name");
-        var arg1 = PlayerName;
-        var arg2 = Money;
-        var arg3 = Health;
-        var arg4 = IdxQuest;
-        var arg5 = playerWeapons;
-
-        Debug.Log("PlayerName: " + PlayerName);
-        Debug.Log("Money: " + Money);
-        Debug.Log("Health: " + Health);
-        Debug.Log("IdxQuest: " + IdxQuest);
-        foreach (var w in playerWeapons)
-        {
-            Debug.Log("playerWeapon[{{i}}]: " + w);
-        }
-
         var playerStateSave = new PlayerStateSave(PlayerName, Money, Health, IdxQuest, playerWeapons);
         var petStateSave = new PetStateSave(PetHealth, (int)GameControl.control.petIdx);
-        var globalStateSave = new GlobalStateSave(TimePlayed);
+        var globalStateSave = new GlobalStateSave(TimePlayed, Cheats);
 
         var state = new StateSave(metaStateSave, playerStateSave, petStateSave, globalStateSave);
         return state;
@@ -218,5 +214,6 @@ public class GlobalStateManager : MonoBehaviour
 
         // TODO: global state save
         GlobalManager.Instance.TimePlayed = state.globalStateSave.timePlayed;
+        cheatManager.loadCheat(state.globalStateSave.cheats);
     }
 }

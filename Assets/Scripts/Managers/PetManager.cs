@@ -25,7 +25,7 @@ public class PetManager : MonoBehaviour
 
     public GameObject Spawn(int tag)
     {
-        if (playerHealth.currentHealth <= 0f)
+        if (playerHealth.currentHealth <= 0f || tag == -1)
         {
             return null;
         }
