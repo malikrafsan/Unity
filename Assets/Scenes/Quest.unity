@@ -982,7 +982,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &327120844
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9707,43 +9707,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ba8ce6f187a75438f6054648c957a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  petCount: 0
+  petIdx: -1
   currency: 0
-  equipedWeapon:
-  - image: {fileID: 0}
-    description: 
-    price: 0
-    characterName: 
-    isPurchased: 0
-    isWeapon: 0
-    weaponType: 0
-    level: 0
-  - image: {fileID: 0}
-    description: 
-    price: 0
-    characterName: 
-    isPurchased: 0
-    isWeapon: 0
-    weaponType: 0
-    level: 0
-  - image: {fileID: 0}
-    description: 
-    price: 0
-    characterName: 
-    isPurchased: 0
-    isWeapon: 0
-    weaponType: 0
-    level: 0
-  - image: {fileID: 0}
-    description: 
-    price: 0
-    characterName: 
-    isPurchased: 0
-    isWeapon: 0
-    weaponType: 0
-    level: 0
   cheatOneHitKill: 0
   cantShoot: 0
+  fullHPPet: 0
+  killPet: 0
 --- !u!4 &1088314968
 Transform:
   m_ObjectHideFlags: 0
@@ -11141,6 +11110,7 @@ MonoBehaviour:
     isWeapon: 0
     weaponType: 0
     level: 0
+    petType: 0
   - image: {fileID: 0}
     description: 
     price: 0
@@ -11149,6 +11119,7 @@ MonoBehaviour:
     isWeapon: 0
     weaponType: 0
     level: 0
+    petType: 0
   - image: {fileID: 0}
     description: 
     price: 0
@@ -11157,6 +11128,7 @@ MonoBehaviour:
     isWeapon: 0
     weaponType: 0
     level: 0
+    petType: 0
 --- !u!1 &1738438701
 GameObject:
   m_ObjectHideFlags: 0
@@ -12264,6 +12236,7 @@ MonoBehaviour:
     isWeapon: 0
     weaponType: 0
     level: 0
+    petType: 0
   - image: {fileID: 0}
     description: 
     price: 0
@@ -12272,6 +12245,7 @@ MonoBehaviour:
     isWeapon: 0
     weaponType: 0
     level: 0
+    petType: 0
   - image: {fileID: 0}
     description: 
     price: 0
@@ -12280,6 +12254,7 @@ MonoBehaviour:
     isWeapon: 0
     weaponType: 0
     level: 0
+    petType: 0
   - image: {fileID: 0}
     description: 
     price: 0
@@ -12288,6 +12263,7 @@ MonoBehaviour:
     isWeapon: 0
     weaponType: 0
     level: 0
+    petType: 0
 --- !u!1 &2145307751
 GameObject:
   m_ObjectHideFlags: 0
