@@ -30,9 +30,7 @@ This project was created by:
 
 ## General Information
 ### Background
-After BNMO succeeded in creating an Android-based food purchase application, Doni now has high expectations for BNMO. After seeing BNMO's capabilities, Doni now wants to test BNMO's ability to make games. ~~Actually, Doni needed help for the tubes.~~
-
-Doni had succeeded in making a Survival Shooter, but was not satisfied with the results, so Doni asked BNMO to try modifying the Survival Shooter to make it cooler.
+After BNMO succeeded in creating an Android-based food purchase application, Doni now has high expectations for BNMO. After seeing BNMO's capabilities, Doni now wants to test BNMO's ability to make games. ~~Actually, Doni needed help for the tubes.~~ Doni had succeeded in making a Survival Shooter, but was not satisfied with the results, so Doni asked BNMO to try modifying the Survival Shooter to make it cooler.
 
 ### Objective
 1. Understand the basic principles of programming in Unity
@@ -128,12 +126,12 @@ All the specifications were implemented.
 
 ## Job Description
 | No. | Name | Job Desc | Hours Spent
-| :---: | :---: | :---: |
-| 1. | Reinaldo Antolis | XXX | 000
-| 2. | Angelica Winasta Sinisuka | XXX | 000
-| 3. | Averrous Saloom | XXX | 000
-| 4. | Malik Akbar Hashemi Rafsanjani | XXX | 000
-| 5. | Nelsen Putra | XXX | 000
+| :---: | :---: | :---: | :---: |
+| 1. | Reinaldo Antolis | Pet, Save & Load Game, Local Scoreboard | 000
+| 2. | Angelica Winasta Sinisuka | Shopkeeper, Cheat, Enemy | 000
+| 3. | Averrous Saloom | Main Menu, Game Over, HUD, Story Mode | 000
+| 4. | Malik Akbar Hashemi Rafsanjani | Weapon, Story Mode | 000
+| 5. | Nelsen Putra | Initialitazion, Local Scoreboard, ReadMe | 000
 
 
 ## Contact
