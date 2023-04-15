@@ -21,9 +21,9 @@ public class TimerManager : MonoBehaviour
         if (isRunning)
         {
             time = time + Time.deltaTime;
-            string timeText = System.TimeSpan.FromSeconds(time).ToString("mm':'ss");
-            Timer.text = timeText;
         }
+        string timeText = System.TimeSpan.FromSeconds(time).ToString("mm':'ss");
+        Timer.text = timeText;
     }
 
     public void ResetTimer()

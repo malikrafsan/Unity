@@ -88,12 +88,11 @@ public class Temple : MonoBehaviour
         // add it to the global time
         // remove the timer
         var questTime = timer.TakeTime();
-        timer.gameObject.SetActive(false);
         ToastManager.Instance.ShowToast("Your total time now: " 
-            + System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("ss")
-            + " + " + System.TimeSpan.FromSeconds(questTime).ToString("ss") + " Seconds", 2);
+            + System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss")
+            + " + " + System.TimeSpan.FromSeconds(questTime).ToString("mm':'ss"), 1);
         GlobalManager.Instance.TotalTime += questTime;
-        ToastManager.Instance.ShowToast(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("ss") + " Seconds", 3);
+        ToastManager.Instance.ShowToast(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -102,12 +101,12 @@ public class Temple : MonoBehaviour
         {
             if (onQuest)
             {
-                ToastManager.Instance.ShowToast("- Good Luck with your Quest -",2);
+                ToastManager.Instance.ShowToast("- Good Luck with your Quest -",1);
             }
             else
             {
                 ToastManager.Instance.ShowToast("- Press G to Enter Quest " +
-                    (idxCurrentQuest+1) + " - ",2);
+                    (idxCurrentQuest+1) + " - ",1);
             }
             playerOnRange = true;
         }   
@@ -153,7 +152,7 @@ public class Temple : MonoBehaviour
         }
         else
         {
-            ToastManager.Instance.ShowToast("Quest Enemies Left:\n" + questNumberEnemy.Stats(), 3);
+            ToastManager.Instance.ShowToast("Quest Enemies Left:\n" + questNumberEnemy.Stats(), 1);
         }
     }
 }

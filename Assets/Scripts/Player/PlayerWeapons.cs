@@ -143,7 +143,7 @@ public class PlayerWeapons : MonoBehaviour
         var success = EnableWeapon(idx);
         if (!success)
         {
-            ToastManager.Instance.ShowToast("Selecting locked weapon", 3);
+            ToastManager.Instance.ShowToast("Selecting locked weapon", 1);
         }
     }
 
