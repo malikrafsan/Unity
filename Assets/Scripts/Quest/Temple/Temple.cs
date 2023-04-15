@@ -69,6 +69,7 @@ public class Temple : MonoBehaviour
 
     private void ExitingQuest()
     {
+        GameControl.control.addCurrency(questNumberEnemy.Reward);
         timer.StopTimer();
         onQuest = false;
         questNumberEnemy = null;
@@ -82,7 +83,7 @@ public class Temple : MonoBehaviour
         }
 
         idxCurrentQuest++;
-        ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed!", 1);
+        ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed! You got additional coins: " + questNumberEnemy.Reward, 1);
 
         // retrieve the time
         // add it to the global time
