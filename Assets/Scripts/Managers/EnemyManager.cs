@@ -6,7 +6,8 @@ public class EnemyManager : MonoBehaviour
     private int count = 0;
     private bool isBoss = false;
     public PlayerHealth playerHealth;
-    public float spawnTime = 3f;
+    public float spawnTime = 2f;
+    public float spawnStart = 0f;
 
     [SerializeField]
     MonoBehaviour factory;
@@ -53,7 +54,7 @@ public class EnemyManager : MonoBehaviour
         // fill count with last quest
         if (count == 4) isBoss = true;
         Debug.Log("Turn on " + nameof(this.Spawn));
-        InvokeRepeating(nameof(this.Spawn), spawnTime, spawnTime);
+        InvokeRepeating(nameof(this.Spawn), spawnStart, spawnTime);
     }
 
     public static string EnemyName(EnemyType type)

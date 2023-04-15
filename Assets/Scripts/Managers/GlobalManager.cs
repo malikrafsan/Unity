@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.SceneManagement;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 public class GlobalManager : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class GlobalManager : MonoBehaviour
     private string playerName;
     private double totalTime;
     private float volume = 60;
+
+    public bool isFromEnding = false;
     public string PlayerName
     {
         get
