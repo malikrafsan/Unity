@@ -123,7 +123,7 @@ public class GlobalStateManager : MonoBehaviour
         {
             var stats = Stats();
             Debug.Log(stats);
-            ToastManager.Instance.ShowToast(stats, 3);
+            ToastManager.Instance.ShowToast(stats, 1);
         }
     }
 
@@ -206,7 +206,7 @@ public class GlobalStateManager : MonoBehaviour
         }
 
         // TODO: set pet state save
-        petHealth.currentHealth = state.petStateSave.health;
+
 
         // TODO: global state save
         GlobalManager.Instance.TimePlayed = state.globalStateSave.timePlayed;

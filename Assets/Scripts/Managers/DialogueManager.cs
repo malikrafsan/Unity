@@ -89,7 +89,7 @@ public class DialogueManager : MonoBehaviour
         if (!other.CompareTag("Player")) return;
 
         onDistance = true;
-        ToastManager.Instance.ShowToast("Press T to start or stop talking", 3);
+        ToastManager.Instance.ShowToast("Press T to start or stop talking", 1);
     }
 
     private void OnTriggerExit(Collider other)

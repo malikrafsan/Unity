@@ -23,7 +23,10 @@ public class EnemyAttack : MonoBehaviour
         player = GameObject.FindGameObjectWithTag ("Player");
         playerHealth = player.GetComponent <PlayerHealth> ();
         pet = GameObject.FindGameObjectWithTag ("Pet");
-        petHealth = pet.GetComponent <PetHealth> ();
+        if (pet != null )
+        {
+            petHealth = pet.GetComponent<PetHealth>();
+        }
         enemyHealth = GetComponent<EnemyHealth>();
         anim = GetComponent <Animator> ();
     }
