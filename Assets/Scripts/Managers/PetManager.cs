@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class PetManager : MonoBehaviour
 {
-    public PlayerHealth playerHealth;
+    private PlayerHealth _playerHealth;
+    public PlayerHealth playerHealth
+    {
+        get
+        {
+            if (_playerHealth == null )
+            {
+                _playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
+            }
+
+            return _playerHealth;
+        }
+    }
     public float spawnTime = 5f;
 
     [SerializeField]
     MonoBehaviour factory;
     IFactory Factory { get { return factory as IFactory; } }
 
-    void Start()
-    {
-        playerHealth = GameObject.Find("Player").GetComponent<PlayerHealth>();
-    }
-
-    public void Spawn(int tag)
+    public GameObject Spawn(int tag)
     {
         if (playerHealth.currentHealth <= 0f)
         {
-            return;
+            return null;
         }
         int spawnPet = tag;
-        Factory.FactoryMethod(spawnPet);
+        return Factory.FactoryMethod(spawnPet);
     }
 
 }
