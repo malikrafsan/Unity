@@ -6,7 +6,19 @@ using UnityEngine.UI;
 // Fungsi kelas ini untuk shop UI
 public class ItemShopUI : MonoBehaviour
 {
-    ItemShopDatabase itemDB;
+    ItemShopDatabase _itemDB;
+    ItemShopDatabase itemDB
+    {
+        get
+        {
+            if (_itemDB == null)
+            {
+                _itemDB = GetComponent<ItemShopDatabase>();
+            }
+
+            return _itemDB;
+        }
+    }
     [Space(20f)]
     [SerializeField] Transform ShopItemContainer;
     [SerializeField] GameObject itemPrefab;
@@ -16,14 +28,26 @@ public class ItemShopUI : MonoBehaviour
     PlayerWeapons playerWeapons;
     private bool cheatCurrency = false;
 
-    private PetManager petManager;
+    private PetManager _petManager;
+    private PetManager petManager
+    {
+        get
+        {
+            if (_petManager == null)
+            {
+                _petManager = GameObject.Find("PetManager").GetComponent<PetManager>();
+            }
+
+            return _petManager;
+        }
+    }
     void Start()
     {
-        itemDB = GetComponent<ItemShopDatabase>();
+        _itemDB = GetComponent<ItemShopDatabase>();
         resetDatabase();
         GameObject.Find("HUDCanvas").GetComponent<HUD>();
         playerWeapons = GameObject.Find("Player").GetComponent<PlayerWeapons>();
-        petManager = GameObject.Find("PetManager").GetComponent<PetManager>();
+        _petManager = GameObject.Find("PetManager").GetComponent<PetManager>();
         Loading();
         GenerateItemShopUI();
     }
