@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ElementalHealth : MonoBehaviour
+public class ElementalHealth : MonoBehaviour, IEnemyHealthHandler
 {
     public int startingHealth = 500;
     public int currentHealth;

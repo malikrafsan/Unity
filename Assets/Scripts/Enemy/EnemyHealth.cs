@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IEnemyHealthHandler
 {
     public int startingHealth = 100;
     public int currentHealth;
@@ -31,8 +31,11 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = startingHealth;
         questTemple = FindObjectOfType<Temple>();
         pet = GameObject.FindGameObjectWithTag("Pet");
-        petHealth = pet.GetComponent<PetHealth>();
-        petType = petHealth.GetPetType();
+        if (pet != null)
+        {
+            petHealth = pet.GetComponent<PetHealth>();
+            petType = petHealth.GetPetType();
+        }
     }
 
 

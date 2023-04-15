@@ -35,18 +35,17 @@ public class PlayerArrow : MonoBehaviour
         if (didHit) return;
 
         didHit = true;
-        if (other.gameObject.TryGetComponent<EnemyHealth>(out var enemyHealth))
+
+        IEnemyHealthHandler enemyHealth = other.gameObject.GetComponent<ElementalHealth>();
+        enemyHealth ??= other.gameObject.GetComponent<EnemyHealth>();
+
+        if (enemyHealth != null)
         {
             var energy = 0.5 * rb.mass * rb.velocity.magnitude * rb.velocity.magnitude;
             var damage = energy * damageMultiplier;
             Debug.Log("damage: "+ damage);
             enemyHealth.TakeDamage((int)damage, enemyHealth.transform.position);
         }
-
-        /*        rb.velocity = Vector3.zero;
-                rb.angularVelocity = Vector3.zero;
-                rb.isKinematic = true;
-                transform.parent = other.transform;*/
         Destroy(gameObject);
     }
 }

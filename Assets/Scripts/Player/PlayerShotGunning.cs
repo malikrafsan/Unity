@@ -7,7 +7,7 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
     [SerializeField]
     private float damagePerShot = 30f;
     [SerializeField]
-    private float timeBetweenBullets = 0.15f;
+    private float timeBetweenBullets = 1f;
     [SerializeField]
     private float range = 100f;
     public GameObject prefabEffect;
@@ -22,7 +22,7 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
     Light gunLight;
     readonly float effectsDisplayTime = 0.2f;
 
-    private readonly float maxDist = 8f;
+    private readonly float maxDist = 10f;
 
     int numBullet = 3;
     List<GameObject> effects = new List<GameObject>();
@@ -36,6 +36,13 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
         }
         set
         {
+            var diff = value - level;
+            for (int i = 0; i < diff; i++)
+            {
+                AddBullet();
+                numBullet++;
+            }
+
             level = value;
         }
     }
@@ -116,14 +123,16 @@ public class PlayerShotGunning : MonoBehaviour, WeaponHandler
 
             if (Physics.Raycast(shootRay, out shootHit, range, shootableMask))
             {
-                EnemyHealth enemyHealth = shootHit.collider.GetComponent<EnemyHealth>();
+                IEnemyHealthHandler enemyHealth = shootHit.collider.GetComponent<ElementalHealth>();
+                enemyHealth ??= shootHit.collider.GetComponent< EnemyHealth>(); 
+
                 if (enemyHealth != null)
                 {
                     var dist = Vector3.Distance(shootHit.transform.position, transform.position);
                     if (dist <= maxDist)
                     {
                         Debug.Log("Enemy is On Distance");
-                        int finalDamage = (int)(damagePerShot / Math.Sqrt(range));
+                        int finalDamage = (int)(damagePerShot / Math.Sqrt(dist));
                         enemyHealth.TakeDamage(finalDamage, shootHit.point);
                     }
                     else

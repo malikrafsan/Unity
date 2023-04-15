@@ -24,11 +24,6 @@ public class SavePlace : MonoBehaviour
             }
             SaveLoadManager.Instance.ShowUI();
         }
-
-        if (onArea && Input.GetKeyDown(KeyCode.N))
-        {
-            SaveLoadManager.Instance.LoadState(2);
-        }
     }
 
     private void OnTriggerEnter(Collider other)

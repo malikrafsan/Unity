@@ -111,7 +111,10 @@ public class Temple : MonoBehaviour
         GlobalManager.Instance.TotalTime += questTime;
         ToastManager.Instance.ShowToastQueue(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
 
-        this.saveDialog.Show();
+        if (idxCurrentQuest != 4)
+        {
+            this.saveDialog.Show();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

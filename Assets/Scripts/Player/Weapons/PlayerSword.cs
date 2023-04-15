@@ -28,7 +28,10 @@ public class PlayerSword : MonoBehaviour, WeaponHandler
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.TryGetComponent<EnemyHealth>(out var enemyHealth))
+        IEnemyHealthHandler enemyHealth = other.gameObject.GetComponent<ElementalHealth>();
+        enemyHealth ??= other.gameObject.GetComponent<EnemyHealth>();
+
+        if (enemyHealth != null)
         {
             if (this.animator.GetCurrentAnimatorStateInfo(0).IsName("SwordSwing"))
             {
