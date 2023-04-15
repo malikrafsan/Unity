@@ -49,11 +49,14 @@ public class GameControl : MonoBehaviour
     public float petIdx = -1;
     public int currency = 0;
 
+    // BOSS ABILITY
+    public bool cantShoot = false;
+
     // CHEATS
     public bool cheatOneHitKill = false;
-    public bool cantShoot = false;
     public bool fullHPPet = false;
     public bool killPet = false;
+    public bool motherLoadOn = false;
 
     // Currencies
     public void addCurrency(int amt)

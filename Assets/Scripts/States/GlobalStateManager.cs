@@ -9,8 +9,21 @@ public class GlobalStateManager : MonoBehaviour
     public static GlobalStateManager Instance { get; private set; }
     private PlayerWeapons playerWeapons;
     private PlayerHealth playerHealth;
-    private Temple temple;
+    private Temple _temple;
+    private Temple temple
+    {
+        get
+        {
+            if (_temple == null)
+            {
+                _temple = FindObjectOfType<Temple>();
+            }
+
+            return _temple;
+        }
+    }
     private PetHealth petHealth;
+    private CheatManager cheatManager;
 
     private void Awake()
     {
@@ -29,14 +42,17 @@ public class GlobalStateManager : MonoBehaviour
     {
         playerWeapons = FindObjectOfType<PlayerWeapons>();
         playerHealth = FindObjectOfType<PlayerHealth>();
-        temple = FindObjectOfType<Temple>();
+        _temple = FindObjectOfType<Temple>();
         petHealth = FindObjectOfType<PetHealth>();
+        cheatManager = FindObjectOfType<CheatManager>();
     }
 
     public int Money
     {
         get
         {
+            bool[] temp = cheatManager.SaveCheat();
+            if (temp[(int)CheatType.MOTHERLODE]) return cheatManager.GetPrevCurrency();
             return GameControl.control.currency;
         }
     }
@@ -73,6 +89,28 @@ public class GlobalStateManager : MonoBehaviour
         }
     }
 
+    private PetManager _petManager;
+    public PetManager petManager
+    {
+        get
+        {
+            if (_petManager == null)
+            {
+                _petManager = GameObject.Find("PetManager").GetComponent<PetManager>();
+            }
+
+            return _petManager;
+        }
+    }
+
+
+    public bool OnQuest
+    {
+        get
+        {
+            return temple.OnQuest;
+        }
+    }
 
     public string Stats()
     {
@@ -85,7 +123,7 @@ public class GlobalStateManager : MonoBehaviour
             var type = Enum.GetName(typeof(WeaponType), weapon.Type);
             var level = weapon.Level;
             var isUnlocked = weapon.IsUnlocked;
-            str += string.Format("Weapon {0} is {1}locked on level {2}\n", type, isUnlocked ? "un" : "",level);
+            str += string.Format("Weapon {0} is {1}locked on level {2}\n", type, isUnlocked ? "un" : "", level);
         }
         // TODO: PET
 
@@ -96,7 +134,7 @@ public class GlobalStateManager : MonoBehaviour
     {
         get
         {
-            return temple.IdxCurrentQuest;      
+            return temple.IdxCurrentQuest;
         }
     }
 
@@ -114,6 +152,15 @@ public class GlobalStateManager : MonoBehaviour
         get
         {
             return GlobalManager.Instance.TimePlayed;
+        }
+    }
+
+    public bool[] Cheats
+    {
+        get
+        {
+            /*return CheatManager.Ims*/
+            return cheatManager.SaveCheat();
         }
     }
 
@@ -141,24 +188,9 @@ public class GlobalStateManager : MonoBehaviour
 
         // TODO: get states
         var metaStateSave = new MetaStateSave("name");
-        var arg1 = PlayerName;
-        var arg2 = Money;
-        var arg3 = Health;
-        var arg4 = IdxQuest;
-        var arg5 = playerWeapons;
-
-        Debug.Log("PlayerName: " + PlayerName);
-        Debug.Log("Money: " + Money);
-        Debug.Log("Health: " + Health);
-        Debug.Log("IdxQuest: " + IdxQuest);
-        foreach (var w in playerWeapons)
-        {
-            Debug.Log("playerWeapon[{{i}}]: " + w);
-        }
-
         var playerStateSave = new PlayerStateSave(PlayerName, Money, Health, IdxQuest, playerWeapons);
-        var petStateSave = new PetStateSave(PetHealth, -1);
-        var globalStateSave = new GlobalStateSave(TimePlayed);
+        var petStateSave = new PetStateSave(PetHealth, (int)GameControl.control.petIdx);
+        var globalStateSave = new GlobalStateSave(TimePlayed, Cheats);
 
         var state = new StateSave(metaStateSave, playerStateSave, petStateSave, globalStateSave);
         return state;
@@ -178,20 +210,9 @@ public class GlobalStateManager : MonoBehaviour
         playerHealth.currentHealth = state.playerStateSave.health;
         GameControl.control.currency = state.playerStateSave.money;
         temple.IdxCurrentQuest = state.playerStateSave.idxQuest;
-        /*        foreach (var weapon in state.playerStateSave.playerWeapons)
-                {
-                    var type = weapon.weaponType;
-                    var isUnlocked = weapon.isUnlocked;
-                    var level = weapon.level;
 
-                    if (isUnlocked)
-                    {
-                        playerWeapons.UnlockWeapon(type);
-                        playerWeapons.SetLevel(type, level);
-                    }
-                }*/
         var len = state.playerStateSave.playerWeapons.Length;
-        for ( var i = 0; i<len; i++ )
+        for (var i = 0; i < len; i++)
         {
             var weapon = state.playerStateSave.playerWeapons[i];
             var type = weapon.weaponType;
@@ -206,9 +227,15 @@ public class GlobalStateManager : MonoBehaviour
         }
 
         // TODO: set pet state save
-
+        GameControl.control.petIdx = state.petStateSave.idxCurrentPet;
+        var pet = petManager.Spawn(state.petStateSave.idxCurrentPet);
+        if (pet != null)
+        {
+            pet.GetComponent<PetHealth>().currentHealth = state.petStateSave.health;
+        }
 
         // TODO: global state save
         GlobalManager.Instance.TimePlayed = state.globalStateSave.timePlayed;
+        cheatManager.loadCheat(state.globalStateSave.cheats);
     }
 }

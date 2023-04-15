@@ -97,10 +97,12 @@ public class PetStateSave
 public class GlobalStateSave
 {
     public double timePlayed;
+    public bool[] cheats;
 
-    public GlobalStateSave(double timePlayed)
+    public GlobalStateSave(double timePlayed, bool[] cheats)
     {
         this.timePlayed = timePlayed;
+        this.cheats = cheats;
     }
 
     public override string ToString()

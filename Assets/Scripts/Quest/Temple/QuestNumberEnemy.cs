@@ -9,9 +9,11 @@ using UnityEngine;
 public class QuestNumberEnemy
 {
     private readonly Dictionary<EnemyType, int> numEnemies;
+    public int Reward { get; private set; }
 
-    public QuestNumberEnemy() 
+    public QuestNumberEnemy(int reward) 
     {
+        Reward = reward;
         numEnemies = new Dictionary<EnemyType, int>();
         var types = Enum.GetValues(typeof(EnemyType)).Cast<EnemyType>();
         foreach (var type in types)
@@ -56,7 +58,7 @@ public class QuestNumberEnemy
 
     public QuestNumberEnemy Clone()
     {
-        QuestNumberEnemy clone = new QuestNumberEnemy();
+        QuestNumberEnemy clone = new QuestNumberEnemy(this.Reward);
         foreach (var enemyType in numEnemies.Keys)
         {
             clone.numEnemies[enemyType] = numEnemies[enemyType];

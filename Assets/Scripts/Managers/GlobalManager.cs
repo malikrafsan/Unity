@@ -98,6 +98,7 @@ public class GlobalManager : MonoBehaviour
     {
         globalStateManager = GlobalStateManager.Instance;
         SceneManager.sceneLoaded += OnSceneLoaded;
+        this.metaStateSave = new MetaStateSave("DEFAULT-NAME");
     }
 
     private void OnSceneLoaded(Scene arg0, LoadSceneMode arg1)

@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody playerRigidBody;
     int floorMask;
     float camRayLength = 100f;
+    float prevSpeed;
+
 
     private void Awake()
     {
@@ -18,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
         anim = GetComponent<Animator>();
 
         playerRigidBody = GetComponent<Rigidbody>();
+        prevSpeed = speed;
     }
 
     private void FixedUpdate()
@@ -79,6 +82,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetCheatTwoTimesSpeed()
     {
+        if (this.speed * 2 > prevSpeed * 2)
+            return;
         this.speed *= 2;
     }
 
