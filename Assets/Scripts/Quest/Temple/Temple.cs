@@ -163,7 +163,7 @@ public class Temple : MonoBehaviour
         if (questNumberEnemy.IsEmpty())
         {
             ExitingQuest();
-            if (idxCurrentQuest == 1)
+            if (idxCurrentQuest == 4)
             {
                 ToastManager.Instance.ShowToast("YOU WIN", 1);
                 StartCoroutine(winHandler());

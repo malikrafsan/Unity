@@ -11,7 +11,7 @@ public class GlobalManager : MonoBehaviour
     private string defaultName = "PLAYER";
     private string playerName;
     private double totalTime;
-    private int volume = 60;
+    private float volume = 60;
     public string PlayerName
     {
         get
@@ -32,7 +32,7 @@ public class GlobalManager : MonoBehaviour
             totalTime = value;
         }
     }
-    public int Volume
+    public float Volume
     {
         get => volume;
         set
