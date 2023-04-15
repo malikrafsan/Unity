@@ -4,7 +4,7 @@
 
 ## Table of Contents
 * [Introduction](#introduction)
-* [Description](#description)
+* [General Information](#general-information)
 * [Libraries Used](#libraries-used)
 * [Screenshots](#screenshots)
 * [Setup](#setup)
