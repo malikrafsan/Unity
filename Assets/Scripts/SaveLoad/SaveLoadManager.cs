@@ -69,6 +69,7 @@ public class SaveLoadManager : MonoBehaviour
         var file = SaveLoadConfig.files[Id];
         var path = Application.persistentDataPath + "/" + file + ".json";
         File.WriteAllText(path, json);
+        GlobalManager.Instance.IdxSaveSlot = Id;
         saveDialog.Close();
     }
 

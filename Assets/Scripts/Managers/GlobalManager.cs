@@ -106,6 +106,7 @@ public class GlobalManager : MonoBehaviour
         {
             Debug.Log("ON SCENE LOADED");
             SaveLoadManager.Instance.LoadState(idxSaveSlot);
+            isFirstLoad = false;
         }
     }
 

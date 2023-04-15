@@ -51,7 +51,7 @@ public class EnemyManager : MonoBehaviour
     {
         count++;
         // fill count with last quest
-        if (count == 4) isBoss = true;
+        if (count == 1) isBoss = true;
         Debug.Log("Turn on " + nameof(this.Spawn));
         InvokeRepeating(nameof(this.Spawn), spawnTime, spawnTime);
     }

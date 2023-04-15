@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Quest.unity
     guid: 38a6c15e74822d542a4df5ef901a7e70
+  - enabled: 1
+    path: Assets/Scenes/CutsceneEnding.unity
+    guid: e37ac0bc2554f1144a42b2c9bbef9a0f
   m_configObjects: {}

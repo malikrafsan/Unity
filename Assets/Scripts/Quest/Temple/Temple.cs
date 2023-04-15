@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -144,17 +145,22 @@ public class Temple : MonoBehaviour
         if (questNumberEnemy.IsEmpty())
         {
             ExitingQuest();
-            if (enemyType.Equals(EnemyType.FinalBoss))
+            if (idxCurrentQuest == 1)
             {
-                // masukin ke leaderboard
-                ScoreBoardScoreManager.Instance.AddScore(new Score(GlobalManager.Instance.PlayerName, (float) GlobalManager.Instance.TotalTime));
-                SceneManager.LoadSceneAsync("CutsceneEnding");
-                return;
+                ToastManager.Instance.ShowToast("YOU WIN", 1);
+                StartCoroutine(winHandler());
             }
         }
         else
         {
             ToastManager.Instance.ShowToast("Quest Enemies Left:\n" + questNumberEnemy.Stats(), 1);
         }
+    }
+
+    private IEnumerator winHandler()
+    {
+        yield return new WaitForSeconds(5);
+        ScoreBoardScoreManager.Instance.AddScore(new Score(GlobalManager.Instance.PlayerName, (float)GlobalManager.Instance.TotalTime));
+        SceneManager.LoadScene("CutsceneEnding");
     }
 }
