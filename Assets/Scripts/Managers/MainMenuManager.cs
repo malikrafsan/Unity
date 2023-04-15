@@ -6,11 +6,14 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     private LoadDialogHandler loadDialogHandler;
+    private SettingManager settingPanel;
 
     private void Awake()
     {
         this.loadDialogHandler = FindObjectOfType<LoadDialogHandler>();
         this.loadDialogHandler.gameObject.SetActive(false);
+        this.settingPanel = FindObjectOfType<SettingManager>();
+        this.settingPanel.gameObject.SetActive(false);
     }
 
     public void OnClickNewGame()
@@ -20,15 +23,12 @@ public class MainMenuManager : MonoBehaviour
 
     public void OnClickLoadGame()
     {
-/*        GlobalManager.Instance.IdxSaveSlot = 2;
-        GlobalManager.Instance.IsFirstLoad = true;
-        SceneManager.LoadScene("Quest");*/
         this.loadDialogHandler.gameObject.SetActive(true);
     }
 
     public void OnClickSettings()
     {
-
+        this.settingPanel.gameObject.SetActive(true);
     }
 
     private void Update()
