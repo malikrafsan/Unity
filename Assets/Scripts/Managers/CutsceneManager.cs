@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class CutsceneManager : MonoBehaviour
 {
-    public GameObject dialogueUI;
-    public GameObject HUD;
+    [SerializeField]
+    private GameObject trigger;
 
     private void Start()
     {
-        HUD.SetActive(false);
-        dialogueUI.SetActive(true);
+
     }
 
-   
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            trigger.SetActive(true);
+        }
+    }
+
+
 }

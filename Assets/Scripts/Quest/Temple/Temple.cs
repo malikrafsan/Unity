@@ -107,11 +107,11 @@ public class Temple : MonoBehaviour
         var questTime = timer.TakeTime();
         ToastManager.Instance.ShowToastQueue("Your total time now: " 
             + System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss")
-            + " + " + System.TimeSpan.FromSeconds(questTime).ToString("mm':'ss"), 1);
+            + " + " + System.TimeSpan.FromSeconds(questTime).ToString("mm':'ss"), 2);
         GlobalManager.Instance.TotalTime += questTime;
         ToastManager.Instance.ShowToastQueue(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
 
-        this.saveDialog.Show();
+        StartCoroutine(saveDialogHandler());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -180,5 +180,11 @@ public class Temple : MonoBehaviour
         yield return new WaitForSeconds(5);
         ScoreBoardScoreManager.Instance.AddScore(new Score(GlobalManager.Instance.PlayerName, (float)GlobalManager.Instance.TotalTime));
         SceneManager.LoadScene("CutsceneEnding");
+    }
+
+    private IEnumerator saveDialogHandler()
+    {
+        yield return new WaitForSeconds(6);
+        this.saveDialog.Show();
     }
 }
