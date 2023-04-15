@@ -69,6 +69,8 @@ public class PlayerHealth : MonoBehaviour
 
         damaged = false;
         frozen = false;
+
+        healthSlider.value = currentHealth;
     }
 
     public void TakeDamage(int amount)

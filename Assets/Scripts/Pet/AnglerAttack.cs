@@ -47,7 +47,10 @@ public class AnglerAttack : MonoBehaviour
         shootRay.direction = transform.forward;
         if (timer >= timeBetweenBullets && !GameControl.control.cantShoot && Physics.Raycast(shootRay, out shootHit, range, shootableMask))
         {
-            Shoot();
+            if (!shootHit.collider.CompareTag("Player"))
+            {
+                Shoot();
+            }
         }
 
         if (timer >= timeBetweenBullets * effectsDisplayTime)

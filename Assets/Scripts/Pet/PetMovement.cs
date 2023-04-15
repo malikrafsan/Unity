@@ -51,6 +51,13 @@ public class PetMovement : MonoBehaviour
                 if (enemyHealth.currentHealth > 0)
                 {
                     nav.SetDestination (enemyPosition.position);
+                    var damping = 2;
+                    var target = enemy.transform;
+
+                    var lookPos = target.position - transform.position;
+                    lookPos.y = 0;
+                    var rotation = Quaternion.LookRotation(lookPos);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * damping);
                 }
             }
             else
