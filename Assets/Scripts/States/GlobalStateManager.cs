@@ -73,6 +73,20 @@ public class GlobalStateManager : MonoBehaviour
         }
     }
 
+    private PetManager _petManager;
+    public PetManager petManager
+    {
+        get
+        {
+            if (_petManager == null)
+            {
+                _petManager = GameObject.Find("PetManager").GetComponent<PetManager>();
+            }
+
+            return _petManager;
+        }
+    }
+
 
     public string Stats()
     {
@@ -157,7 +171,7 @@ public class GlobalStateManager : MonoBehaviour
         }
 
         var playerStateSave = new PlayerStateSave(PlayerName, Money, Health, IdxQuest, playerWeapons);
-        var petStateSave = new PetStateSave(PetHealth, -1);
+        var petStateSave = new PetStateSave(PetHealth, (int)GameControl.control.petIdx);
         var globalStateSave = new GlobalStateSave(TimePlayed);
 
         var state = new StateSave(metaStateSave, playerStateSave, petStateSave, globalStateSave);
@@ -178,18 +192,7 @@ public class GlobalStateManager : MonoBehaviour
         playerHealth.currentHealth = state.playerStateSave.health;
         GameControl.control.currency = state.playerStateSave.money;
         temple.IdxCurrentQuest = state.playerStateSave.idxQuest;
-        /*        foreach (var weapon in state.playerStateSave.playerWeapons)
-                {
-                    var type = weapon.weaponType;
-                    var isUnlocked = weapon.isUnlocked;
-                    var level = weapon.level;
 
-                    if (isUnlocked)
-                    {
-                        playerWeapons.UnlockWeapon(type);
-                        playerWeapons.SetLevel(type, level);
-                    }
-                }*/
         var len = state.playerStateSave.playerWeapons.Length;
         for ( var i = 0; i<len; i++ )
         {
@@ -206,7 +209,12 @@ public class GlobalStateManager : MonoBehaviour
         }
 
         // TODO: set pet state save
-
+        GameControl.control.petIdx = state.petStateSave.idxCurrentPet;
+        var pet = petManager.Spawn(state.petStateSave.idxCurrentPet);
+        if (pet != null)
+        {
+            pet.GetComponent<PetHealth>().currentHealth = state.petStateSave.health;
+        }
 
         // TODO: global state save
         GlobalManager.Instance.TimePlayed = state.globalStateSave.timePlayed;

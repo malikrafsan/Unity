@@ -9,9 +9,6 @@ public class EnemyHealth : MonoBehaviour
     public AudioClip deathClip;
     public EnemyType enemyType;
 
-
-    GameObject pet;
-    PetHealth petHealth;
     PetType petType;
     Animator anim;
     AudioSource enemyAudio;
@@ -31,10 +28,6 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth = startingHealth;
         questTemple = FindObjectOfType<Temple>();
-        pet = GameObject.FindGameObjectWithTag("Pet");
-        petHealth = pet.GetComponent<PetHealth>();
-        petType = petHealth.GetPetType();
-        print(petType);
     }
 
 
