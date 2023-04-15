@@ -26,7 +26,6 @@ public class SettingManager : MonoBehaviour
         Debug.Log("VOLUME: " + GlobalManager.Instance.Volume);
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("CLOSINGGGGGGGGG");
             Close();
         }
     }

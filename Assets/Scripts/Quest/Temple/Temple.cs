@@ -83,17 +83,17 @@ public class Temple : MonoBehaviour
         }
 
         idxCurrentQuest++;
-        ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed!", 1);
+        ToastManager.Instance.ShowToastQueue("Quest " + idxCurrentQuest + " is Completed!", 1);
 
         // retrieve the time
         // add it to the global time
         // remove the timer
         var questTime = timer.TakeTime();
-        ToastManager.Instance.ShowToast("Your total time now: " 
+        ToastManager.Instance.ShowToastQueue("Your total time now: " 
             + System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss")
             + " + " + System.TimeSpan.FromSeconds(questTime).ToString("mm':'ss"), 1);
         GlobalManager.Instance.TotalTime += questTime;
-        ToastManager.Instance.ShowToast(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
+        ToastManager.Instance.ShowToastQueue(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
     }
 
     private void OnTriggerEnter(Collider other)
