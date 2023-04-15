@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315bfff808b5c64eabb0e55683b4000, type: 3}
+  m_Name: Quest2
+  m_EditorClassIdentifier: 
+  name: Wizard
+  dialogues:
+  - are you fine?
+  - i think they are just not ready. you know you can buy or enhance weapons in the
+    shop right?
+  - good luck
+  playerDialogues:
+  - after I killed some of them,  the other ones run
+  - oh wow, that will help
+  - thanks

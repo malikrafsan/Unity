@@ -17,11 +17,11 @@ public class MainMenuManager : MonoBehaviour
         this.settingPanel.gameObject.SetActive(false);
         this.scoreboard = FindObjectOfType<ScoreBoard>();
         this.scoreboard.gameObject.SetActive(false);
-        //if (GlobalManager.Instance.isFromEnding)
-        //{
-        //    this.scoreboard.gameObject.SetActive(false);
-        //    GlobalManager.Instance.isFromEnding = false;
-        //}
+        if (GlobalManager.Instance.isFromEnding)
+        {
+            this.scoreboard.gameObject.SetActive(true);
+            GlobalManager.Instance.isFromEnding = false;
+        }
     }
 
     public void OnClickNewGame()
@@ -42,6 +42,16 @@ public class MainMenuManager : MonoBehaviour
     public void OnClickLeaderboard()
     {
         this.scoreboard.gameObject.SetActive(true) ;
+    }
+
+    public void OnClickExit()
+    {
+#if UNITY_STANDALONE
+        Application.Quit();
+#endif
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     private void Update()

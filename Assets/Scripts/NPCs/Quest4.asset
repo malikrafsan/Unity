@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3315bfff808b5c64eabb0e55683b4000, type: 3}
+  m_Name: Quest4
+  m_EditorClassIdentifier: 
+  name: Wizard
+  dialogues:
+  - you killed too many of them
+  - when they landed, I saw their leader, a strong huge elemental monster
+  - I think.. it will be best if you call your army
+  playerDialogues:
+  - for me, it is still not enough
+  - ....... I am not scared, my pet andI will always be ready
+  - they will come, if I die....
