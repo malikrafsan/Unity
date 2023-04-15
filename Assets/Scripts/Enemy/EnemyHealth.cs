@@ -31,8 +31,8 @@ public class EnemyHealth : MonoBehaviour
 
         currentHealth = startingHealth;
         questTemple = FindObjectOfType<Temple>();
-        pet = GameObject.FindGameObjectWithTag ("Pet");
-        petHealth = pet.GetComponent <PetHealth> ();
+        pet = GameObject.FindGameObjectWithTag("Pet");
+        petHealth = pet.GetComponent<PetHealth>();
         petType = petHealth.GetPetType();
         print(petType);
     }
@@ -98,7 +98,8 @@ public class EnemyHealth : MonoBehaviour
         GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         isSinking = true;
-        GameControl.control.currency += 5;
+        if (!GameControl.control.motherLoadOn)
+            GameControl.control.currency += 5;
         ScoreManager.score += scoreValue;
         Destroy(gameObject, 2f);
     }
