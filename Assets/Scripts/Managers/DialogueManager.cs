@@ -23,6 +23,16 @@ public class DialogueManager : MonoBehaviour
     public Text npcDialogueBox;
     public Text playerResponse;
 
+    private bool[] hasTalked = new bool[4];
+    public bool[] HasTalked
+    {
+        get => hasTalked;
+        set
+        {
+            hasTalked = value;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -102,6 +112,7 @@ public class DialogueManager : MonoBehaviour
 
     private void StartConvo()
     {
+        hasTalked[GlobalStateManager.Instance.IdxQuest] = true;
         isTalking = true;
         curResponseTracker = 0f;
         dialogueUI.SetActive(true);

@@ -24,6 +24,19 @@ public class GlobalStateManager : MonoBehaviour
     }
     private PetHealth petHealth;
     private CheatManager cheatManager;
+    private DialogueManager dialogueManager;
+    public DialogueManager DialogueManager
+    {
+        get
+        {
+            if (dialogueManager == null)
+            {
+                dialogueManager = FindObjectOfType<DialogueManager>();
+            }
+
+            return dialogueManager;
+        }
+    }
 
     private void Awake()
     {
@@ -45,6 +58,7 @@ public class GlobalStateManager : MonoBehaviour
         _temple = FindObjectOfType<Temple>();
         petHealth = FindObjectOfType<PetHealth>();
         cheatManager = FindObjectOfType<CheatManager>();
+        dialogueManager = FindObjectOfType<DialogueManager>();
     }
 
     public int Money
@@ -86,6 +100,15 @@ public class GlobalStateManager : MonoBehaviour
         get
         {
             return GlobalManager.Instance.PlayerName;
+        }
+    }
+
+    public bool[] HasTalked
+    {
+        get => DialogueManager.HasTalked;
+        set
+        {
+            DialogueManager.HasTalked = value;
         }
     }
 
@@ -190,7 +213,7 @@ public class GlobalStateManager : MonoBehaviour
         var metaStateSave = new MetaStateSave("name");
         var playerStateSave = new PlayerStateSave(PlayerName, Money, Health, IdxQuest, playerWeapons);
         var petStateSave = new PetStateSave(PetHealth, (int)GameControl.control.petIdx);
-        var globalStateSave = new GlobalStateSave(TimePlayed, Cheats);
+        var globalStateSave = new GlobalStateSave(TimePlayed, Cheats, HasTalked);
 
         var state = new StateSave(metaStateSave, playerStateSave, petStateSave, globalStateSave);
         return state;
@@ -237,5 +260,6 @@ public class GlobalStateManager : MonoBehaviour
         // TODO: global state save
         GlobalManager.Instance.TimePlayed = state.globalStateSave.timePlayed;
         cheatManager.loadCheat(state.globalStateSave.cheats);
+        HasTalked = state.globalStateSave.hasTalked;
     }
 }

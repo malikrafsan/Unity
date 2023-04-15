@@ -98,11 +98,13 @@ public class GlobalStateSave
 {
     public double timePlayed;
     public bool[] cheats;
+    public bool[] hasTalked;
 
-    public GlobalStateSave(double timePlayed, bool[] cheats)
+    public GlobalStateSave(double timePlayed, bool[] cheats, bool[] hasTalked)
     {
         this.timePlayed = timePlayed;
         this.cheats = cheats;
+        this.hasTalked = hasTalked;
     }
 
     public override string ToString()

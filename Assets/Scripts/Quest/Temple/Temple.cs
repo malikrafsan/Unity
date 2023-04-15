@@ -64,7 +64,8 @@ public class Temple : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerOnRange && Input.GetKeyDown(KeyCode.G))
+        var hasTalked = GlobalStateManager.Instance.HasTalked[idxCurrentQuest];
+        if (playerOnRange && Input.GetKeyDown(KeyCode.G) && hasTalked)
         {
             ToastManager.Instance.ShowToast("ENTERING QUEST",1);
             EnteringQuest();
@@ -121,6 +122,15 @@ public class Temple : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            playerOnRange = true;
+
+            var hasTalkeds = GlobalStateManager.Instance.HasTalked;
+            if (!hasTalkeds[idxCurrentQuest])
+            {
+                ToastManager.Instance.ShowToast("Talk first with wizard", 1);
+                return;
+            }
+
             if (onQuest)
             {
                 ToastManager.Instance.ShowToast("- Good Luck with your Quest -",1);
@@ -130,7 +140,6 @@ public class Temple : MonoBehaviour
                 ToastManager.Instance.ShowToast("- Press G to Enter Quest " +
                     (idxCurrentQuest+1) + " - ",1);
             }
-            playerOnRange = true;
         }   
     }
 
