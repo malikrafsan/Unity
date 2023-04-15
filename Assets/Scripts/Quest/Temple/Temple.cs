@@ -9,8 +9,19 @@ public class Temple : MonoBehaviour
     [SerializeField]
     private EnemyManager enemyManager;
 
-    [SerializeField]
-    private TimerManager timer;
+    private TimerManager _timer;
+    public TimerManager timer
+    {
+        get
+        {
+            if (_timer == null)
+            {
+                _timer = FindObjectOfType<TimerManager>();
+            }
+
+            return _timer;
+        }
+    }
 
     private readonly QuestType[] stepQuests = { QuestType.FirstQuest, QuestType.SecondQuest, QuestType.ThirdQuest, QuestType.FinalQuest };
     private int idxCurrentQuest = 0;
@@ -53,11 +64,12 @@ public class Temple : MonoBehaviour
         questNumberEnemy = QuestConfig.GetNumberEnemy(stepQuests[idxCurrentQuest]).Clone();
         
         enemyManager.gameObject.SetActive(true);
-        timer.gameObject.SetActive(true);
+        timer.StartTimer();
     }
 
     private void ExitingQuest()
     {
+        timer.StopTimer();
         onQuest = false;
         questNumberEnemy = null;
         enemyManager.gameObject.SetActive(false);
