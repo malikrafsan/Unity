@@ -33,7 +33,8 @@ public class SavePlace : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        var onquest = GlobalStateManager.Instance.OnQuest;
+        if (other.CompareTag("Player") && !onquest)
         {
             ToastManager.Instance.ShowToast("Press B to save", 1);
             onArea = true;

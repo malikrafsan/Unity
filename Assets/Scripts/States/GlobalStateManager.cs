@@ -9,7 +9,19 @@ public class GlobalStateManager : MonoBehaviour
     public static GlobalStateManager Instance { get; private set; }
     private PlayerWeapons playerWeapons;
     private PlayerHealth playerHealth;
-    private Temple temple;
+    private Temple _temple;
+    private Temple temple
+    {
+        get
+        {
+            if (_temple == null)
+            {
+                _temple = FindObjectOfType<Temple>();
+            }
+
+            return _temple;
+        }
+    }
     private PetHealth petHealth;
     private CheatManager cheatManager;
 
@@ -30,7 +42,7 @@ public class GlobalStateManager : MonoBehaviour
     {
         playerWeapons = FindObjectOfType<PlayerWeapons>();
         playerHealth = FindObjectOfType<PlayerHealth>();
-        temple = FindObjectOfType<Temple>();
+        _temple = FindObjectOfType<Temple>();
         petHealth = FindObjectOfType<PetHealth>();
         cheatManager = FindObjectOfType<CheatManager>();
     }
@@ -89,6 +101,14 @@ public class GlobalStateManager : MonoBehaviour
         }
     }
 
+
+    public bool OnQuest
+    {
+        get
+        {
+            return temple.OnQuest;
+        }
+    }
 
     public string Stats()
     {

@@ -99,7 +99,16 @@ public class SaveDialogHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        var onquest = GlobalStateManager.Instance.OnQuest;
+        if (onquest)
+        {
+            Close();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Close();
+        }
     }
 
     public void Show()

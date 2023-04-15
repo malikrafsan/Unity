@@ -40,6 +40,20 @@ public class Temple : MonoBehaviour
 
     public bool OnQuest { get => onQuest; }
 
+    private SaveDialogHandler _saveDialog;
+    public SaveDialogHandler saveDialog
+    {
+        get
+        {
+            if (_saveDialog == null)
+            {
+                _saveDialog = GameObject.Find("HUDCanvas").GetComponentInChildren<SaveDialogHandler>();
+            }
+
+            return _saveDialog;
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -69,7 +83,8 @@ public class Temple : MonoBehaviour
 
     private void ExitingQuest()
     {
-        GameControl.control.addCurrency(questNumberEnemy.Reward);
+        var reward = questNumberEnemy.Reward;
+        GameControl.control.addCurrency(reward);
         timer.StopTimer();
         onQuest = false;
         questNumberEnemy = null;
@@ -83,7 +98,7 @@ public class Temple : MonoBehaviour
         }
 
         idxCurrentQuest++;
-        ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed! You got additional coins: " + questNumberEnemy.Reward, 1);
+        ToastManager.Instance.ShowToast("Quest " + idxCurrentQuest + " is Completed! You got additional coins: " + reward, 1);
 
         // retrieve the time
         // add it to the global time
@@ -94,6 +109,8 @@ public class Temple : MonoBehaviour
             + " + " + System.TimeSpan.FromSeconds(questTime).ToString("mm':'ss"), 1);
         GlobalManager.Instance.TotalTime += questTime;
         ToastManager.Instance.ShowToast(System.TimeSpan.FromSeconds(GlobalManager.Instance.TotalTime).ToString("mm':'ss"), 1);
+
+        this.saveDialog.Show();
     }
 
     private void OnTriggerEnter(Collider other)
