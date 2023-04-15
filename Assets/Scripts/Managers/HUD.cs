@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class HUD : MonoBehaviour
@@ -8,9 +9,12 @@ public class HUD : MonoBehaviour
     public GameObject MessagePanel;
     private Text textTransform;
     [SerializeField] GameObject textInput;
+    private GameOverCanvas gameOverCanvas;
 
     private void Awake() {
         textTransform = MessagePanel.transform.Find("Text").GetComponent<Text>();
+        gameOverCanvas = FindObjectOfType<GameOverCanvas>();
+        gameOverCanvas.gameObject.SetActive(false);
     }
 
     public void OpenMessagePanel (string text) {
@@ -41,5 +45,16 @@ public class HUD : MonoBehaviour
     private IEnumerator executeAfter(int secs) {
         yield return new WaitForSeconds(secs);
         CloseMessagePanel();
+    }
+
+    public IEnumerator GameOverHandler()
+    {
+        gameOverCanvas.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(5);
+        if (!gameOverCanvas.IsSet)
+        {
+            SceneManager.LoadScene("MainMenu");
+        }
     }
 }
