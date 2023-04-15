@@ -6,7 +6,6 @@ using System.Linq;
 public class ScoreUI : MonoBehaviour
 {
     public RowUi rowUi;
-    public ScoreBoardScoreManager scoreManager;
 
     void Start()
     {
@@ -14,7 +13,7 @@ public class ScoreUI : MonoBehaviour
         // scoreManager.AddScore(new Score("hhohoho", 1000));
         //scoreManager.AddScore(new Score("lalalla", 9000));
 
-        var scores = scoreManager.GetHighScores().ToArray();
+        var scores = ScoreBoardScoreManager.Instance.GetHighScores().ToArray();
         for (int i = 0; i < scores.Length; i ++)
         {
             var row = Instantiate(rowUi, transform).GetComponent<RowUi>();

@@ -147,6 +147,8 @@ public class Temple : MonoBehaviour
             ExitingQuest();
             if (enemyType.Equals(EnemyType.FinalBoss))
             {
+                // masukin ke leaderboard
+                ScoreBoardScoreManager.Instance.AddScore(new Score(GlobalManager.Instance.PlayerName, (float) GlobalManager.Instance.TotalTime));
                 SceneManager.LoadSceneAsync("CutsceneEnding");
                 return;
             }
