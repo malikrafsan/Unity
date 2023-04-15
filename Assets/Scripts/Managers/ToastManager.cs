@@ -60,7 +60,7 @@ class ToastManager : MonoBehaviour
         txt.enabled = true;
 
         //Fade in
-        yield return fadeInAndOut(txt, true, 0.5f);
+        yield return fadeInAndOut(txt, true, 0.2f);
 
         //Wait for the duration
         float counter = 0;
@@ -71,7 +71,7 @@ class ToastManager : MonoBehaviour
         }
 
         //Fade out
-        yield return fadeInAndOut(txt, false, 0.5f);
+        yield return fadeInAndOut(txt, false, 0.2f);
 
         txt.enabled = false;
         txt.color = orginalColor;

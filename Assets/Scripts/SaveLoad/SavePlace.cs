@@ -35,7 +35,7 @@ public class SavePlace : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            ToastManager.Instance.ShowToast("Press B to save", 3);
+            ToastManager.Instance.ShowToast("Press B to save", 1);
             onArea = true;
         }
     }

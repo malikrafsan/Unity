@@ -56,7 +56,7 @@ public class ItemShopDatabase : MonoBehaviour
         {
             for (int i = 0; i < items[index].level; i++)
             {
-                items[index].price = 100 * (items[index].level + 1);
+                items[index].price = 10 * (items[index].level + 1);
             }
         }
     }
