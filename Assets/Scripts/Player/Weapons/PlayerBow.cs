@@ -39,11 +39,14 @@ public class PlayerBow : MonoBehaviour, WeaponHandler
         }
     }
 
+    private Animator animator;
+
     void Awake()
     {
         ResetCharge();
         chargeSlider.gameObject.SetActive(true);
         curArrow = Instantiate(playerArrowPrefab, arrowSpawnPoint);
+        animator = GetComponent<Animator>();
     }
 
     private void OnEnable()
@@ -103,7 +106,15 @@ public class PlayerBow : MonoBehaviour, WeaponHandler
     {
         var force = arrowSpawnPoint.TransformDirection(-200 * energy * level * Vector3.forward);
         curArrow.Shoot(force);
+        StartCoroutine(ShootAnim());
         curArrow = Instantiate(playerArrowPrefab, arrowSpawnPoint);
+    }
+
+    IEnumerator ShootAnim()
+    {
+        this.animator.Play("Bow");
+        yield return new WaitForSeconds(1f / 6);
+        this.animator.Play("Idle");
     }
 
     public bool IsReady()

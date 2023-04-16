@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45061505, g: 0.498609, b: 0.56437516, a: 1}
+  m_IndirectSpecularColor: {r: 0.45061475, g: 0.4986083, b: 0.56437457, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9865,10 +9865,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   petIdx: -1
   currency: 0
-  cheatOneHitKill: 0
   cantShoot: 0
+  cheatOneHitKill: 0
   fullHPPet: 0
   killPet: 0
+  motherLoadOn: 0
 --- !u!4 &1088314968
 Transform:
   m_ObjectHideFlags: 0
@@ -10444,7 +10445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbf16b89f33d9ee4794f27a1454ee5a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerHealth: {fileID: 0}
   spawnTime: 5
   factory: {fileID: 1353045528}
 --- !u!114 &1353045528
@@ -11538,6 +11538,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerHealth: {fileID: 1902478037}
   spawnTime: 3
+  spawnStart: 0
   factory: {fileID: 1714906176}
 --- !u!4 &1714906175
 Transform:
@@ -12640,6 +12641,26 @@ MonoBehaviour:
   maxCharge: 3
   colorMax: {r: 0, g: 1, b: 0, a: 1}
   colorMin: {r: 1, g: 0, b: 0, a: 1}
+--- !u!95 &2056559648
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056559645}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aa2bcab523481a54591b0434cb85fd8a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!4 &2079963337 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3766448033198164798, guid: 80e55f4de317be346be8e7fe0b4694a7, type: 3}

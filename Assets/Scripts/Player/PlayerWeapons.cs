@@ -53,12 +53,12 @@ public class PlayerWeapons : MonoBehaviour
             }
         }
 
-        if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
+        if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
         {
             IncrementIdxWeapon();
             SelectWeapon(idxWeapon);
         }
-        else if (Input.GetAxisRaw("Mouse ScrollWheel") < 0f)
+        else if (Input.GetAxisRaw("Mouse ScrollWheel") > 0f)
         {
             DecrementIdxWeapon();
             SelectWeapon(idxWeapon);
