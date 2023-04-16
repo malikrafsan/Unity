@@ -4,11 +4,8 @@ using UnityEngine;
 
 public class PlayerShotGunning : MonoBehaviour, WeaponHandler
 {
-    [SerializeField]
-    private float damagePerShot = 30f;
-    [SerializeField]
-    private float timeBetweenBullets = 1f;
-    [SerializeField]
+    private float damagePerShot = 50f;
+    private float timeBetweenBullets = 0.8f;
     private float range = 100f;
     public GameObject prefabEffect;
 
