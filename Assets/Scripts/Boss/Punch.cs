@@ -17,6 +17,7 @@ public class Punch : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             attack.Attack(20);
+            attack.Slower();
         }
     }
 }

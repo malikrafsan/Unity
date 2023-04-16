@@ -73,4 +73,20 @@ public class GameControl : MonoBehaviour
     {
         currency -= amt;
     }
+
+    // From: https://johnleonardfrench.com/how-to-fade-audio-in-unity-i-tested-every-method-this-ones-the-best
+    public IEnumerator StartFade(AudioSource audioSource, float duration, float targetVolume, GameObject theGameObject)
+    {
+        float currentTime = 0;
+        float start = audioSource.volume;
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            audioSource.volume = Mathf.Lerp(start, targetVolume, currentTime / duration);
+            yield return null;
+        }
+        Destroy(theGameObject, 2f);
+        yield break;
+
+    }
 }

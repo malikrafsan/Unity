@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
+
 public class ElementalAttack : MonoBehaviour
 {
     public float timeBetweenAttacks = 5f;
@@ -70,7 +71,7 @@ public class ElementalAttack : MonoBehaviour
             return;
         }
         playerMovement.speed -= 3f;
-        // Debug.Log("Slower " + playerMovement.speed);
+
         StartCoroutine(DissapearFrostBite(timeFreezeEffect));
         playerHealth.TakeFreeze(timeFreezeEffect);
     }

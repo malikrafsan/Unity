@@ -10,7 +10,7 @@ public class ElementalHealth : MonoBehaviour, IEnemyHealthHandler
     public EnemyType enemyType;
 
     Animator anim;
-    // AudioSource enemyAudio;
+    AudioSource enemyAudio;
     ParticleSystem hitParticles;
     CapsuleCollider capsuleCollider;
     bool isDeath;
@@ -21,7 +21,7 @@ public class ElementalHealth : MonoBehaviour, IEnemyHealthHandler
     {
 
         anim = GetComponent<Animator>();
-        // enemyAudio = GetComponent <AudioSource> ();
+        enemyAudio = GetComponent<AudioSource>();
         hitParticles = GameObject.Find("ElementalHit").GetComponent<ParticleSystem>();
         capsuleCollider = GetComponent<CapsuleCollider>();
 
@@ -40,7 +40,7 @@ public class ElementalHealth : MonoBehaviour, IEnemyHealthHandler
             currentHealth = 0;
         }
 
-        // enemyAudio.Play ();
+        enemyAudio.Play();
 
         currentHealth -= amount;
 
@@ -65,14 +65,14 @@ public class ElementalHealth : MonoBehaviour, IEnemyHealthHandler
 
         anim.SetBool("IsHurt", isDeath);
 
-        // enemyAudio.clip = deathClip;
-        // enemyAudio.Play ();
+        enemyAudio.clip = deathClip;
+        enemyAudio.Play();
         questTemple.OnDeathEnemy(enemyType);
 
         GetComponent<UnityEngine.AI.NavMeshAgent>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
         GameControl.control.currency += 50;
         ScoreManager.score += scoreValue;
-        Destroy(gameObject, 2f);
+        StartCoroutine(GameControl.control.StartFade(enemyAudio, 2f, 0f, gameObject));
     }
 }
