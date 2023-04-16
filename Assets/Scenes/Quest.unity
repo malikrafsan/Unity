@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45061475, g: 0.4986083, b: 0.56437457, a: 1}
+  m_IndirectSpecularColor: {r: 0.45061505, g: 0.498609, b: 0.56437516, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -560,7 +560,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0491693b92a424f4fb654ba3dd203b97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  npc: {fileID: 11400000, guid: 75a9c1254c3636e4bbb98e84f259e2ca, type: 2}
+  npc:
+  - {fileID: 11400000, guid: 75a9c1254c3636e4bbb98e84f259e2ca, type: 2}
+  - {fileID: 11400000, guid: 2b4b646fed0fab649a61251c4d452ac4, type: 2}
+  - {fileID: 11400000, guid: 21708ddf4c804f44f8131f3c82075f5c, type: 2}
+  - {fileID: 11400000, guid: 91dfe1265d465484d9c34be4b173ab6f, type: 2}
   player: {fileID: 52771151}
   dialogueUI: {fileID: 1675735518}
   npcName: {fileID: 291978237}
@@ -8460,9 +8464,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38cf31ad37f90af40b615d7f5e0b167a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePerShot: 30
-  timeBetweenBullets: 0.15
-  range: 100
   prefabEffect: {fileID: 976093117594460400, guid: 3ffee28e9d715da4190cc06ec2c69b5d, type: 3}
 --- !u!1 &705542624
 GameObject:

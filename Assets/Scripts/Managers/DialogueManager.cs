@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     [SerializeField]
-    private NPC npc;
+    private NPC[] npc;
+    private int currentDialogueIdx = 0;
 
     bool isTalking = false;
     bool onDistance = false;
@@ -69,13 +70,13 @@ public class DialogueManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Tab)) {
                 curResponseTracker++;
-                if (curResponseTracker >= npc.playerDialogues.Length) 
+                if (curResponseTracker >= npc[currentDialogueIdx].playerDialogues.Length) 
                 {
                     curResponseTracker = 0;
                 }
             }
 
-            for (int i=0;i<npc.playerDialogues.Length;i++)
+            for (int i=0;i< npc[currentDialogueIdx].playerDialogues.Length;i++)
             {
                 CheckConvo(i);
             }
@@ -84,12 +85,12 @@ public class DialogueManager : MonoBehaviour
 
     private void CheckConvo(int idx)
     {
-        if (curResponseTracker == idx && npc.playerDialogues.Length >= idx)
+        if (curResponseTracker == idx && npc[currentDialogueIdx].playerDialogues.Length >= idx)
         {
-            playerResponse.text = npc.playerDialogues[idx];
+            playerResponse.text = npc[currentDialogueIdx].playerDialogues[idx];
             if (Input.GetKeyDown(KeyCode.Return))
             {
-                npcDialogueBox.text = npc.dialogues[idx+1];
+                npcDialogueBox.text = npc[currentDialogueIdx].dialogues[idx+1];
             }
         }
     }
@@ -116,13 +117,14 @@ public class DialogueManager : MonoBehaviour
         isTalking = true;
         curResponseTracker = 0f;
         dialogueUI.SetActive(true);
-        npcName.text = npc.name;
-        npcDialogueBox.text = npc.dialogues[0];
+        npcName.text = npc[currentDialogueIdx].name;
+        npcDialogueBox.text = npc[currentDialogueIdx].dialogues[0];
     }
 
     private void EndConvo()
     {
         isTalking = false;
         dialogueUI.SetActive(false);
+        currentDialogueIdx++;
     }
 }
