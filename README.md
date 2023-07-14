@@ -60,37 +60,37 @@ Extended Survival Shooter is a modification of the Survival Shooter game that ha
 
 ## Screenshots
 ### Cutscene
-![alt text](screenshot\cutscene.jpg)
+![alt text](screenshot/cutscene.jpg)
 
 ### Quest
-![alt text](screenshot\quest.jpg)
+![alt text](screenshot/quest.jpg)
 
 ### Save
-![alt text](screenshot\save.jpg)
+![alt text](screenshot/save.jpg)
 
 ### Game Over
-![alt text](screenshot\game_over.jpg)
+![alt text](screenshot/game_over.jpg)
 
 ### Local Scoreboard
-![alt text](screenshot\local_scoreboard.jpg)
+![alt text](screenshot/local_scoreboard.jpg)
 
 ### Main Menu
-![alt text](screenshot\main_menu.jpg)
+![alt text](screenshot/main_menu.jpg)
 
 ### Shopkeeper
-![alt text](screenshot\shopkeeper.jpg)
+![alt text](screenshot/shopkeeper.jpg)
 
 ### Weapon
-![alt text](screenshot\weapon.jpg)
+![alt text](screenshot/weapon.jpg)
 
 ### Pet
-![alt text](screenshot\pet.jpg)
+![alt text](screenshot/pet.jpg)
 
 ### Cheat
-![alt text](screenshot\cheat.jpg)
+![alt text](screenshot/cheat.jpg)
 
 ### Weapon Upgrade
-![alt text](screenshot\weapon_upgrade.jpg)
+![alt text](screenshot/weapon_upgrade.jpg)
 
 
 ## Setup
